@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlMapView"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000">
+    <Button
+        android:id="@+id/bGetDirections"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:text="@string/bGetDirections">
+    </Button>
+    <com.google.android.maps.MapView
+        android:id="@+id/mvMapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/bGetDirections"
+        android:clickable="true"
+        android:apiKey="0KVJrKX8oiVroUBXgsA90J3kjsZcWbQ0YowtheQ">
+    </com.google.android.maps.MapView>
+</RelativeLayout>

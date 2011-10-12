@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<include layout="@layout/header"/>
+    
+    <Button
+        android:id="@+id/bTaedium"
+        android:text="@string/bTaedium"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:typeface="sans"
+        android:textStyle="bold"        
+        android:background="@drawable/b_taedium_bg_fsm"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/rlHeaderBar"        
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:shadowRadius="2"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowColor="@android:color/black">
+    </Button>
+ 	<TextView
+        android:id="@+id/filterText"
+        android:layout_below="@id/bTaedium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_title"       
+        android:paddingLeft="7dp"
+        android:layout_margin="3px"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:background="@drawable/filter_gradient">
+    </TextView>
+    <ListView
+        android:id="@+id/lvOptions"       
+        android:layout_below="@id/filterText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:divider="#00000000"
+        android:dividerHeight="3px"
+        android:paddingLeft="3px"
+        android:paddingRight="3px"
+        android:paddingTop="3px"
+        android:paddingBottom="15px">
+    </ListView>
+</RelativeLayout>

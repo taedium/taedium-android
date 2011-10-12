@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    
+    <!-- Min Duration EditText -->
+    <RelativeLayout
+        android:id="@+id/rl1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+	    <EditText
+	        android:id="@+id/etMinDuration"
+	        style="@style/DialogControl"
+	        android:numeric="integer"
+            android:maxLength="4"
+            android:width="60dp">
+	    </EditText>
+	    <TextView
+	        android:id="@+id/tvMinDurationLabel"
+	        style="@style/DialogLabel"
+	        android:text="@string/tvMinDuration">
+	    </TextView>
+	</RelativeLayout>
+	    
+    <!-- Max Duration EditText -->
+    <RelativeLayout
+        android:id="@+id/rl2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl1">
+	    <EditText
+	        android:id="@+id/etMaxDuration"
+	        style="@style/DialogControl"
+            android:numeric="integer"
+            android:maxLength="4"
+            android:width="60dp">
+        </EditText>
+	    <TextView
+	        android:id="@+id/tvMaxDurationLabel"
+	        style="@style/DialogLabel"
+	        android:text="@string/tvMaxDuration">
+	    </TextView>
+	</RelativeLayout>
+    
+    <Button
+        android:id="@+id/bFilterTimeOk"
+        style="@style/DialogButton"
+        android:layout_below="@id/rl2"
+        android:text="@string/ok">
+    </Button>
+</RelativeLayout>

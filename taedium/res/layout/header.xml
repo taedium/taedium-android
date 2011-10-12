@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlHeaderBar"
+    style="@style/Header">
+    <!-- Lightbulb image modified from: http://www.wpclipart.com/signs_symbol/assorted/assorted_2/idea_light_bulb.png.html -->
+    <ImageView
+        android:id="@+id/lightbulb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="6dp"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/idea_light_bulb">
+    </ImageView>
+    <ImageView
+        android:id="@+id/taediumLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/lightbulb"
+        android:layout_marginLeft="-74px"
+        android:layout_marginRight="-98px"       
+        android:src="@drawable/taedium_logo">
+    </ImageView>
+	<ViewSwitcher
+	    android:id="@+id/loginSwitcher"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"	      
+	    android:layout_alignParentRight="true">
+	    <LinearLayout
+	        android:id="@+id/llLogin"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content">
+		    <Button
+		        android:id="@+id/bLogin"
+		        style="@style/HeaderButton"		        
+		        android:text="@string/bLoginRegister"
+		        >
+		    </Button>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llAdd"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/bAdd"
+                style="@style/HeaderButton"
+                android:text="@string/bAdd">
+            </Button>
+        </LinearLayout>
+    </ViewSwitcher>
+</RelativeLayout>

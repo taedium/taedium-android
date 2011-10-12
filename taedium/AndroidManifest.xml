@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="me.taedium.android"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="7"/>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <uses-library
+        android:name="com.google.android.maps"
+        android:required="true">
+    </uses-library>        
+    
+    <application 
+        android:name="android.app.Application"
+        android:icon="@drawable/icon" android:label="@string/app_name"
+        android:theme="@style/Theme"
+        android:debuggable="true">  
+        <uses-library android:name="com.google.android.maps"/>
+        <activity 
+            android:name=".FirstStart"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity 
+            android:name=".ViewRecommendation"
+            android:configChanges="orientation|keyboardHidden"
+        	android:label="@string/app_name">
+       	</activity>
+       	<activity android:name=".HeaderActivity"/>
+       	<activity android:name=".Register"
+       	    android:label="@string/app_name">
+  	    </activity>
+  	    <activity android:name=".MapDetail"/>
+  	    
+  	    <!-- Wizard Activities -->
+       	<activity
+       	    android:name=".add.AddRecommendation"
+       	    android:label="@string/app_name">
+       	</activity>
+  	    <activity android:name=".add.AddName"/>
+  	    <activity android:name=".add.AddPeople"/>
+  	    <activity android:name=".add.AddTime"/>
+  	    <activity android:name=".add.AddEnvironment"/>
+  	    <activity android:name=".add.AddLocation"/>
+  	    <activity android:name=".add.AddTags"/>
+  	    <activity android:name=".add.MapAdd"/>
+    </application>
+</manifest>

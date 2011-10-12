@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlAddTagDialog"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/etAddTag"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:width="150dp">
+    </EditText>
+    <Button
+        android:id="@+id/bAdd"
+        style="@style/BaseView"
+        android:layout_below="@id/etAddTag"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:text="@string/add">
+    </Button>
+    <Button
+        android:id="@+id/bDone"
+        style="@style/BaseView"
+        android:layout_below="@id/etAddTag"
+        android:layout_toLeftOf="@id/bAdd"
+        android:layout_marginRight="10dp"
+        android:text="@string/done">
+    </Button>
+</RelativeLayout>

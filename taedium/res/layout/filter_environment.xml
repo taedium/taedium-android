@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlFilterEnvironmentContainer"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    
+    <!-- Indoor Checkbox -->
+    <RelativeLayout
+        android:id="@+id/rl1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+	    <CheckBox
+	        android:id="@+id/cbIndoor"
+	        style="@style/DialogControl">
+	    </CheckBox>
+	    <TextView
+	        android:id="@+id/tvIndoorLabel"
+	        style="@style/DialogLabel"
+	        android:text="@string/tvIndoor">
+	    </TextView>
+    </RelativeLayout>
+    
+    <!-- Outdoor Checkbox --> 
+    <RelativeLayout
+        android:id="@+id/rl2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl1">
+	    <CheckBox
+	        android:id="@+id/cbOutdoor"
+	        style="@style/DialogControl">
+	    </CheckBox>
+	    <TextView
+	        android:id="@+id/tvOutdoorLabel"
+	        style="@style/DialogLabel"
+	        android:text="@string/tvOutdoor">
+	    </TextView>
+    </RelativeLayout>
+    
+    <!-- Around the Town Checkbox -->
+    <RelativeLayout
+        android:id="@+id/rl3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl2">   
+	    <CheckBox
+	        android:id="@+id/cbTown"
+	        style="@style/DialogControl">
+	    </CheckBox>
+	    <TextView
+	        android:id="@+id/tvTownLabel"
+	        style="@style/DialogLabel"
+	        android:text="@string/tvTown">
+	    </TextView>
+	</RelativeLayout>
+    
+    <Button
+        android:id="@+id/bFilterEnvironmentOk"
+        style="@style/DialogButton"
+        android:layout_below="@id/rl3"
+        android:text="@string/ok">
+    </Button>
+</RelativeLayout>

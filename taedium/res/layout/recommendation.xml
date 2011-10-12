@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:taedium="http://schemas.android.com/apk/res/me.taedium.android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+   
+    <!-- Recommendation -->
+    <ScrollView
+        android:id="@+id/svRec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+	    android:layout_marginLeft="15dp"
+	    android:layout_marginRight="15dp">
+	    <RelativeLayout
+	        android:id="@+id/rlRec"
+	        style="@style/BaseView"
+		    android:background="@drawable/rec_background">
+	    
+		    <!-- Name -->
+		    <TextView
+		        android:id="@+id/tvRecName"
+		        style="@style/BaseView"
+		        android:layout_width="fill_parent"
+		        android:layout_centerHorizontal="true"
+		        android:layout_marginBottom="10dp"
+		        android:textColor="#FFFFFF"
+		        android:background="@drawable/rec_title_background">
+		    </TextView>
+		   
+            <!-- Description --> 
+            <!-- TODO Calculate what actual collapsed height should be -->
+            <me.taedium.android.widgets.ExpandablePanel
+                android:id="@+id/epRecDescription"
+                style="@style/RecView"
+                android:layout_width="fill_parent"
+                android:layout_below="@id/tvRecName"
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical"
+                taedium:content="@+id/tvRecDescription"
+                taedium:handle="@+id/bRecDescExpand"
+                taedium:collapsedHeight="125dip"
+                taedium:animationDuration="500">
+                <TextView
+                    android:id="@id/tvRecDescription"
+                    style="@style/BaseView"
+                    android:layout_width="fill_parent"
+                    android:textColor="#000000">
+                </TextView>
+                <Button
+                    android:id="@id/bRecDescExpand"
+                    style="@style/BaseView"
+                    android:layout_below="@id/tvRecDescription"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="-8dp"
+                    android:width="250dp"
+                    android:background="@drawable/more_background"
+                    android:textColor="#494949"
+                    android:textSize="10sp"
+                    android:textStyle="italic"
+                    android:text="More">
+                </Button>
+           </me.taedium.android.widgets.ExpandablePanel> 
+	
+	        <!-- Additional Info -->
+	        <!-- Another relative layout to pull this stuff to the bottom -->
+        	<TextView
+                android:id="@+id/tvAddlInfo"
+                style="@style/RecView"
+                android:layout_width="fill_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_below="@id/epRecDescription"
+                android:textSize="12sp"
+                android:text="@string/tvAddlInfo">
+            </TextView>
+            
+			<!-- Number of People -->
+			<ImageView
+			     android:id="@+id/ivRecNumPeople"
+			     style="@style/BaseView"
+			     android:layout_marginLeft="11dp"
+			     android:layout_below="@id/tvAddlInfo"
+			     android:src="@drawable/people24">
+		     </ImageView>	
+		    <TextView
+		        android:id="@+id/tvRecNumPeopleLabel"
+		        style="@style/RecView"
+		        android:layout_below="@id/tvAddlInfo"
+		        android:layout_toRightOf="@id/ivRecNumPeople"
+		        android:layout_marginRight="5dp"		        
+			    android:layout_centerVertical="true"
+		        android:textSize="12sp"
+		        android:text="@string/tvAddRecNumPeople">
+		    </TextView>
+		    <TextView
+                android:id="@+id/tvRecNumPeople"
+                style="@style/BaseView"
+                android:layout_toRightOf="@id/ivRecNumPeople"
+                android:layout_below="@id/tvAddlInfo"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="90dp"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textSize="12sp">
+            </TextView>
+		    
+		    <!-- Cost -->
+            <ImageView
+                 android:id="@+id/ivRecCost"
+                 style="@style/BaseView"
+                 android:layout_marginLeft="11dp"
+                android:layout_below="@id/tvRecNumPeople"
+                 android:src="@drawable/coinsicon24">
+             </ImageView>
+             <TextView
+                android:id="@+id/tvRecCostLabel"
+                style="@style/RecView"
+                android:layout_below="@id/tvRecNumPeople"
+                android:layout_toRightOf="@id/ivRecCost"
+                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:text="@string/tvAddRecCost">
+            </TextView>   
+		    <TextView
+		        android:id="@+id/tvRecCost"
+		        style="@style/BaseView"
+		        android:layout_below="@id/tvRecNumPeople"
+		        android:layout_toRightOf="@id/ivRecCost"
+		        android:layout_marginLeft="90dp"
+			    android:layout_marginBottom="5dp"
+			    android:layout_centerVertical="true"
+			    android:textStyle="bold"
+			    android:textColor="#000000"
+			    android:textSize="12sp">
+		    </TextView>
+
+		    
+		    <!-- Duration -->
+            <ImageView
+                 android:id="@+id/ivRecDuration"
+                 style="@style/BaseView"
+                 android:layout_marginLeft="11dp"
+                 android:layout_below="@id/tvRecCost"
+                 android:src="@drawable/clockicon24">
+             </ImageView>
+            <TextView
+                android:id="@+id/tvRecDurationLabel"
+                style="@style/RecView"
+                android:layout_below="@id/tvRecCost"
+                android:layout_toRightOf="@id/ivRecDuration"
+                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:text="@string/tvAddRecDuration">
+            </TextView>
+		    <TextView
+		        android:id="@+id/tvRecDuration"
+		        style="@style/BaseView"
+		        android:layout_toRightOf="@id/ivRecDuration"
+		        android:layout_below="@id/tvRecCost"
+			    android:layout_marginBottom="5dp"
+		        android:layout_marginLeft="90dp"
+			    android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:textColor="#000000"
+			    android:textSize="12sp">
+		    </TextView>
+
+            <!-- Location -->
+            <Button
+                android:id="@+id/bShowMap"
+                style="@style/BaseView"
+                android:layout_below="@id/tvRecDuration"
+                android:layout_marginLeft="11dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:background="@drawable/map_button"
+                android:textSize="12sp"
+                android:text="@string/bShowMap">
+            </Button>
+	    </RelativeLayout>
+    </ScrollView> 
+    
+    <!-- Arrows -->
+    <ImageView
+        android:id="@+id/ivRecPrev"
+        style="@style/BaseView"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/rec_previous">
+    </ImageView>
+    <ImageView
+        android:id="@+id/ivRecNext"
+        style="@style/BaseView"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/rec_next">
+    </ImageView>
+</RelativeLayout>

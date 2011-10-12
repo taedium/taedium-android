@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Application level -->
+    <string name="add">Add</string>
+    <string name="app_name">Taedium</string>
+    <string name="cancel">Cancel</string>
+    <string name="done">Done</string>
+    <string name="ok">OK</string>
+    <string name="submit">Submit</string>
+    <string name="update">Update</string>
+    
+    <!-- Titles -->
+    <string name="register_title">Register</string>
+    <string name="login_title">Login</string>
+    <string name="main_title">Taedium</string>
+    <string name="filter_title">I want to specify the:</string>
+    <string name="people_dialog_title">People Filters</string>
+    <string name="environment_dialog_title">Environment Filters</string>
+    <string name="location_dialog_title">Location Filters</string>
+    <string name="duration_dialog_title">Duration Filters</string>
+    <string name="cost_dialog_title">Cost Filters</string>
+    <string name="flag_dialog_title">Flag Activity</string>
+    
+    <!-- Widgets -->
+    <string name="bLogin">Login</string>
+    <string name="bLoginRegister"><u>Login/Register</u></string>
+    <string name="bAdd"><u>Add Activity</u></string>
+    <string name="bRegister">Register</string>
+    <string name="bTaedium">Cure my\nBoredom</string>
+    <string name="cbIndoor">Indoors</string>
+    <string name="cbOutdoor">Outdoors</string>
+    <string name="cbAroundTown">Around the town</string>
+    <string name="add_activity_title">Add an Activity</string>
+    <string name="spNumPeople">Select number of people</string>    
+    <string name="bAddActivity">Add an Activity</string>
+    <string name="bEnterAddress">Enter Address</string>
+    <string name="rbAllAges">All Ages</string>
+    <string name="rbKidsOnly">Kids Only</string>
+    <string name="rbAdultOnly">Adult Only</string>
+    <string name="bMore">More</string>
+    <string name="bLess">Less</string>
+    <string name="bUpVote">Like</string>
+    <string name="bDownVote">Dislike</string>
+    <string name="bFlag">Flag</string>
+    <string name="bCreateAccount"><u>Create one now</u></string>
+    <string name="bDOB">Click here to enter</string>
+    <string name="bRegisterAccount">Create Account</string>
+    <string name="bShowMap">Show Map</string>
+    <string name="bGetDirections">Get Directions</string>
+    <string name="bMapFinished">Use Selected Location</string>
+    <string name="bSubmitFlag">Submit Flag</string>
+    <string name="rbLocationDisabled">This activity has no specific location</string>
+    <string name="rbLocationEnabled">Add a specific location</string>
+    <string name="bAddNewTag">Add Tags Manually</string>
+    
+    <!-- Labels -->
+    <string name="tvNumPeople">Number of People</string>
+    <string name="tvChildSafe">Suitable for Children</string>
+    <string name="tvDuration">Duration</string>
+    <string name="tvIndoor">Indoor</string>
+    <string name="tvOutdoor">Outdoor</string>
+    <string name="tvTown">Around the Town</string>
+    <string name="tvEnableLocation">Enable Location</string>
+    <string name="tvRadius">Radius (km)</string>
+    <string name="tvMinDuration">Min Duration (minutes)</string>
+    <string name="tvMaxDuration">Max Duration (minutes)</string>
+    <string name="tvMinCost">Min Cost</string>
+    <string name="tvMaxCost">Max Cost</string>
+    <string name="tvName">Name *</string>
+    <string name="tvDescription">Description</string>
+    <string name="tvNumPeopleLabel1">Best for</string>
+    <string name="tvNumPeopleLabel2">to</string>
+    <string name="tvNumPeopleLabel3">people</string>
+    <string name="tvKidFriendlyLabel">Kid friendly</string>
+    <string name="tvAdultsOnlyLabel">Must be an adult</string>
+    <string name="tvTODLabel1">Time of Day: </string>
+    <string name="tvTODLabel2"> to </string>
+    <string name="tvDurationLabel1">Duration: </string>
+    <string name="tvDurationLabel2"> to </string>
+    <string name="tvDurationLabel3"> minutes</string>
+    <string name="tvCostLabel1">Cost: $</string>
+    <string name="tvCostLabel2">Cost is per person</string>
+    <string name="tvLocationLabel">Location</string>    
+    <string name="tvLocationLabel1">Use My Location</string>
+    <string name="tvLocationLabel2">Use Map</string>
+    <string name="tvLocationLabel3">Specify Address Manually</string>
+    <string name="tvStreetNumber">Street Number</string>
+    <string name="tvStreetName">Street Name</string>
+    <string name="tvCity">City</string>
+    <string name="tvProvince">Province</string>
+    <string name="tvAddlInfo"><u>Additional Information</u></string>
+    <string name="tvAddRecNumPeople">People</string>
+    <string name="tvAddRecCost">Cost</string>
+    <string name="tvAddRecDuration">Duration</string>
+    <string name="tvUserName">Username</string>
+    <string name="tvPassword">Password</string>
+    <string name="tvPasswordConfirm">Confirm Password</string>
+    <string name="tvCreateAccount">Don\'t have an account?</string>
+    <string name="tvEmail">Email</string>
+    <string name="tvDOB">Date of Birth</string>
+    <string name="tvStartTime">Start Time:</string>
+    <string name="tvEndTime">End Time:  </string>
+    <string name="tvReason">Reason:</string>
+    <string name="tvReasonExample">Examples: abusive, sexist, racist, duplicate, etc.</string>
+    <string name="tvAddTagsLabel">Tags *</string>
+    <string name="tvAddTagsFormatDescription">Format: tag1, tag2, tag3, ..."</string>
+    <string name="tvAddStarredRequired">Fields marked with * are required fields.</string>
+    <string name="tvRegFieldsMandatory">All fields are mandatory</string>
+    <string name="tvAutoTag">Do any of these tags apply to your activity?</string>
+    <string name="tvManualTag">You can also add your own tags</string>
+    
+    <!-- Menu Items -->
+    <string name="mnuLogin">Login</string>
+    <string name="mnuLogout">Logout</string>
+    <string name="mnuRegister">Register</string>
+    
+    <!-- Messages -->
+    <string name="msgLoginFailed">Your username/password was incorrect. Please try again.</string>
+    <string name="msgLoginSuccess">Login successful.</string>
+    <string name="msgRecommendationNameRqd">You must enter a name for your new activity in order for it to be added.</string>
+    <string name="msgRecommendationTagRqd">You must enter at least one tag for your new activity in order for it to be added.</string>
+    <string name="msgAddSuccess">Your activity has been added to the Taedium database.</string>
+    <string name="msgAddFailure">Adding activity failed. Please ensure fields are correctly completed.</string>
+    <string name="msgNoRecommendationsFound">No recommendations were found.</string>
+    <string name="msgMustLogin">You must be logged in to complete this action.</string>
+    <string name="msgLoggedIn">Welcome to Taedium %s.</string>
+    <string name="msgRegisterAllFieldsMandatory">Please complete all fields in order to register.</string>
+    <string name="msgPasswordsNotMatching">The two password fields do not match. Please correct this and try again.</string>
+    <string name="msgRegistered">You have successfully created an account with Taedium.</string>
+    <string name="msgRegistrationFailed">Account creation failed. Please try again.</string>
+    <string name="msgLoggedOut">Logout successful.</string>
+    <string name="msgLikeFailed">Like failed due to problem contacting server.</string>
+    <string name="msgDislikeFailed">Dislike failed due to problem contacting server.</string>
+    <string name="msgFlagFailed">Flag failed due to problem contacting server.</string>
+    <string name="msgRemoveLikeFailed">Removing like failed due to problem contacting server.</string>
+    <string name="msgRemoveDislikeFailed">Removing dislike failed due to problem contacting server.</string>
+    <string name="msgCannotUnflag">You have flagged this activity and are not allowed to un-flag it.</string>
+    
+    <!-- Used to generate strings -->
+    <string name="stFor">For</string>
+    <string name="stTo">to</string>
+    <string name="stFrom">From</string>
+    <string name="stTotal">total</string>
+    <string name="stPerPerson">per person</string>
+    <string name="stMinute">minute</string>
+    <string name="stMinutes">minutes</string>
+    <string name="stHour">hour</string>
+    <string name="stHours">hours</string>
+    <string name="stIndoor">Indoors</string>
+    <string name="stOutdoor">Outdoors</string>
+    <string name="stAroundTown">Town</string>
+    <string name="stKidFriendly">Kids</string>
+    <string name="stLocationEnabled">Nearby</string>
+    <string name="stDistanceUnit">km</string>
+    <string name="stAny">Any</string>
+    <string name="stMax">Max</string>
+    <string name="stFree">Free</string>
+    
+    <!-- Defaults -->
+    <string name="default_radius">5</string>
+    <string name="default_start_time">00:00</string>
+    <string name="default_end_time">23:59</string>
+    <string name="default_num_people">1</string>
+    <string name="default_city">Waterloo</string>
+    <string name="default_province">ON</string>
+    
+    <!-- Arrays -->
+    <string-array name="lvOptionsArray">
+        <item>People</item>
+        <item>Environment</item>
+        <item>Location</item>
+        <item>Duration</item>
+        <item>Cost</item>
+    </string-array>
+    <string-array name="lvFeedbackDefaultsArray">
+        <item>Any number</item>
+        <item>All</item>
+        <item>Anywhere</item>
+        <item>Any duration</item>
+        <item>Any cost</item>
+    </string-array>
+    <string-array name="spFlagReasons">
+        <item>Abusive</item>
+        <item>Incorrect</item>
+        <item>Duplicate</item>
+        <item>Other</item>
+    </string-array>
+</resources>

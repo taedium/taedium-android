@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlFilterLocationContainer"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    
+    <!-- Enable Location Checkbox -->
+    <RelativeLayout
+        android:id="@+id/rl1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+	    <CheckBox
+	        android:id="@+id/cbEnableLocation"
+	        style="@style/DialogControl">
+	    </CheckBox>
+	    <TextView
+	        android:id="@+id/tvEnableLocationLabel"
+	        style="@style/DialogLabel"
+	        android:text="@string/tvEnableLocation">
+	    </TextView>
+	</RelativeLayout>
+	    
+    <!-- Radius EditText -->
+    <RelativeLayout
+        android:id="@+id/rl2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl1">
+	    <EditText
+	        android:id="@+id/etRadius"
+	        android:hint="@string/default_radius"
+	        style="@style/DialogControl"
+	        android:numeric="integer"
+            android:maxLength="3"
+	        android:width="50dp">
+	    </EditText>
+	    <TextView
+	        android:id="@+id/tvRadiusLabel"
+	        style="@style/DialogLabel"
+	        android:text="@string/tvRadius">
+        </TextView>
+    </RelativeLayout>
+    
+    <Button
+        android:id="@+id/bFilterLocationOk"
+        style="@style/DialogButton"
+        android:layout_below="@id/rl2"
+        android:text="@string/ok">
+    </Button>
+</RelativeLayout>

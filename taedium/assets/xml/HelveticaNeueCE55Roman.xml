@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<font displayname="HelveticaNeueCE55Roman">
+	<sans>
+		<file>
+			<filename>HelveticaNeueCE55Roman.ttf</filename>
+			<droidname>DroidSans.ttf</droidname>
+		</file>
+		<file>
+			<filename>HelveticaNeueCE55Roman.ttf</filename>
+			<droidname>DroidSans-Bold.ttf</droidname>
+		</file>
+	</sans>
+</font>

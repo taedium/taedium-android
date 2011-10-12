@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+       xmlns:android="http://schemas.android.com/apk/res/android"
+       android:id="@+id/rlRecViewFooter"
+       android:orientation="horizontal"
+       style="@style/Footer"
+       android:layout_alignParentBottom="true">
+       <Button
+           android:id="@+id/bUpVote"
+           style="@style/FooterButton"           
+           android:text="@string/bUpVote">
+       </Button>
+       <TextView
+           android:layout_height="fill_parent"
+           android:layout_width="1dp"
+           android:background="#111111">
+       </TextView>
+       <Button
+           android:id="@+id/bDownVote"
+           style="@style/FooterButton"
+           android:text="@string/bDownVote">
+       </Button>
+       <TextView
+           android:layout_height="fill_parent"
+           android:layout_width="1dp"
+           android:background="#111111">
+       </TextView>
+       <Button
+           android:id="@+id/bFlag"
+           style="@style/FooterButton"
+           android:text="@string/bFlag">
+       </Button>            
+       <Spinner
+	       android:id="@+id/spFlag"
+	       android:layout_width="0dp"
+	       android:layout_height="0dp"
+		   android:prompt="@string/bFlag"> 
+	   </Spinner> 
+</LinearLayout>
