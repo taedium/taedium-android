@@ -1,11 +1,10 @@
 package me.taedium.android.add;
 
-import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.EditText;
-
 import me.taedium.android.R;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
 public class AddName extends WizardActivity {
     private EditText etName, etDesc;
@@ -22,17 +21,19 @@ public class AddName extends WizardActivity {
         
         etName = (EditText)findViewById(R.id.etAddName);
         etDesc = (EditText)findViewById(R.id.etAddDescription);
-        
-        etName.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                EditText name = (EditText)v;
-                if (name.getText().length() > 0) {
+        etName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (etName.getText().length() > 0) {
                     bNext.setEnabled(true);
-                } else if (name.getText().length() == 0) {
+                } else if (etName.getText().length() == 0) {
                     bNext.setEnabled(false);
                 }
-                return false;
             }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
         });
     }
 
@@ -44,7 +45,6 @@ public class AddName extends WizardActivity {
 
     @Override
     protected void restoreData() {
-        // TODO Auto-generated method stub
-        
+        // No need to restore data as this is first activity
     }
 }
