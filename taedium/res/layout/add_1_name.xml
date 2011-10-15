@@ -10,29 +10,32 @@
         layout="@layout/header">
     </include>
     <RelativeLayout
-        android:id="@+id/rlAdd1"
-        style="@style/StandardRelativeLayout"
+        android:id="@+id/rlAddName"
+        style="@style/WizardLayout"
         android:layout_below="@id/HeaderBar"
-        android:background="@drawable/list_item_gradient"                
-        android:layout_marginBottom="10dp">
+        android:background="@drawable/list_item_gradient"> 
+        <TextView
+            android:id="@+id/tvAddNameLabel"
+            style="@style/BaseView"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#000000"
+            android:text="@string/tvName">
+        </TextView>
         <EditText
             android:id="@+id/etAddName"
             style="@style/BaseView"
-            android:layout_alignParentRight="true"
+            android:layout_width="fill_parent"
+            android:layout_below="@id/tvAddNameLabel"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:maxLength="100"
-            android:width="190dp">
+            android:maxLength="100">
         </EditText>
-        <TextView
-            android:id="@+id/tvAddNameLabel"
-            style="@style/StandardLabel"
-            android:text="@string/tvName">
-        </TextView>
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/rlAdd2"
-        style="@style/StandardRelativeLayout"
-        android:layout_below="@id/rlAdd1"
+        android:id="@+id/rlAddDescription"
+        style="@style/WizardLayout"
+        android:layout_below="@id/rlAddName"
         android:layout_marginBottom="10dp"
         android:background="@drawable/list_item_gradient">                    
         <TextView
@@ -52,7 +55,8 @@
             android:layout_below="@id/tvAddDescriptionLabel"
             android:maxLength="256"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
+            android:layout_marginRight="5dp"
+            android:lines="4">
         </EditText>
     </RelativeLayout>
     <include

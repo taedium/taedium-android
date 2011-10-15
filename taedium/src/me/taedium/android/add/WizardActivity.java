@@ -51,11 +51,10 @@ public abstract class WizardActivity extends HeaderActivity {
         });
     }
     
-    // Helper to format string correclty when adding them to the data bundle
+    // Helper to format string correctly when adding them to the data bundle
     // Inserts newlines correctly and removes tabs
     protected void addStringToData(String key, EditText text) {
     	String value = text.getText().toString().replace("\n", "\\n").replace("\t", "");
-    	
     	data.putString(key, value);
     }
     
