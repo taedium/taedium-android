@@ -1,0 +1,32 @@
+These instructions are guidelines for developping the Taedium android app using eclipse. They are fairly basic and not at all comprehensive.
+
+1.
+a) Install the Android SDK and setup Eclipse by following the tutorial here: http://developer.android.com/sdk/installing.html
+When choosing the SDK, make sure to get at least Android 2.3 (API ver 7). When you get to step 4, install the Google APIs addon.
+
+2.
+a) Open Eclipse and select 'File->New Project'.
+b) In the wizard select create project from source and navigate to the 'path_to_repo/taedium' folder.
+c) Continue through the wizard until you are finished.
+
+3.
+a) In Eclipse, go to 'Window->Android SDK and AVD Manager'
+b) Click on Installed Packages. Make sure that you see both the SDK and the API addon you installed.
+c) If you don't, you can install them under 'Available Packages'
+
+4.
+a) Click virtual devices and then click 'New'.
+b) Enter a name for the virtual device and under target select the 'Google APIs' option.
+c) Fill out the hardware specs as desired. Make sure to add touch and GPS support.
+d) When finished click 'Create AVD' and exit.
+
+5.
+a) In Eclipse go to 'Project->Properties'.
+b) Under 'Android' check 'Google APIs'
+c) Under 'Java Build Path->Source' click Add Folder and check assets, src, gen and res.
+d) Under 'Java Build Path->Library' click Add External Jar and add 'path_to_repo/third-party-resources/google-gson-1.7.1/gson-1.7.1.jar'
+e) Click ok to exit.
+
+6.
+a) If your project still has errors, try highlighting the project root and pressing F5 to refresh. If that doesn't work, try right clicking the root and go to 'Android Tools->Fix Project Properties'
+b) Should be good to go now.
