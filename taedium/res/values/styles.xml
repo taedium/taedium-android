@@ -49,7 +49,20 @@
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
-    </style> 
+    </style>
+    
+    <style name="AddNavButton" parent="@style/BaseView">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+	    <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item> 
+    </style>
    
     <!-- Standard Add Activity Styles  -->
     <style name="StandardControl" parent="@style/BaseView">

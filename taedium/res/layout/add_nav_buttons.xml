@@ -5,18 +5,26 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
-    <Button
-        android:id="@+id/bAddBack"
-        style="@style/BaseView"
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="Back">
-    </Button>
-    <Button
-        android:id="@+id/bAddNext"
-        style="@style/BaseView"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="Next">
-    </Button>
+        orientation="horizontal">
+	    <Button
+	        android:id="@+id/bAddBack"
+	        style="@style/AddNavButton"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentLeft="true"
+	        android:background="@drawable/b_add_nav_button"
+	        android:text="Back">
+	    </Button>
+	    <Button
+	        android:id="@+id/bAddNext"
+	        style="@style/AddNavButton"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@drawable/b_add_nav_button"
+	        android:text="Next">
+	    </Button>
+    </LinearLayout>
 </RelativeLayout> 
