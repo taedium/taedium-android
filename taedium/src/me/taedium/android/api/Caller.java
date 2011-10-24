@@ -253,7 +253,7 @@ public class Caller {
         if (!data.getString("desc").equals("")) json += ",\"description\":\"" + data.getString("desc") + "\"";
         
         // tags
-        String parsedTags = getTagsJSON(data.getStringArray("tags"));
+        String parsedTags = getTagsJSON(data.getStringArrayList("tags"));
         json += ",\"tags\":[" + parsedTags + "]";
         
         // people
@@ -264,13 +264,11 @@ public class Caller {
         int selected = data.getInt("ages");        
         if (selected!=-1) {
             switch (selected) {
-            case R.id.rbAllAges:
+            case R.id.rbAddAllAges:
+            case R.id.rbAddKidsOnly:
                 json += ",\"kid_friendly\":true";
                 break;
-            case R.id.rbKidsOnly:
-                json += ",\"kid_friendly\":true";
-                break;
-            case R.id.rbAdultOnly:
+            case R.id.rbAddAdultOnly:
                 json += ",\"adults_only\":true";
                 break;
             }
@@ -281,7 +279,18 @@ public class Caller {
         json += ",\"outdoor\":" + data.getBoolean("outdoor");
         json += ",\"around_town\":" + data.getBoolean("town");
         if (!data.getString("cost").equals("")) json += ",\"cost\":" + data.getString("cost");
-        json += ",\"cost_is_per_person\":" + data.getBoolean("cost_per_person");
+        selected = data.getInt("cost_type");
+        if (selected != -1) {
+            switch (selected) {
+            case R.id.rbAddCostFree:
+            case R.id.rbAddCostFlat:
+                json += ",\"cost_is_per_person\":false";
+                break;
+            case R.id.rbAddCostPerPerson:
+                json += ",\"cost_is_per_person\":true";
+                break;
+            }
+        }
         
         // time
         json += ",\"start_time\":" + data.getInt("start_time");
@@ -302,12 +311,12 @@ public class Caller {
     }
 
     // Helper to parse the tags string and format it into Json
-    private String getTagsJSON(String[] tags) {
+    private String getTagsJSON(ArrayList<String> list) {
     	String json = "";
-    	for (int i = 0; i < tags.length; i++) {
-    		if (tags[i].trim().equalsIgnoreCase("")) continue;
+    	for (int i = 0; i < list.size(); i++) {
+    		if (list.get(i).trim().equalsIgnoreCase("")) continue;
     		if (i > 0 && !json.equalsIgnoreCase("")) json = json + ", ";
-    		json = json + "\"" + tags[i].trim() + "\"";
+    		json = json + "\"" + list.get(i).trim() + "\"";
     	}
     	return json;
     }

@@ -29,14 +29,14 @@ public class AddTime extends WizardActivity {
         data = getIntent().getExtras();
         
         // Setup the duration edit texts
-        etMinDuration = (EditText)findViewById(R.id.etMinDuration);
-        etMaxDuration = (EditText)findViewById(R.id.etMaxDuration);
+        etMinDuration = (EditText)findViewById(R.id.etAddMinDuration);
+        etMaxDuration = (EditText)findViewById(R.id.etAddMaxDuration);
 
         // Setup the time pickers        
-        tvStartTime = (TextView) findViewById(R.id.tvSTimeView);
-        tvEndTime = (TextView) findViewById(R.id.tvETimeView);
-        bStartTime = (Button) findViewById(R.id.bSTimeUpdate);
-        bEndTime = (Button) findViewById(R.id.bETimeUpdate);
+        tvStartTime = (TextView) findViewById(R.id.tvAddSTimeView);
+        tvEndTime = (TextView) findViewById(R.id.tvAddETimeView);
+        bStartTime = (Button) findViewById(R.id.bAddSTimeUpdate);
+        bEndTime = (Button) findViewById(R.id.bAddETimeUpdate);
 
         // add a click listener to the button
         bStartTime.setOnClickListener(new View.OnClickListener() {

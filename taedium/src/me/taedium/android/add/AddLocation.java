@@ -90,7 +90,6 @@ public class AddLocation extends WizardActivity {
                 bMyLocation.setEnabled(false);
                 bUseMap.setEnabled(false);
                 bSpecifyAddress.setEnabled(false);
-                latitude = longitude = 0;
                 updateLatLongDisplay();
             }
         });
@@ -177,10 +176,16 @@ public class AddLocation extends WizardActivity {
         Boolean hasValue = (latitude != 0 || longitude != 0);
         tvLatDisplay.setText("Latitude: " + (hasValue ? latitude : "None"));
         tvLongDisplay.setText("Longitude: " + (hasValue ? longitude : "None"));
-        if (rbLocationEnabled.isChecked() && !hasValue) {
-            bNext.setEnabled(false);
+        if (rbLocationEnabled.isChecked()) {
+            if (!hasValue) {
+                bNext.setEnabled(false);
+            }
+            tvLatDisplay.setVisibility(View.VISIBLE);
+            tvLongDisplay.setVisibility(View.VISIBLE);
         } else {
             bNext.setEnabled(true);
+            tvLatDisplay.setVisibility(View.GONE);
+            tvLongDisplay.setVisibility(View.GONE);
         }
     }
 

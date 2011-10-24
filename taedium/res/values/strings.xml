@@ -22,21 +22,26 @@
     <string name="flag_dialog_title">Flag Activity</string>
     
     <!-- Widgets -->
+    <string name="cbAddIndoor">Indoors</string>
+    <string name="cbAddOutdoor">Outdoors</string>
+    <string name="cbAddAroundTown">Around the town</string>
+    <string name="rbAddAllAges">All Ages</string>
+    <string name="rbAddKidsOnly">Kids Only</string>
+    <string name="rbAddAdultOnly">Adult Only</string>
+    <string name="rbAddCostFree">Free</string>
+    <string name="rbAddCostFlat">Flat rate</string>
+    <string name="rbAddCostPerPerson">Per person rate</string>
+    <string name="rbAddLocationDisabled">There is no specific location</string>
+    <string name="rbAddLocationEnabled">Add a specific location</string>
     <string name="bLogin">Login</string>
     <string name="bLoginRegister"><u>Login/Register</u></string>
     <string name="bAdd"><u>Add Activity</u></string>
     <string name="bRegister">Register</string>
     <string name="bTaedium">Cure my\nBoredom</string>
-    <string name="cbIndoor">Indoors</string>
-    <string name="cbOutdoor">Outdoors</string>
-    <string name="cbAroundTown">Around the town</string>
     <string name="add_activity_title">Add an Activity</string>
     <string name="spNumPeople">Select number of people</string>    
     <string name="bAddActivity">Add an Activity</string>
     <string name="bEnterAddress">Enter Address</string>
-    <string name="rbAllAges">All Ages</string>
-    <string name="rbKidsOnly">Kids Only</string>
-    <string name="rbAdultOnly">Adult Only</string>
     <string name="bMore">More</string>
     <string name="bLess">Less</string>
     <string name="bUpVote">Like</string>
@@ -49,11 +54,22 @@
     <string name="bGetDirections">Get Directions</string>
     <string name="bMapFinished">Use Selected Location</string>
     <string name="bSubmitFlag">Submit Flag</string>
-    <string name="rbLocationDisabled">This activity has no specific location</string>
-    <string name="rbLocationEnabled">Add a specific location</string>
     <string name="bAddNewTag">Add Tags Manually</string>
     
     <!-- Labels -->
+    <string name="tvAddName">Name *</string>
+    <string name="tvAddDescription">Description</string>
+    <string name="tvAddPeople">People</string>
+    <string name="tvAddMinPeople">Minimum People</string>
+    <string name="tvAddMaxPeople">Maximum People</string>
+    <string name="tvAddMinDuration">Minimum Duration (minutes)</string>
+    <string name="tvAddMaxDuration">Maximum Duration (minutes)</string>
+    <string name="tvAddCost">Cost ($)</string>
+    <string name="tvAddMyLocation">Use My Location</string>
+    <string name="tvAddUseMap">Use Map</string>
+    <string name="tvAddSpecifyAddress">Enter Address</string>
+    <string name="tvAddAutoTag">Do any of these tags apply?</string>
+    <string name="tvAddManualTag">You can also add your own tags</string>
     <string name="tvNumPeople">Number of People</string>
     <string name="tvChildSafe">Suitable for Children</string>
     <string name="tvDuration">Duration</string>
@@ -66,24 +82,11 @@
     <string name="tvMaxDuration">Max Duration (minutes)</string>
     <string name="tvMinCost">Min Cost</string>
     <string name="tvMaxCost">Max Cost</string>
-    <string name="tvName">Name *</string>
-    <string name="tvDescription">Description</string>
-    <string name="tvNumPeopleLabel1">Best for</string>
-    <string name="tvNumPeopleLabel2">to</string>
-    <string name="tvNumPeopleLabel3">people</string>
     <string name="tvKidFriendlyLabel">Kid friendly</string>
     <string name="tvAdultsOnlyLabel">Must be an adult</string>
     <string name="tvTODLabel1">Time of Day: </string>
     <string name="tvTODLabel2"> to </string>
-    <string name="tvDurationLabel1">Duration: </string>
-    <string name="tvDurationLabel2"> to </string>
-    <string name="tvDurationLabel3"> minutes</string>
-    <string name="tvCostLabel1">Cost: $</string>
-    <string name="tvCostLabel2">Cost is per person</string>
     <string name="tvLocationLabel">Location</string>    
-    <string name="tvLocationLabel1">Use My Location</string>
-    <string name="tvLocationLabel2">Use Map</string>
-    <string name="tvLocationLabel3">Specify Address Manually</string>
     <string name="tvStreetNumber">Street Number</string>
     <string name="tvStreetName">Street Name</string>
     <string name="tvCity">City</string>
@@ -106,8 +109,6 @@
     <string name="tvAddTagsFormatDescription">Format: tag1, tag2, tag3, ..."</string>
     <string name="tvAddStarredRequired">Fields marked with * are required fields.</string>
     <string name="tvRegFieldsMandatory">All fields are mandatory</string>
-    <string name="tvAutoTag">Do any of these tags apply to your activity?</string>
-    <string name="tvManualTag">You can also add your own tags</string>
     
     <!-- Menu Items -->
     <string name="mnuLogin">Login</string>

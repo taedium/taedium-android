@@ -1,13 +1,16 @@
 package me.taedium.android.add;
 
+import me.taedium.android.R;
 import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.EditText;
-
-import me.taedium.android.R;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 public class AddEnvironment extends WizardActivity {
-    CheckBox cbIndoor, cbOutdoor, cbTown, cbCostPerPerson;
+    CheckBox cbIndoor, cbOutdoor, cbTown;
+    RadioGroup rgCostType;
+    RadioButton rbFree, rbFlat, rbPerPerson;
     EditText etCost;
 
     @Override
@@ -18,13 +21,32 @@ public class AddEnvironment extends WizardActivity {
         initializeWizard(this, AddLocation.class, ACTIVITY_ADD_LOCATION);
         data = getIntent().getExtras();
         
-        cbIndoor = (CheckBox)findViewById(R.id.cbIndoor);
-        cbOutdoor = (CheckBox)findViewById(R.id.cbOutdoor);
-        cbTown = (CheckBox)findViewById(R.id.cbAroundTown);
-        etCost = (EditText)findViewById(R.id.etCost);
-        cbCostPerPerson = (CheckBox)findViewById(R.id.cbCostPerPerson);
+        cbIndoor = (CheckBox)findViewById(R.id.cbAddIndoor);
+        cbOutdoor = (CheckBox)findViewById(R.id.cbAddOutdoor);
+        cbTown = (CheckBox)findViewById(R.id.cbAddAroundTown);
+        rbFree = (RadioButton)findViewById(R.id.rbAddCostFree);
+        rbFlat = (RadioButton)findViewById(R.id.rbAddCostFlat);
+        rbPerPerson = (RadioButton)findViewById(R.id.rbAddCostPerPerson);
+        etCost = (EditText)findViewById(R.id.etAddCost);
+        
+        rgCostType = (RadioGroup)findViewById(R.id.rgAddCostType);
+        rgCostType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == rbFree.getId()) {
+                    etCost.setEnabled(false);
+                } else {
+                    etCost.setEnabled(true);
+                }
+            }
+        });
         
         restoreData();
+        if (rgCostType.getCheckedRadioButtonId() == rbFree.getId()) {
+            etCost.setEnabled(false);
+        } else {
+            etCost.setEnabled(true);
+        }
     }
 
     @Override
@@ -32,8 +54,8 @@ public class AddEnvironment extends WizardActivity {
         data.putBoolean("indoor", cbIndoor.isChecked());
         data.putBoolean("outdoor", cbOutdoor.isChecked());
         data.putBoolean("town", cbTown.isChecked());
+        data.putInt("cost_type", rgCostType.getCheckedRadioButtonId());
         addStringToData("cost", etCost);
-        data.putBoolean("cost_per_person", cbCostPerPerson.isChecked());
     }
 
     @Override
@@ -48,11 +70,11 @@ public class AddEnvironment extends WizardActivity {
         if (data.containsKey("town")) {
             cbTown.setChecked(data.getBoolean("town"));
         }
+        if (data.containsKey("cost_type")) {
+            rgCostType.check(data.getInt("cost_type"));
+        }
         if (data.containsKey("cost")) {
             etCost.setText(data.getString("cost"));
-        }
-        if (data.containsKey("cost_per_person")) {
-            cbCostPerPerson.setChecked(data.getBoolean("cost_per_person"));
         }
     }
 }

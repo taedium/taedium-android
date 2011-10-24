@@ -11,63 +11,80 @@
     </include>
     <RelativeLayout
         android:id="@+id/rlAddEnvironment"
-        style="@style/StandardRelativeLayout"
+        style="@style/WizardLayout"
         android:layout_below="@id/HeaderBar"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/list_item_gradient">
 	    <CheckBox
-	        android:id="@+id/cbIndoor"
+	        android:id="@+id/cbAddIndoor"
 	        style="@style/StandardControl"
 	        android:layout_alignParentTop="true"
 	        android:layout_alignParentLeft="true"
 	        android:textColor="#000000"
-	        android:text="@string/cbIndoor"
-	        android:layout_marginLeft="5dp">
+	        android:text="@string/cbAddIndoor">
 	    </CheckBox>
 	    <CheckBox
-	        android:id="@+id/cbOutdoor"
+	        android:id="@+id/cbAddOutdoor"
 	        style="@style/StandardControl"
-	        android:layout_below="@id/cbIndoor"
+	        android:layout_below="@id/cbAddIndoor"
 	        android:layout_alignParentLeft="true"
 	        android:textColor="#000000"
-	        android:text="@string/cbOutdoor"
-	        android:layout_marginLeft="5dp">
+	        android:text="@string/cbAddOutdoor">
 	    </CheckBox>
 	    <CheckBox
-	        android:id="@+id/cbAroundTown"
+	        android:id="@+id/cbAddAroundTown"
 	        style="@style/StandardControl"
-	        android:layout_below="@id/cbOutdoor"
+	        android:layout_below="@id/cbAddOutdoor"
 	        android:layout_alignParentLeft="true"
 	        android:textColor="#000000"
-	        android:text="@string/cbAroundTown"
-	        android:layout_marginLeft="5dp">
+	        android:text="@string/cbAddAroundTown">
 	    </CheckBox>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rlAddCost"
-        style="@style/StandardRelativeLayout"
+        style="@style/WizardLayout"
         android:layout_below="@id/rlAddEnvironment"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/list_item_gradient">
+	    <RadioGroup
+	        android:id="@+id/rgAddCostType"
+	        style="@style/BaseView"
+	        android:orientation="vertical">
+	        <RadioButton
+	            android:id="@+id/rbAddCostFree"
+	            style="@style/BaseView"
+	            android:checked="true"
+	            android:textColor="#000000"
+	            android:text="@string/rbAddCostFree">
+	        </RadioButton>
+	        <RadioButton
+	            android:id="@+id/rbAddCostFlat"
+	            style="@style/BaseView"
+	            android:textColor="#000000"
+	            android:text="@string/rbAddCostFlat">
+	        </RadioButton>
+	        <RadioButton
+	            android:id="@+id/rbAddCostPerPerson"
+	            style="@style/BaseView"
+	            android:textColor="#000000"
+	            android:text="@string/rbAddCostPerPerson">
+	        </RadioButton>        
+	    </RadioGroup>
 		<TextView
-		    android:id="@+id/tvCostLabel1"
-		    style="@style/StandardLayout"            
-		    android:text="@string/tvCostLabel1">
+		    android:id="@+id/tvAddCost"
+		    style="@style/AddTextView" 
+		    android:layout_below="@id/rgAddCostType"
+		    android:layout_marginTop="10dp"
+		    android:layout_marginLeft="37dp"
+		    android:layout_marginRight="10dp"
+		    android:text="@string/tvAddCost">
 		</TextView>
 		<EditText
-		    android:id="@+id/etCost"
-		    style="@style/StandardLayout"
-		    android:layout_toRightOf="@id/tvCostLabel1"
+		    android:id="@+id/etAddCost"
+		    style="@style/BaseView"
+		    android:layout_below="@id/rgAddCostType"
+		    android:layout_toRightOf="@id/tvAddCost"
 		    android:numeric="decimal"            
 		    android:width="70dp">
 		</EditText>
-		<CheckBox
-		    android:id="@+id/cbCostPerPerson"
-		    style="@style/StandardLayout"
-		    android:layout_toRightOf="@id/etCost"
-		    android:textColor="#000000"
-		    android:text="@string/tvCostLabel2">
-        </CheckBox>
     </RelativeLayout>
     <include
         android:id="@+id/NavButtons"

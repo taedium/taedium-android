@@ -11,67 +11,60 @@
     </include>
     <RelativeLayout
         android:id="@+id/rlAddDuration"
-        style="@style/StandardRelativeLayout"
+        style="@style/WizardLayout"
         android:layout_below="@id/HeaderBar"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/list_item_gradient">
         <TextView
-            android:id="@+id/tvDurationLabel1"
-            style="@style/StandardLabel"            
-            android:text="@string/tvDurationLabel1">
+            android:id="@+id/tvAddMinDuration"
+            style="@style/AddTextView"            
+            android:text="@string/tvAddMinDuration">
         </TextView>     
         <EditText
-            android:id="@+id/etMinDuration"
+            android:id="@+id/etAddMinDuration"
             style="@style/StandardLayout"
-            android:layout_toRightOf="@id/tvDurationLabel1"
+            android:layout_below="@id/tvAddMinDuration"
+            android:layout_marginBottom="8dp"
             android:numeric="integer"
             android:maxLength="4"
-            android:width="65dp">
+            android:width="90dp">
         </EditText>
         <TextView
-            android:id="@+id/tvDurationLabel2"
-            style="@style/StandardLayout"
-            android:layout_toRightOf="@id/etMinDuration"
-            android:text="@string/tvDurationLabel2">
+            android:id="@+id/tvAddMaxDuration"
+            style="@style/AddTextView"
+            android:layout_below="@id/etAddMinDuration"
+            android:text="@string/tvAddMaxDuration">
         </TextView>
         <EditText
-            android:id="@+id/etMaxDuration"
+            android:id="@+id/etAddMaxDuration"
             style="@style/StandardLayout"
-            android:layout_toRightOf="@id/tvDurationLabel2"
+            android:layout_below="@id/tvAddMaxDuration"
             android:numeric="integer"
             android:maxLength="4"
-            android:width="65dp">
+            android:width="90dp">
         </EditText>
-        <TextView
-            android:id="@+id/tvDurationLabel3"         
-            style="@style/StandardLayout"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/etMaxDuration"
-            android:text="@string/tvDurationLabel3">
-        </TextView>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rlAddTime"
-        style="@style/StandardRelativeLayout"
+        style="@style/WizardLayout"
         android:layout_below="@id/rlAddDuration"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/list_item_gradient">
         <RelativeLayout
             android:id="@+id/rlAddStartTime"
             style="@style/BaseView">
 		    <TextView
-		        android:id="@+id/tvSTimeLabel"
-		        style="@style/StandardLabel"
+		        android:id="@+id/tvAddSTimeLabel"
+		        style="@style/AddTextView"
+		        android:layout_centerVertical="true"
 		        android:text="@string/tvStartTime">
 		    </TextView>
 		    <TextView
-		        android:id="@+id/tvSTimeView"
+		        android:id="@+id/tvAddSTimeView"
 		        style="@style/StandardLayout"
 		        android:layout_centerInParent= "true"
 		        android:text="@string/default_start_time">
 		    </TextView>
 		    <Button
-		        android:id="@+id/bSTimeUpdate"
+		        android:id="@+id/bAddSTimeUpdate"
 		        style="@style/StandardButton"
 		        android:layout_alignParentRight="true"
 		        android:text="@string/update">
@@ -82,18 +75,19 @@
 		    style="@style/BaseView"
 		    android:layout_below="@id/rlAddStartTime"> 
 		    <TextView
-		        android:id="@+id/tvETimeLabel"
-		        style="@style/StandardLabel"
+		        android:id="@+id/tvAddETimeLabel"
+		        style="@style/AddTextView"
+		        android:layout_centerVertical="true"
 		        android:text="@string/tvEndTime">
 		    </TextView>
 		    <TextView
-		        android:id="@+id/tvETimeView"
+		        android:id="@+id/tvAddETimeView"
 		        style="@style/StandardLayout"
 		        android:layout_centerInParent="true"
 		        android:text="@string/default_end_time">
 		    </TextView>
 		    <Button
-		        android:id="@+id/bETimeUpdate"
+		        android:id="@+id/bAddETimeUpdate"
 		        style="@style/StandardButton"
 		        android:layout_alignParentRight="true"
 		        android:text="@string/update">

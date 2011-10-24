@@ -11,9 +11,8 @@
     </include>
     <RelativeLayout
         android:id="@+id/rlAddLocation"
-        style="@style/StandardRelativeLayout"
+        style="@style/WizardLayout"
         android:layout_below="@id/HeaderBar"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/list_item_gradient">
         <RadioGroup
             android:id="@+id/rgAddUseLocation"
@@ -24,32 +23,35 @@
                 style="@style/BaseView"
                 android:checked="true"
                 android:textColor="#000000"
-                android:text="@string/rbLocationDisabled">
+                android:text="@string/rbAddLocationDisabled">
             </RadioButton>
             <RadioButton
                 android:id="@+id/rbAddLocationEnabled"
                 style="@style/BaseView"
                 android:textColor="#000000"
-                android:text="@string/rbLocationEnabled">
+                android:text="@string/rbAddLocationEnabled">
             </RadioButton>
         </RadioGroup>
         <Button
             android:id="@+id/bAddMyLocation"
             style="@style/StandardLayout"
             android:layout_below="@id/rgAddUseLocation"
-            android:text="@string/tvLocationLabel1">
+            android:width="150dp"
+            android:text="@string/tvAddMyLocation">
         </Button>
         <Button
             android:id="@+id/bAddUseMap"
             style="@style/StandardLayout"
             android:layout_below="@id/bAddMyLocation"
-            android:text="@string/tvLocationLabel2">
+            android:width="150dp"
+            android:text="@string/tvAddUseMap">
         </Button>
         <Button
             android:id="@+id/bAddSpecifyAddress"
             style="@style/StandardLayout"
             android:layout_below="@id/bAddUseMap"
-            android:text="@string/tvLocationLabel3">
+            android:width="150dp"
+            android:text="@string/tvAddSpecifyAddress">
         </Button>
         <TextView
             android:id="@+id/tvAddLatDisplay"

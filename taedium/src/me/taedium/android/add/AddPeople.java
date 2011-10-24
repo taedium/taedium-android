@@ -20,8 +20,8 @@ public class AddPeople extends WizardActivity {
         initializeWizard(this, AddTime.class, ACTIVITY_ADD_TIME);
         data = getIntent().getExtras();
         
-        etMinPeople = (EditText)findViewById(R.id.etMinPeople);
-        etMaxPeople = (EditText)findViewById(R.id.etMaxPeople);
+        etMinPeople = (EditText)findViewById(R.id.etAddMinPeople);
+        etMaxPeople = (EditText)findViewById(R.id.etAddMaxPeople);
         rgAges = (RadioGroup)findViewById(R.id.rgAddAges);
         restoreData();
     }

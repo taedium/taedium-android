@@ -11,27 +11,25 @@
     </include>
     <ScrollView
         android:id="@+id/svAddTags"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/HeaderBar">
+	    style="@style/WizardLayout"
+        android:layout_below="@id/HeaderBar"
+        android:background="@drawable/list_item_gradient">
         <RelativeLayout
             android:id="@+id/rlAddTagScrollableContent"
-            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/list_item_gradient">
+            android:layout_height="fill_parent">
 		    <TextView
 		        android:id="@+id/tvAddAutoTag"
 		        style="@style/BaseView"
-		        android:text="@string/tvAutoTag"
-		        android:textColor="#000000">
+		        android:textColor="#000000"
+		        android:text="@string/tvAddAutoTag">
 		    </TextView>
 		    <TextView
 		        android:id="@+id/tvAddManualTag"
 		        style="@style/BaseView"
 		        android:layout_below="@id/tvAddAutoTag"
-		        android:text="@string/tvManualTag"
-		        android:textColor="#000000">
+		        android:textColor="#000000"
+		        android:text="@string/tvAddManualTag">
 		    </TextView>
 		    <Button
 		        android:id="@+id/bAddNewTag"
