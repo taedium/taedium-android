@@ -24,6 +24,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -36,14 +37,16 @@ public class Caller {
     private static final String MODULE = "CALLER";    //used for log messages
     private static Caller instance = null;
     private static Gson gson;
+    // API Strings
     private static final String API_URL = "http://www.taedium.me/api/";
-    private static final String ACTIVITIES_API = "activities";
-    private static final String CHECK_LOGIN_API = "users/";
+    private static final String ADD_USER = API_URL + "users";
+    private static final String CHECK_LOGIN = API_URL + "users/";
+    private static final String FLAG_ACTIVITY = API_URL + "flags";
+    private static final String GET_RECOMMENDATIONS = API_URL + "activities/search";
+    private static final String ADD_RECOMMENDATION = API_URL + "activities";
     private static final String LIKES_API_PREFIX = "users";
     private static final String LIKES_API_SUFFIX = "likes";
-    private static final String FLAG_API_PREFIX = "activities";
-    private static final String FLAG_API_SUFFIX = "flags";
-    private static final String REGISTER_API = "users";
+    
     private static final String QUERY_TOKEN = "?";
     private static final String PARAM_TOKEN = "&";
     private static final String EQUALS_TOKEN = "=";
@@ -61,7 +64,7 @@ public class Caller {
     
     // Validate a username/password
     public boolean checkLogin(String user, String password) {
-    	String url = API_URL + CHECK_LOGIN_API + user;
+    	String url = CHECK_LOGIN + user;
     	if (!(user == null || password == null) && 
     			!(user.equalsIgnoreCase("")|| password.equalsIgnoreCase(""))) {
         	ApplicationGlobals.getInstance().setUserpass(user + ":" + password);
@@ -81,7 +84,7 @@ public class Caller {
     // Get a list of recommendations for a set of given parameters
     public ArrayList<Recommendation> getRecommendations() {
         
-        String url = API_URL + ACTIVITIES_API;
+        String url = GET_RECOMMENDATIONS;
         ApplicationGlobals g = ApplicationGlobals.getInstance();
         
         //Temporary- add the TOD always
@@ -104,7 +107,7 @@ public class Caller {
                 token = PARAM_TOKEN;
             }
         }
-        
+        Log.i(MODULE, "Requesting: " + url);
         HttpGet httpGet = new HttpGet(url);
         HttpResponse response = makeCall(httpGet);
         ArrayList<Recommendation> ret = new ArrayList<Recommendation>();
@@ -141,7 +144,7 @@ public class Caller {
     public boolean addRecommendation(Bundle data) {
         String json = createJSON(data);
         
-        String url = API_URL + ACTIVITIES_API;
+        String url = ADD_RECOMMENDATION;
         HttpPost httpPost = new HttpPost(url);
         httpPost.addHeader("Content-Type", "application/json");
         try {
@@ -157,7 +160,7 @@ public class Caller {
     // Make a post request to register a new user
     // returns true if successful, false otherwise
     public boolean addUser(String user, String password, String email, String dob) {
-        String url = API_URL + REGISTER_API;
+        String url = ADD_USER;
         
         // Construct json
         String json = "{\"username\":\"" + user + "\", \"password\":\"" + password + 
@@ -184,10 +187,12 @@ public class Caller {
     // Makes a post request to flag an activity
     // return true if successful, false otherwise
     public boolean flagActivity(int activityId, String reason) {
-    	String url = API_URL + FLAG_API_PREFIX + "/" + activityId + "/" + FLAG_API_SUFFIX;
+    	String url = FLAG_ACTIVITY;
     	
     	// Construct json
-    	String json = "{\"reason\":\"" + reason + "\"}";
+    	String json = "{\"activity_id\":" + activityId + "," +
+    			      "\"reason\":\"" + reason + "\"}";
+        Log.i(MODULE, "Requesting: " + url + " - " + json);
     	
     	// Construct the post call
     	HttpPost httpPost = new HttpPost(url);
@@ -200,7 +205,7 @@ public class Caller {
         }
         
         HttpResponse response = makeCall(httpPost);
-        return checkResponse(response, HttpStatus.SC_OK);
+        return checkResponse(response, HttpStatus.SC_CREATED);
     }
     
     // Make a put request to like/dislike an activity

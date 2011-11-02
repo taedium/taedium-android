@@ -16,7 +16,7 @@
         android:background="@drawable/list_item_gradient">
         <TextView
             android:id="@+id/tvAddMinDuration"
-            style="@style/AddTextView"            
+            style="@style/AddTextView"
             android:text="@string/tvAddMinDuration">
         </TextView>     
         <EditText
