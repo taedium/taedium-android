@@ -4,20 +4,22 @@
     android:id="@+id/rlAddTag"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="wrap_content">
     <include
-        android:id="@+id/HeaderBar" 
+        android:id="@+id/HeaderBar"
         layout="@layout/header">
     </include>
+	<!-- TODO Don't use hard-coded number for marginBottom -->
     <ScrollView
         android:id="@+id/svAddTags"
-	    style="@style/WizardLayout"
+        style="@style/WizardLayout"
         android:layout_below="@id/HeaderBar"
+        android:layout_marginBottom="60dp"
         android:background="@drawable/list_item_gradient">
         <RelativeLayout
             android:id="@+id/rlAddTagScrollableContent"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="wrap_content">
 		    <TextView
 		        android:id="@+id/tvAddAutoTag"
 		        style="@style/BaseView"
@@ -41,6 +43,8 @@
 	</ScrollView>
     <include
         android:id="@+id/NavButtons"
-        layout="@layout/add_nav_buttons">
+        layout="@layout/add_nav_buttons"
+        android:layout_marginTop="-60dp"
+        android:layout_alignParentBottom="true">
     </include>
 </RelativeLayout> 

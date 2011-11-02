@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -24,7 +25,6 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.HTTP;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +43,7 @@ public class Caller {
     private static final String CHECK_LOGIN = API_URL + "users/";
     private static final String FLAG_ACTIVITY = API_URL + "flags";
     private static final String GET_RECOMMENDATIONS = API_URL + "activities/search";
+    private static final String GET_RECOMMENDED_TAGS = API_URL + "tags/recommend";
     private static final String ADD_RECOMMENDATION = API_URL + "activities";
     private static final String LIKES_API_PREFIX = "users";
     private static final String LIKES_API_SUFFIX = "likes";
@@ -137,6 +138,44 @@ public class Caller {
             }
         }
         return ret;        
+    }
+    
+    public String[] getRecommendedTags(String name, String description) {
+        String url = GET_RECOMMENDED_TAGS;
+        try {
+            url += QUERY_TOKEN + "name" + EQUALS_TOKEN + URLEncoder.encode(name, "UTF-8");
+            if (!description.equals("")) {
+                url += PARAM_TOKEN + "description" + EQUALS_TOKEN + URLEncoder.encode(description, "UTF-8");
+            }
+        } catch (UnsupportedEncodingException e) {
+            Log.e(MODULE, e.getMessage());
+            return null;
+        }
+        
+        Log.i(MODULE, "Requesting: " + url);
+        HttpGet request = new HttpGet(url);
+        HttpResponse response = makeCall(request);
+        
+        String [] tags = null;
+        if (checkResponse(response, HttpStatus.SC_OK)) {
+            Reader r = null;
+            try {
+                r = new InputStreamReader(response.getEntity().getContent());
+            } catch (IllegalStateException e) {
+                Log.e(MODULE, e.getMessage());
+            } catch (IOException e) {
+                Log.e(MODULE, e.getMessage());
+            }
+            
+            if (r != null) {
+                try {
+                    tags = gson.fromJson(r, String[].class);
+                } catch (Exception e) {
+                    Log.e(MODULE, e.getMessage());
+                }
+            }
+        }
+        return tags;        
     }
     
     // Make a post request to add a new recommendation to the database
