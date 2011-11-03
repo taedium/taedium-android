@@ -29,4 +29,4 @@ e) Click ok to exit.
 
 6.
 a) If your project still has errors, try highlighting the project root and pressing F5 to refresh. If that doesn't work, try right clicking the root and go to 'Android Tools->Fix Project Properties'
-b) Should be good to go now.
+ b) Should be good to go now.
