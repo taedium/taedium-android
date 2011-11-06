@@ -14,7 +14,7 @@
         android:id="@+id/svAddTags"
         style="@style/WizardLayout"
         android:layout_below="@id/HeaderBar"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/list_item_gradient">
         <RelativeLayout
             android:id="@+id/rlAddTagScrollableContent"
@@ -30,6 +30,7 @@
 		        android:id="@+id/tvAddManualTag"
 		        style="@style/BaseView"
 		        android:layout_below="@id/tvAddAutoTag"
+		        android:layout_marginBottom="5dp"
 		        android:textColor="#000000"
 		        android:text="@string/tvAddManualTag">
 		    </TextView>
@@ -44,7 +45,7 @@
     <include
         android:id="@+id/NavButtons"
         layout="@layout/add_nav_buttons"
-        android:layout_marginTop="-60dp"
+        android:layout_marginTop="-50dp"
         android:layout_alignParentBottom="true">
     </include>
 </RelativeLayout> 

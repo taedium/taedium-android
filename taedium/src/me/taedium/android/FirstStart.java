@@ -1,6 +1,7 @@
 package me.taedium.android;
 
 import me.taedium.android.ApplicationGlobals.RecParamType;
+import me.taedium.android.add.AddName;
 import me.taedium.android.domain.FilterItem;
 import me.taedium.android.domain.FilterItemAdapter;
 import android.app.Dialog;
@@ -69,8 +70,8 @@ public class FirstStart extends HeaderActivity {
     	} 
     	
         //Here so ahal can debug 
-        //Intent i = new Intent(this, AddName.class);
-        //startActivity(i);
+        Intent i = new Intent(this, AddName.class);
+        startActivity(i);
         
         // Restore login if available
         if (savedState != null) {

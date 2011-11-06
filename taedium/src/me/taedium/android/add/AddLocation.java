@@ -7,6 +7,7 @@ import me.taedium.android.ApplicationGlobals;
 import me.taedium.android.R;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -36,8 +37,19 @@ public class AddLocation extends WizardActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initialize();
+    }
+    
+    @Override
+    public void onConfigurationChanged(Configuration config) {
+        fillData();
+        super.onConfigurationChanged(config);
+        initialize();
+    }
+    
+    private void initialize() {
         setContentView(R.layout.add_5_location);
-        
+ 
         initializeWizard(this, AddTags.class, ACTIVITY_ADD_TAGS);
         data = getIntent().getExtras();
         
@@ -102,8 +114,8 @@ public class AddLocation extends WizardActivity {
         // Set up lat/long textview displays
         tvLatDisplay = (TextView)findViewById(R.id.tvAddLatDisplay);
         tvLongDisplay = (TextView)findViewById(R.id.tvAddLongDisplay);
-        updateLatLongDisplay();
         restoreData();
+        updateLatLongDisplay();
         
     }
 
