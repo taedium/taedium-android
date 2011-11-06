@@ -70,8 +70,8 @@ public class FirstStart extends HeaderActivity {
     	} 
     	
         //Here so ahal can debug 
-        Intent i = new Intent(this, AddName.class);
-        startActivity(i);
+        //Intent i = new Intent(this, AddName.class);
+        //startActivity(i);
         
         // Restore login if available
         if (savedState != null) {
