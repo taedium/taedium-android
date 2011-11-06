@@ -10,12 +10,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 //Singleton class for holding globals
 //Apparently the recommended way for passing around big lists of objects
 //between activities is via globals, hence the existence of this class.
 public class ApplicationGlobals {
+    private static final String MODULE = "GLOBALS";
     
     //TODO: used age instead of pass KIDFRIENDLY/ADULTSONLY
     public enum RecParamType {
@@ -66,14 +68,12 @@ public class ApplicationGlobals {
 	    mLocationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
 	    
 	    // TODO when adding an activity may want to use GPS instead of network...or speed up the GPS!
-	    if (mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-	    	mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 100, mLocationListener);
-	    }
-	    else if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-	    	mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 100, mLocationListener);
-	    }
-	    else {
+	    String provider = getLocationProvider();
+	    if (provider == null) {
 	        Toast.makeText(context, "No Location providers enabled.", Toast.LENGTH_LONG).show();
+	    } else {
+            Log.i(MODULE, "Initializing location listener with: " + provider);
+    	    mLocationManager.requestLocationUpdates(provider, 0, 100, mLocationListener);
 	    }
     }
     
@@ -118,8 +118,24 @@ public class ApplicationGlobals {
 	    return seconds;
 	}
 	
-	public Location getCurrentLocation() {    
-		return mLocationListener.getCurrentLocation();
+	public Location getCurrentLocation() {
+	    Location l = mLocationListener.getCurrentLocation();
+	    if (l == null) {
+	        String provider = getLocationProvider();
+	        if (provider == null) return null;
+	        return mLocationManager.getLastKnownLocation(provider);
+	    }
+		return l;
+	}
+	
+	public String getLocationProvider() {
+	    if (mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+	        return LocationManager.NETWORK_PROVIDER;
+	    }
+	    if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+	        return LocationManager.GPS_PROVIDER;
+	    }
+	    return null;
 	}
 	
 	public boolean locationIsEnabled(Activity currentActivity) {

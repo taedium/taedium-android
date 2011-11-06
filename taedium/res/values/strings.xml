@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application level -->
     <string name="add">Add</string>
@@ -70,7 +69,7 @@
     <string name="tvAddSpecifyAddress">Enter Address</string>
     <string name="tvAddAutoTag">Do any of these tags apply?</string>
     <string name="tvAddManualTag">You can also add your own tags</string>
-    <string name="tvAddManualTagNoAuto">Sorry, we couldn\'t find any tags that match your activiy.</string>
+    <string name="tvAddManualTagNoAuto">Sorry, we couldn\'t find any tags that match your activity.</string>
     <string name="tvNumPeople">Number of People</string>
     <string name="tvChildSafe">Suitable for Children</string>
     <string name="tvDuration">Duration</string>

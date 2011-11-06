@@ -3,6 +3,8 @@ package me.taedium.android.add;
 import java.io.IOException;
 import java.util.List;
 
+import me.taedium.android.ApplicationGlobals;
+import me.taedium.android.R;
 import android.app.Dialog;
 import android.content.Intent;
 import android.location.Address;
@@ -17,13 +19,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
-
-import me.taedium.android.ApplicationGlobals;
-import me.taedium.android.R;
-import me.taedium.android.add.AddTags;
+import android.widget.Toast;
 
 public class AddLocation extends WizardActivity {
-    private static final String module = "ADD_LOCATION";    //used for log messages
+    private static final String MODULE = "ADD_LOCATION";    //used for log messages
     private static final int MAP_ADD_ACTIVITY = 61;
     private static final int DIALOG_ENTER_ADDRESS = 303;
     
@@ -47,12 +46,16 @@ public class AddLocation extends WizardActivity {
         bMyLocation.setEnabled(false);
         bMyLocation.setOnClickListener(new OnClickListener() {            
             public void onClick(View v) {
+                Log.i(MODULE, "Getting current location");
                 // Find current GPS location
                 Location location = ApplicationGlobals.getInstance().getCurrentLocation();
                 if (location != null) {
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
+                    Log.i(MODULE, "Location received, latitude: " + latitude + ", longitude: " + longitude);
                     updateLatLongDisplay();
+                } else {
+                    Toast.makeText(AddLocation.this, "Couldn't determine current location", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -81,6 +84,7 @@ public class AddLocation extends WizardActivity {
                 bMyLocation.setEnabled(true);
                 bUseMap.setEnabled(true);
                 bSpecifyAddress.setEnabled(true);
+                ApplicationGlobals.getInstance().startLocationListener(AddLocation.this);
                 updateLatLongDisplay();
             }
         });
@@ -90,6 +94,7 @@ public class AddLocation extends WizardActivity {
                 bMyLocation.setEnabled(false);
                 bUseMap.setEnabled(false);
                 bSpecifyAddress.setEnabled(false);
+                ApplicationGlobals.getInstance().stopLocationListener();
                 updateLatLongDisplay();
             }
         });
@@ -168,7 +173,7 @@ public class AddLocation extends WizardActivity {
             }
         }
         catch (IOException e) {
-            Log.e(module,e.getStackTrace().toString());
+            Log.e(MODULE,e.getStackTrace().toString());
         }
     }
     
@@ -179,6 +184,8 @@ public class AddLocation extends WizardActivity {
         if (rbLocationEnabled.isChecked()) {
             if (!hasValue) {
                 bNext.setEnabled(false);
+            } else {
+                bNext.setEnabled(true);
             }
             tvLatDisplay.setVisibility(View.VISIBLE);
             tvLongDisplay.setVisibility(View.VISIBLE);
@@ -193,16 +200,21 @@ public class AddLocation extends WizardActivity {
     protected void fillData() {
         data.putDouble("lat", latitude);
         data.putDouble("long", longitude);
+        data.putBoolean("location", rbLocationEnabled.isChecked());
     }
 
     @Override
     protected void restoreData() {
         // Restore previously saved data
         if (data.containsKey("long") && data.containsKey("lat") && (data.getDouble("long") != 0 || data.getDouble("lat") != 0)) {
-            rbLocationEnabled.setChecked(true);
             latitude = data.getDouble("lat");
             longitude = data.getDouble("long");
-            updateLatLongDisplay();
         }
+        if (data.containsKey("location") && data.getBoolean("location")) {
+            rbLocationEnabled.setChecked(true); 
+        } else {
+            rbLocationDisabled.setChecked(true);
+        }
+        updateLatLongDisplay();
     }
 }
