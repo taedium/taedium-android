@@ -123,8 +123,8 @@ public class AddLocation extends WizardActivity {
         switch (requestCode) {
         case MAP_ADD_ACTIVITY:
             if (resultCode == RESULT_OK) {
-                latitude = i.getExtras().getDouble("long");
-                longitude = i.getExtras().getDouble("lat");
+                latitude = i.getExtras().getDouble("lat");
+                longitude = i.getExtras().getDouble("long");
                 updateLatLongDisplay();
             }
             break;

@@ -112,7 +112,7 @@ public class Caller {
         HttpGet httpGet = new HttpGet(url);
         HttpResponse response = makeCall(httpGet);
         ArrayList<Recommendation> ret = new ArrayList<Recommendation>();
-        if( checkResponse(response, HttpStatus.SC_OK)) {
+        if(checkResponse(response, HttpStatus.SC_OK)) {
             Reader r = null;
             try {
                 r = new InputStreamReader(response.getEntity().getContent());
@@ -264,7 +264,8 @@ public class Caller {
             Log.e(MODULE, e.getMessage());
             return false;
         }
-        
+        Log.i(MODULE, "Requesting: " + httpPut.getURI());
+        Log.d(MODULE, "Body: " + json);
         HttpResponse response = makeCall(httpPut);
         return checkResponse(response, HttpStatus.SC_OK);
     }
@@ -391,6 +392,7 @@ public class Caller {
         }
         else if (response.getStatusLine().getStatusCode() != expectedStatusCode) {
             Log.i(MODULE, "Expected response code of: " + expectedStatusCode + " Server returned: " + response.getStatusLine().getStatusCode());
+            Log.i(MODULE, "Reason: " + response.getStatusLine().getReasonPhrase());
             return false;
         }
     	return true;

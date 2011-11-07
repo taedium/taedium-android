@@ -2,16 +2,18 @@ package me.taedium.android.widgets;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.Gallery;
 
 public class RecommendationGallery extends Gallery {
+    private static final String MODULE = "REC_GALLERY";
     
     /** 
      * The distance the user has to move their finger, in density independent
      * pixels, before we count the motion as A) intended for the ScrollView if
-     * the motion is in the vertical direction or B) intended for ourselfs, if
+     * the motion is in the vertical direction or B) intended for ourselves, if
      * the motion is in the horizontal direction - after the user has moved this
      * amount they are "locked" into this direction until the next ACTION_DOWN
      * event
@@ -69,7 +71,7 @@ public class RecommendationGallery extends Gallery {
     /**
      * This will be called before the intercepted view's onTouchEvent is called
      * Return false to keep intercepting and passing the event on to the target view
-     * Return true and the target view will recieve ACTION_CANCEL, and the rest of the
+     * Return true and the target view will receive ACTION_CANCEL, and the rest of the
      * events will be delivered to our onTouchEvent
      */
     @Override
@@ -77,6 +79,7 @@ public class RecommendationGallery extends Gallery {
         final int action = ev.getAction();
         switch (action) {
         case MotionEvent.ACTION_DOWN:
+            Log.d(MODULE, "ACTION_DOWN");
             mTouchStartX = ev.getX();
             mTouchStartY = ev.getY();
             mScrollLock = SCROLL_LOCK_NONE;
@@ -99,10 +102,12 @@ public class RecommendationGallery extends Gallery {
             final float touchDistanceY = (ev.getY() - mTouchStartY);
 
             if (Math.abs(touchDistanceY) > mDragBoundsInPx) {
+                Log.d(MODULE, "SCROLL_LOCK_VERTICAL");
                 mScrollLock = SCROLL_LOCK_VERTICAL;
                 return false;
             }
             if (Math.abs(touchDistanceX) > mDragBoundsInPx) {
+                Log.d(MODULE, "SCROLL_LOCK_HORIZONTAL");
                 mScrollLock = SCROLL_LOCK_HORIZONTAL; // gallery action
                 return true; // redirect MotionEvents to ourself
             }
@@ -110,8 +115,9 @@ public class RecommendationGallery extends Gallery {
 
         case MotionEvent.ACTION_CANCEL:
         case MotionEvent.ACTION_UP:
+            Log.d(MODULE, "ACTION_UP");
             // if we're still intercepting at this stage, make sure the gallery
-            // also recieves the up/cancel event as we gave it the down event earlier
+            // also receives the up/cancel event as we gave it the down event earlier
             super.onTouchEvent(ev);
             break;
         }
@@ -135,9 +141,7 @@ public class RecommendationGallery extends Gallery {
         return true;  
     }
     
-    
     private boolean isScrollingLeft(MotionEvent e1, MotionEvent e2){
         return e2.getX() > e1.getX();
     }
-
 }

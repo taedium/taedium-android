@@ -234,8 +234,8 @@ public class ViewRecommendation extends HeaderActivity implements Runnable {
         /**
         // Backup recommendations hardcoded for testing
         recommendations = new ArrayList<Recommendation>();
-        recommendations.add(new Recommendation("Go somewhere", "Do something", 1, 6, 60, 240, 1, false, 43.490656877933816, -80.54049253463745));
-        recommendations.add(new Recommendation("Take a Hike", "Venture forth into the backwoods of your childhood.  Bring a backpack and some friends.  Pack a light lunch, but don't eat it until you reach the perfect spot.  Bring a camera and some binoculors and try to see how many birds you can identify.  Make sure to wear proper footwear and always be mindful of keeping the trail clean. This description gets even longer to cause a little bit of overflow here and there.  It's going to be good! I hope it will, or I have just wasted a bunch of my time.  Stupid stupid stupid.", 1, 6, 60, 240, 1, false, 43.490656877933816, -80.54049253463745));
+        recommendations.add(new Recommendation("Take a Hike", "Venture forth into the backwoods of your childhood.  Bring a backpack and some friends.  Pack a light lunch, but don't eat it until you reach the perfect spot.  Bring a camera and some binoculors and try to see how many birds you can identify.  Make sure to wear proper footwear and always be mindful of keeping the trail clean. This description gets even longer to cause a little bit of overflow here and there.  It's going to be good! I hope it will, or I have just wasted a bunch of my time.  Stupid stupid stupid.", 1, 6, 60, 240, 1, false, 43.490656877933816, -80.54049253463745, null, false));
+        recommendations.add(new Recommendation("Go somewhere", "Do something", 1, 6, 60, 240, 1, false, 43.490656877933816, -80.54049253463745, null, false));
         recommendations.add(new Recommendation("Go fly a kite", "Don't get it caught in hydro line"));
         recommendations.add(new Recommendation("Go rent a convertible you could never afford to own", "Take it down country roads with the top down"));
         /**/
