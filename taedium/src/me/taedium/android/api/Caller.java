@@ -47,6 +47,7 @@ public class Caller {
     private static final String ADD_RECOMMENDATION = API_URL + "activities";
     private static final String LIKES_API_PREFIX = "users";
     private static final String LIKES_API_SUFFIX = "likes";
+    private static final String ACTIVITY_ID = "activity_id";
     
     private static final String QUERY_TOKEN = "?";
     private static final String PARAM_TOKEN = "&";
@@ -274,7 +275,7 @@ public class Caller {
     // return true if successful, false otherwise
     public boolean removeLikeDislike(int activityId) {
     	String url = API_URL + LIKES_API_PREFIX + "/" + ApplicationGlobals.getInstance().getUser() 
-    		+ "/" + LIKES_API_SUFFIX + "/" + activityId;
+    		+ "/" + LIKES_API_SUFFIX + QUERY_TOKEN + ACTIVITY_ID + EQUALS_TOKEN + activityId;
    	
     	// Construct the delete call
     	HttpDelete httpDelete = new HttpDelete(url);
