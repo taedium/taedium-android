@@ -1,15 +1,16 @@
 package me.taedium.android.add;
 
+import me.taedium.android.R;
+import me.taedium.android.widgets.InputFilterMinMax;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
-import me.taedium.android.R;
 
 public class AddTime extends WizardActivity {
     private static final int DIALOG_START_TIME = 201;
@@ -31,7 +32,11 @@ public class AddTime extends WizardActivity {
         // Setup the duration edit texts
         etMinDuration = (EditText)findViewById(R.id.etAddMinDuration);
         etMaxDuration = (EditText)findViewById(R.id.etAddMaxDuration);
-
+        
+        InputFilterMinMax durationFilter = new InputFilterMinMax(0, 60*24);
+        etMinDuration.setFilters(new InputFilter[] { durationFilter });
+        etMaxDuration.setFilters(new InputFilter[] { durationFilter });
+			
         // Setup the time pickers        
         tvStartTime = (TextView) findViewById(R.id.tvAddSTimeView);
         tvEndTime = (TextView) findViewById(R.id.tvAddETimeView);
@@ -94,8 +99,8 @@ public class AddTime extends WizardActivity {
 
     @Override
     protected void fillData() {
-    	addStringToData("min_duration", etMinDuration);
-    	addStringToData("max_duration", etMaxDuration);
+    	data.putString("min_duration", escapeString(etMinDuration.getText().toString()));
+    	data.putString("max_duration", escapeString(etMaxDuration.getText().toString()));
         data.putInt("start_time", sHour * 3600 + sMin * 60);
         data.putInt("end_time", eHour * 3600 + eMin * 60);
     }

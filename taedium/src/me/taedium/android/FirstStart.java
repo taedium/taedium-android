@@ -1,7 +1,6 @@
 package me.taedium.android;
 
 import me.taedium.android.ApplicationGlobals.RecParamType;
-import me.taedium.android.add.AddName;
 import me.taedium.android.domain.FilterItem;
 import me.taedium.android.domain.FilterItemAdapter;
 import android.app.Dialog;
@@ -13,15 +12,15 @@ import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 /*
  * Main Activity

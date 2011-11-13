@@ -1,14 +1,12 @@
 package me.taedium.android.add;
 
+import me.taedium.android.HeaderActivity;
+import me.taedium.android.R;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-
-import me.taedium.android.HeaderActivity;
-import me.taedium.android.R;
 
 public abstract class WizardActivity extends HeaderActivity {
     protected final static int ACTIVITY_ADD_PEOPLE = 550;
@@ -53,9 +51,8 @@ public abstract class WizardActivity extends HeaderActivity {
     
     // Helper to format string correctly when adding them to the data bundle
     // Inserts newlines correctly and removes tabs
-    protected void addStringToData(String key, EditText text) {
-    	String value = text.getText().toString().replace("\n", "\\n").replace("\t", "");
-    	data.putString(key, value);
+    protected String escapeString(String text) {
+    	return text.replace("\n", "\\n").replace("\t", "");
     }
     
     @Override

@@ -39,8 +39,8 @@ public class AddName extends WizardActivity {
 
     @Override
     protected void fillData() {
-    	addStringToData("name", etName);
-    	addStringToData("desc", etDesc);
+    	data.putString("name", escapeString(etName.getText().toString()));
+    	data.putString("desc", escapeString(etDesc.getText().toString()));
     	// If name/desc changed re-generate autotags
     	if (data.containsKey("autotags")) {
     	    data.remove("autotags");

@@ -30,7 +30,7 @@
 		            android:layout_below="@id/tvAddMinPeople"
 					android:hint="@string/default_num_people"
 					android:numeric="integer"
-					android:maxLength="3"
+					android:maxLength="4"
 					android:width="60dp">
 		        </EditText>
 		        <TextView
@@ -45,7 +45,7 @@
 		            android:layout_below="@id/tvAddMaxPeople"
 		            android:hint="@string/default_num_people"
 		            android:numeric="integer"
-				    android:maxLength="3"
+				    android:maxLength="4"
 				    android:width="60dp">
 		        </EditText>
 		    </RelativeLayout>

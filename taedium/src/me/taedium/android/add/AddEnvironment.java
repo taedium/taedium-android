@@ -55,7 +55,7 @@ public class AddEnvironment extends WizardActivity {
         data.putBoolean("outdoor", cbOutdoor.isChecked());
         data.putBoolean("town", cbTown.isChecked());
         data.putInt("cost_type", rgCostType.getCheckedRadioButtonId());
-        addStringToData("cost", etCost);
+        data.putString("cost", escapeString(etCost.getText().toString()));
     }
 
     @Override
