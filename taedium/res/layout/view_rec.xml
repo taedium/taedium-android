@@ -4,17 +4,17 @@
 	xmlns:taedium="http://schemas.android.com/apk/res/me.taedium.android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
-	<include layout="@layout/header"/>
-    <include layout="@layout/footer"/>
-    <me.taedium.android.widgets.RecommendationGallery
-        android:id="@+id/gaActivities"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/rlHeaderBar"
-        android:layout_above="@id/rlRecViewFooter"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:spacing="10dp"
-        android:fadingEdge="none">
-    </me.taedium.android.widgets.RecommendationGallery>
+	<!-- TODO Don't use hard-coded numbers -->
+	<include layout="@layout/header"
+	    android:layout_marginBottom="-50dp">
+	</include>    
+    <include layout="@layout/view_footer"
+        android:layout_marginTop="-50dp">
+    </include>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpActivities"
+        style="@style/BaseView"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp">
+    </android.support.v4.view.ViewPager>
 </RelativeLayout>

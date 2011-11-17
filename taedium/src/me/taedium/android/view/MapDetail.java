@@ -1,9 +1,9 @@
-package me.taedium.android;
+package me.taedium.android.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import me.taedium.android.R;
 
+import me.taedium.android.R;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -29,7 +29,7 @@ public class MapDetail extends MapActivity {
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.mapview);
+        setContentView(R.layout.view_mapview);
         mapview = (MapView)findViewById(R.id.mvMapView);
         mapview.setBuiltInZoomControls(true);
         

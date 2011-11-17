@@ -10,6 +10,7 @@
         android:id="@+id/svRec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+	    android:layout_centerVertical="true"
         android:fillViewport="true"
 	    android:layout_marginLeft="15dp"
 	    android:layout_marginRight="15dp">
@@ -201,4 +202,14 @@
         android:layout_centerVertical="true"
         android:src="@drawable/rec_next">
     </ImageView>
+    
+        
+    <!-- Magic ListView that the Android ListFragment somehow knows what to do with -->
+    <ListView
+	    android:id="@android:id/list"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true" >
+	</ListView>
+        
 </RelativeLayout>

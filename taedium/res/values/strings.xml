@@ -133,6 +133,7 @@
     <string name="msgLikeFailed">Like failed due to problem contacting server.</string>
     <string name="msgDislikeFailed">Dislike failed due to problem contacting server.</string>
     <string name="msgFlagFailed">Flag failed due to problem contacting server.</string>
+    <string name="msgFlagSuccess">Activity flagged</string>
     <string name="msgRemoveLikeFailed">Removing like failed due to problem contacting server.</string>
     <string name="msgRemoveDislikeFailed">Removing dislike failed due to problem contacting server.</string>
     <string name="msgCannotUnflag">You have flagged this activity and are not allowed to un-flag it.</string>

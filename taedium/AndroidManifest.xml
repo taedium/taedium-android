@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity 
-            android:name=".ViewRecommendation"
+            android:name=".view.ViewRecommendation"
             android:configChanges="orientation|keyboardHidden"
         	android:label="@string/app_name">
        	</activity>
@@ -36,7 +36,7 @@
        	<activity android:name=".Register"
        	    android:label="@string/app_name">
   	    </activity>
-  	    <activity android:name=".MapDetail"/>
+  	    <activity android:name=".view.MapDetail"/>
   	    
         <!-- Wizard Activities -->
         <activity

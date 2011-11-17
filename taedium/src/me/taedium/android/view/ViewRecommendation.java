@@ -1,18 +1,19 @@
-package me.taedium.android;
+package me.taedium.android.view;
 
 import java.util.ArrayList;
 
+import me.taedium.android.ApplicationGlobals;
+import me.taedium.android.R;
 import me.taedium.android.api.Caller;
 import me.taedium.android.domain.Recommendation;
-import me.taedium.android.widgets.RecommendationGallery;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -20,8 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class ViewRecommendation extends HeaderActivity implements Runnable {
-    private RecommendationGallery gaActivities;
+public class ViewRecommendation extends FragmentHeaderActivity implements Runnable {
+	private ViewPager vpActivities;
     private ProgressDialog progressDialog;
     private ArrayList<Recommendation> recommendations;
     private Recommendation curRec;
@@ -48,13 +49,12 @@ public class ViewRecommendation extends HeaderActivity implements Runnable {
         spFlag.setVisibility(View.INVISIBLE);
 		
         // Initialize gaActivities
-        gaActivities = (RecommendationGallery) findViewById(R.id.gaActivities);
+        vpActivities = (ViewPager) findViewById(R.id.vpActivities);
         // Take care of highlighting footer as a new item is brought up
-        gaActivities.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-				curRec= (Recommendation) gaActivities.getSelectedItem();
+        vpActivities.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			@Override
+			public void onPageSelected(int arg0) {
+				curRec= (Recommendation) ((RecommendationAdapter)vpActivities.getAdapter()).getRecommendation(vpActivities.getCurrentItem());
 				
 				// Un-highlight all buttons
 				if (curRec.getLikedByUser() == null) {
@@ -68,11 +68,13 @@ public class ViewRecommendation extends HeaderActivity implements Runnable {
 				else {
 					highlightDislikeFooter();
 				}			
+				
 			}
-
-			public void onNothingSelected(AdapterView<?> arg0) {
-				unhighlightFooter();
-			}        	
+			
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {}
+			@Override
+			public void onPageScrollStateChanged(int arg0) {}
 		});
         
         // Start a progress dialog to get new activitiesProgressDialog
@@ -97,7 +99,8 @@ public class ViewRecommendation extends HeaderActivity implements Runnable {
         public void handleMessage(Message msg) {
             progressDialog.dismiss();
             
-            gaActivities.setAdapter(new RecommendationAdapter(ViewRecommendation.this, recommendations));
+            RecommendationAdapter recAdapter = new RecommendationAdapter(ViewRecommendation.this, recommendations);
+            vpActivities.setAdapter(recAdapter);
             
             // Initialize footer buttons
             // UpVote/Like
@@ -162,9 +165,14 @@ public class ViewRecommendation extends HeaderActivity implements Runnable {
                     if (!flagFirstRun) {
                         String reason = ((TextView)view).getText().toString();
                         boolean success = Caller.getInstance().flagActivity(curRec.getId(), reason);
-                        if (success) {                        	
-                        	((RecommendationAdapter)gaActivities.getAdapter()).removeRecommendation(
-                        			gaActivities.getSelectedItemPosition());
+                        if (success) {
+                        	Toast.makeText(ViewRecommendation.this, getString(R.string.msgFlagSuccess)+" "+reason, Toast.LENGTH_SHORT).show();
+                        	int current = vpActivities.getCurrentItem();
+                        	((RecommendationAdapter)vpActivities.getAdapter()).removeRecommendation(current);
+                        	// There is a bug in android where FragmentPageLoader's don't respond to notifyDataSetChanged
+                        	// This is a hacky workaround and causes weirdness when flagging and then going back
+                        	// See http://code.google.com/p/android/issues/detail?id=19001
+                        	vpActivities.setCurrentItem(current+1);
                         } else {
                             Toast.makeText(ViewRecommendation.this, getString(R.string.msgFlagFailed), Toast.LENGTH_LONG).show();
                         }
@@ -195,7 +203,7 @@ public class ViewRecommendation extends HeaderActivity implements Runnable {
             }
         }
     };
-
+ 
     // Helper to remove a like or dislike
     private boolean removeLikeDislike() {
     	if (Caller.getInstance().removeLikeDislike(curRec.getId())) {
@@ -239,7 +247,9 @@ public class ViewRecommendation extends HeaderActivity implements Runnable {
         recommendations.add(new Recommendation("Go fly a kite", "Don't get it caught in hydro line"));
         recommendations.add(new Recommendation("Go rent a convertible you could never afford to own", "Take it down country roads with the top down"));
         /**/
-        
+        if (recommendations.size() > 0) {
+	        curRec = recommendations.get(0);
+        }
         // Since separate threads can't touch another thread's view, send a message via Handler when computation is done to complete building the layout.
         handler.sendEmptyMessage(0);
     }

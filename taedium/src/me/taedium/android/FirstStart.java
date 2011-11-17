@@ -3,6 +3,7 @@ package me.taedium.android;
 import me.taedium.android.ApplicationGlobals.RecParamType;
 import me.taedium.android.domain.FilterItem;
 import me.taedium.android.domain.FilterItemAdapter;
+import me.taedium.android.view.ViewRecommendation;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;

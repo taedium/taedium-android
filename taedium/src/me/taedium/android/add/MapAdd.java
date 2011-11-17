@@ -45,7 +45,7 @@ public class MapAdd extends MapActivity {
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.map_add);
+        setContentView(R.layout.add_mapview);
         
         // Get mapview and use zoom controls
         mapview = (MapView)findViewById(R.id.mvMapAdd);
