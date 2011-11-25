@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
+        android:background="@drawable/btn_default_no_margin"
         android:text="@string/bMapFinished">
     </Button>
 	<com.google.android.maps.MapView
