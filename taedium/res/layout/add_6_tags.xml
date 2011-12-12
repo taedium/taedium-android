@@ -23,6 +23,7 @@
 		    <TextView
 		        android:id="@+id/tvAddAutoTag"
 		        style="@style/BaseView"
+		        android:layout_marginBottom="5dp"
 		        android:textColor="#000000"
 		        android:text="@string/tvAddAutoTag">
 		    </TextView>
