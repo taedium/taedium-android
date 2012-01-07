@@ -27,6 +27,7 @@
 		</TextView>
 		<EditText
 			android:id="@+id/etUserName"			
+			android:inputType="textNoSuggestions"
 			style="@style/RegisterEditText">
         </EditText>
     </RelativeLayout>
@@ -67,6 +68,7 @@
         <TextView
             android:id="@+id/tvEmail"
             style="@style/RegisterLabel"
+            android:inputType="textEmailAddress"
             android:text="@string/tvEmail">
         </TextView>
         <EditText
@@ -89,7 +91,6 @@
             android:hint="@string/bDOB">
         </Button>
     </RelativeLayout>
-    <!-- Recaptcha at some point here -->
     <Button
         android:id="@+id/bRegister"
         style="@style/BaseView"

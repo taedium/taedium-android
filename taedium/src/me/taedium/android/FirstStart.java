@@ -72,20 +72,9 @@ public class FirstStart extends HeaderActivity {
         //Here so ahal can debug 
         //Intent i = new Intent(this, AddName.class);
         //startActivity(i);
-        
-    	/*
-    	 *TODO REMOVE THIS CODE ONCE PERSITENT LOGIN WORKS
-        // Restore login if available
-        if (savedState != null) {
-        	boolean loggedIn = savedState.getBoolean(LOGGED_IN_KEY);
-        	ApplicationGlobals.getInstance().setLoggedIn(loggedIn);
-        	if (loggedIn) {
-        		ApplicationGlobals.getInstance().setUserpass(savedState.getString(USER_PASS_KEY));
-        	}
-        }
-        */
 
         initializeHeader();
+        
         // Initialize fonts
         helvetica = Typeface.createFromAsset(getAssets(), "fonts/HelveticaNeueCE55Roman.ttf");
         

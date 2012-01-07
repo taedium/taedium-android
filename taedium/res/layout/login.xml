@@ -10,6 +10,7 @@
  		<EditText
 			android:id="@+id/etUserName"
 			style="@style/DialogControl"
+			android:inputType="textNoSuggestions"
 			android:width="120dp">
 		</EditText>
  		<TextView

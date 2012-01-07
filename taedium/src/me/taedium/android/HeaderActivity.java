@@ -59,7 +59,8 @@ public class HeaderActivity extends Activity {
             case DIALOG_LOGIN:
                 dialog.setContentView(R.layout.login);
                 dialog.setTitle("Login");
-                // Create new account
+                
+                // Create new account button
                 Button bRegister = (Button)dialog.findViewById(R.id.bCreateAccount);
                 bRegister.setOnClickListener(new View.OnClickListener() {
 					
