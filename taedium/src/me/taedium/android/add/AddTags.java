@@ -44,7 +44,7 @@ public class AddTags extends WizardActivity {
                 fillData();
                 
                 // Submit the activity to the server
-                boolean success = Caller.getInstance().addRecommendation(data);
+                boolean success = Caller.getInstance(getApplicationContext()).addRecommendation(data);
                 if (success) {
                     Toast.makeText(AddTags.this, getString(R.string.msgAddSuccess), Toast.LENGTH_LONG).show();
                 } else {
@@ -160,7 +160,7 @@ public class AddTags extends WizardActivity {
         }
         String name = data.getString("name");
         String desc = data.getString("desc");
-        return Caller.getInstance().getRecommendedTags(name, desc);
+        return Caller.getInstance(getApplicationContext()).getRecommendedTags(name, desc);
     }
 
     @Override

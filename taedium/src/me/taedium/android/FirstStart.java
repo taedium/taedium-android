@@ -73,6 +73,8 @@ public class FirstStart extends HeaderActivity {
         //Intent i = new Intent(this, AddName.class);
         //startActivity(i);
         
+    	/*
+    	 *TODO REMOVE THIS CODE ONCE PERSITENT LOGIN WORKS
         // Restore login if available
         if (savedState != null) {
         	boolean loggedIn = savedState.getBoolean(LOGGED_IN_KEY);
@@ -81,6 +83,7 @@ public class FirstStart extends HeaderActivity {
         		ApplicationGlobals.getInstance().setUserpass(savedState.getString(USER_PASS_KEY));
         	}
         }
+        */
 
         initializeHeader();
         // Initialize fonts

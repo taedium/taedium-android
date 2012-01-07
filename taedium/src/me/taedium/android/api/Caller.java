@@ -26,6 +26,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -53,12 +54,15 @@ public class Caller {
     private static final String PARAM_TOKEN = "&";
     private static final String EQUALS_TOKEN = "=";
     
+    private Context context;
+    
     // private constructor
     private Caller() {}
     
-    public static Caller getInstance() {
+    public static Caller getInstance(Context context) {
         if (instance == null) {
             instance = new Caller();
+            instance.context = context;
             gson = new Gson();
         }
         return instance;
@@ -69,8 +73,8 @@ public class Caller {
     	String url = CHECK_LOGIN + user;
     	if (!(user == null || password == null) && 
     			!(user.equalsIgnoreCase("")|| password.equalsIgnoreCase(""))) {
-        	ApplicationGlobals.getInstance().setUserpass(user + ":" + password);
-            ApplicationGlobals.getInstance().setLoggedIn(true);
+        	ApplicationGlobals.getInstance().setUserpass(user + ":" + password, context);
+            ApplicationGlobals.getInstance().setLoggedIn(true, context);
         	HttpGet httpGet = new HttpGet(url);
         	HttpResponse response = makeCall(httpGet);
         	if( checkResponse(response, HttpStatus.SC_OK) ) { 
@@ -79,7 +83,7 @@ public class Caller {
         	} 
     	}
 	    Log.i(MODULE, "Login failed");
-        ApplicationGlobals.getInstance().setLoggedIn(false);
+        ApplicationGlobals.getInstance().setLoggedIn(false, context);
 		return false;
 	}
     
@@ -219,8 +223,8 @@ public class Caller {
         if( !checkResponse(response, HttpStatus.SC_CREATED));
         
         // Save the user's credentials and mark them as logged in
-        ApplicationGlobals.getInstance().setUserpass(user + ":" + password);
-        ApplicationGlobals.getInstance().setLoggedIn(true);
+        ApplicationGlobals.getInstance().setUserpass(user + ":" + password, context);
+        ApplicationGlobals.getInstance().setLoggedIn(true, context);
         return true;
     }
     
@@ -251,7 +255,7 @@ public class Caller {
     // Make a put request to like/dislike an activity
     // returns true if successful, false otherwise
     public boolean likeDislike(int activityId, boolean like) {
-    	String url = API_URL + LIKES_API_PREFIX + "/" + ApplicationGlobals.getInstance().getUser() + "/" + LIKES_API_SUFFIX;
+    	String url = API_URL + LIKES_API_PREFIX + "/" + ApplicationGlobals.getInstance().getUser(context) + "/" + LIKES_API_SUFFIX;
     	
     	// Construct json
     	String json = "{\"activity_id\":" + activityId + ",\"like\":" + like + "}";
@@ -274,7 +278,7 @@ public class Caller {
     // Make a delete request to remove a like/dislike from an activity
     // return true if successful, false otherwise
     public boolean removeLikeDislike(int activityId) {
-    	String url = API_URL + LIKES_API_PREFIX + "/" + ApplicationGlobals.getInstance().getUser() 
+    	String url = API_URL + LIKES_API_PREFIX + "/" + ApplicationGlobals.getInstance().getUser(context) 
     		+ "/" + LIKES_API_SUFFIX + QUERY_TOKEN + ACTIVITY_ID + EQUALS_TOKEN + activityId;
    	
     	// Construct the delete call
@@ -370,9 +374,9 @@ public class Caller {
     // Helper to make all Http Calls
     private HttpResponse makeCall(HttpUriRequest request) {
     	 HttpClient httpClient = new DefaultHttpClient();
-         if (ApplicationGlobals.getInstance().isLoggedIn()) {
+         if (ApplicationGlobals.getInstance().isLoggedIn(context)) {
              request.addHeader("Authorization", "Basic " + Base64.encodeToString(
-                     ApplicationGlobals.getInstance().getUserpass().getBytes(), 0).trim());
+                     ApplicationGlobals.getInstance().getUserpass(context).getBytes(), 0).trim());
          }
          HttpResponse response = null;
          try {

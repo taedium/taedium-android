@@ -6,6 +6,8 @@ import java.util.HashSet;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -18,6 +20,9 @@ import android.widget.Toast;
 //between activities is via globals, hence the existence of this class.
 public class ApplicationGlobals {
     private static final String MODULE = "GLOBALS";
+    private static final String SHARED_PREFS_NAME = "TaediumPrefs";
+    private static final String LOGGED_IN_KEY = "LoggedIn";
+    private static final String USERPASS_KEY = "Userpass";
     
     //TODO: used age instead of pass KIDFRIENDLY/ADULTSONLY
     public enum RecParamType {
@@ -41,8 +46,6 @@ public class ApplicationGlobals {
     private final HashSet<RecParamType> unaryParams = new HashSet<RecParamType>();    
     private static ApplicationGlobals instance = null;    
     private HashMap<RecParamType, String> recommendationParams = new HashMap<RecParamType, String>();
-    private String userpass;
-    private boolean loggedIn = false;
     private boolean mLocationEnabled = false;
     private CurrentLocationListener mLocationListener;
     private LocationManager mLocationManager;
@@ -85,29 +88,44 @@ public class ApplicationGlobals {
         return unaryParams.contains(type);
     }
     
-    public String getUser() {
+    public String getUser(Context context) {
+    	String userpass = getUserpass(context);
+    	if (userpass == null) return "";
     	int index = userpass.indexOf(':');
     	return userpass.substring(0, index);
     }
     
-    public void setUserpass(String userpass) {
-        this.userpass = userpass;
+    public void setUserpass(String userpass, Context context) {
+		SharedPreferences settings = context.getSharedPreferences(SHARED_PREFS_NAME, 0);
+		Editor editor = settings.edit();
+		editor.putString(USERPASS_KEY, userpass);
+		editor.commit();
     }
 
-    public String getUserpass() {
-        return userpass;
+    public String getUserpass(Context context) {
+		SharedPreferences settings = context.getSharedPreferences(SHARED_PREFS_NAME, 0);
+		return settings.getString(USERPASS_KEY, null);
     }
 
     public HashMap<RecParamType,String> getRecommendationParams() {
         return recommendationParams;
     }
 
-	public void setLoggedIn(boolean loggedIn) {
-		this.loggedIn = loggedIn;
+	public void setLoggedIn(boolean loggedIn, Context context) {
+		SharedPreferences settings = context.getSharedPreferences(SHARED_PREFS_NAME, 0);
+		Editor editor = settings.edit();
+		editor.putBoolean(LOGGED_IN_KEY, loggedIn);
+		editor.commit();
+		
+		// if logging out, remove userpass from storage
+		if (!loggedIn) {
+			setUserpass("", context);
+		}
 	}
 
-	public boolean isLoggedIn() {
-		return loggedIn;
+	public boolean isLoggedIn(Context context) {
+		SharedPreferences settings = context.getSharedPreferences(SHARED_PREFS_NAME, 0);
+		return settings.getBoolean(LOGGED_IN_KEY, false);
 	}
 	
 	public static int getCurrentTimeInSeconds() {

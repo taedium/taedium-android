@@ -244,7 +244,7 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
 	        			FirstStart.addRecommendationParam(RecParamType.LONG, Double.toString(location.getLongitude()));
 	        		}
 	        	}
-	            return Caller.getInstance().getRecommendations();
+	            return Caller.getInstance(mContext).getRecommendations();
 	        }
 	    }
 	}

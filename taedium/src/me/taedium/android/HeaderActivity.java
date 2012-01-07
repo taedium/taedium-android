@@ -1,9 +1,10 @@
 package me.taedium.android;
 
+import me.taedium.android.add.AddName;
+import me.taedium.android.api.Caller;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,10 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
-
-import me.taedium.android.R;
-import me.taedium.android.api.Caller;
-import me.taedium.android.add.AddName;
 
 public class HeaderActivity extends Activity {
     protected ViewSwitcher vsLoggedIn;
@@ -32,7 +29,7 @@ public class HeaderActivity extends Activity {
     public void initializeHeader() {
         // Initialize login ViewSwitcher
         vsLoggedIn = (ViewSwitcher)findViewById(R.id.loginSwitcher);
-        if (ApplicationGlobals.getInstance().isLoggedIn()) {
+        if (ApplicationGlobals.getInstance().isLoggedIn(getApplicationContext())) {
             vsLoggedIn.showNext();
         }
 
@@ -79,7 +76,7 @@ public class HeaderActivity extends Activity {
                         //Authenticate user
                     	EditText userText = (EditText)dialog.findViewById(R.id.etUserName);
                     	EditText passText = (EditText)dialog.findViewById(R.id.etPassword);                    	                    	
-                        boolean is_authenticated = Caller.getInstance().checkLogin(
+                        boolean is_authenticated = Caller.getInstance(getApplicationContext()).checkLogin(
                         		userText.getText().toString(), passText.getText().toString());
                         if (is_authenticated) {
                             vsLoggedIn.showNext();
@@ -108,24 +105,26 @@ public class HeaderActivity extends Activity {
     	ViewSwitcher vsLogin = (ViewSwitcher)findViewById(R.id.loginSwitcher);    	
     	switch(vsLogin.getCurrentView().getId()) {
     	case R.id.llLogin:
-    		if (ApplicationGlobals.getInstance().isLoggedIn()) {
+    		if (ApplicationGlobals.getInstance().isLoggedIn(getApplicationContext())) {
     			vsLogin.showNext();
         	}
     		break;
     	case R.id.llAdd:
-    		if (!ApplicationGlobals.getInstance().isLoggedIn()) {
+    		if (!ApplicationGlobals.getInstance().isLoggedIn(getApplicationContext())) {
     			vsLogin.showNext();
         	}
     		break;
     	}
     }
     
+    /*
     @Override
     protected void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
     	outState.putBoolean(LOGGED_IN_KEY, ApplicationGlobals.getInstance().isLoggedIn());
     	outState.putString(USER_PASS_KEY, ApplicationGlobals.getInstance().getUserpass());    	
     }
+    */
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -137,7 +136,7 @@ public class HeaderActivity extends Activity {
     
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-    	if (ApplicationGlobals.getInstance().isLoggedIn()) {
+    	if (ApplicationGlobals.getInstance().isLoggedIn(getApplicationContext())) {
     		menu.findItem(R.id.mnuLogin).setVisible(false);
     		menu.findItem(R.id.mnuLogout).setVisible(true);
     		menu.findItem(R.id.mnuRegister).setVisible(false);
@@ -168,8 +167,8 @@ public class HeaderActivity extends Activity {
     // Logout helper
     private void logout() {
     	ApplicationGlobals globals = ApplicationGlobals.getInstance();
-    	globals.setUserpass("");
-		globals.setLoggedIn(false);
+    	globals.setUserpass("", getApplicationContext());
+		globals.setLoggedIn(false, getApplicationContext());
 		ViewSwitcher vsLogin = (ViewSwitcher)findViewById(R.id.loginSwitcher);
 		vsLogin.showNext();
 		Toast.makeText(this, getString(R.string.msgLoggedOut), Toast.LENGTH_LONG).show();

@@ -65,7 +65,7 @@ public class Register extends HeaderActivity {
 					Toast.makeText(Register.this, getString(R.string.msgPasswordsNotMatching), Toast.LENGTH_LONG).show();
 				}
 				else {
-					boolean success = Caller.getInstance().addUser(user, password, email, getFormattedDOB());
+					boolean success = Caller.getInstance(getApplicationContext()).addUser(user, password, email, getFormattedDOB());
 					if(success) {
 						Toast.makeText(Register.this, getString(R.string.msgRegistered), Toast.LENGTH_LONG).show();						
 						finish();
