@@ -180,7 +180,7 @@
                 android:layout_marginLeft="11dp"
                 android:paddingTop="7dp"
                 android:paddingBottom="7dp"
-                android:background="@drawable/map_button"
+                android:background="@drawable/btn_map"
                 android:textSize="12sp"
                 android:text="@string/bShowMap">
             </Button>

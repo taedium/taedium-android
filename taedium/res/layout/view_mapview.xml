@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
+        android:background="@drawable/btn_default_no_margin"
         android:text="@string/bGetDirections">
     </Button>
     <com.google.android.maps.MapView
