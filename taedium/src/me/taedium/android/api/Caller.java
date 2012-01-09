@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 
 import me.taedium.android.ApplicationGlobals;
 import me.taedium.android.R;
@@ -25,6 +26,8 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -53,6 +56,8 @@ public class Caller {
     private static final String QUERY_TOKEN = "?";
     private static final String PARAM_TOKEN = "&";
     private static final String EQUALS_TOKEN = "=";
+    
+    private static final String LIKE_KEY = "is_liked_by_user";
     
     private Context context;
     
@@ -136,7 +141,9 @@ public class Caller {
                     Log.e(MODULE, e.getMessage());
                 }
                 if (recs != null) {
+                	// Get like info for activity and add to ArrayList
                     for (int i = 0; i<recs.length; i++) {
+                		recs[i].setLikedByUser(getLikeInfo(recs[i].getId()));
                         ret.add(recs[i]);
                     }
                 }
@@ -250,6 +257,52 @@ public class Caller {
         
         HttpResponse response = makeCall(httpPost);
         return checkResponse(response, HttpStatus.SC_CREATED);
+    }
+    
+    // Make a get request for like/dislike information
+    // TODO Left off here. Need to make sure this API call works!
+    public Boolean getLikeInfo(int activityId) {
+    	
+	    // If no user is logged in, return null
+    	if (!ApplicationGlobals.getInstance().isLoggedIn(context)) {
+    		return null;
+    	}
+    	
+    	String url = API_URL + LIKES_API_PREFIX + "/" + ApplicationGlobals.getInstance().getUser(context)
+    		+ "/" + LIKES_API_SUFFIX + QUERY_TOKEN + ACTIVITY_ID + EQUALS_TOKEN + activityId;
+    	
+    	Log.i(MODULE, "Requesting: " + url);
+        HttpGet request = new HttpGet(url);
+        HttpResponse response = makeCall(request);
+         
+        if (!checkResponse(response, HttpStatus.SC_OK)) {
+        	return null;
+        }
+         
+        String jsonString = null;
+		try {
+			jsonString = new Scanner(response.getEntity().getContent(), "UTF-8").useDelimiter("\\A").next();
+		} catch (IllegalStateException e) {
+			Log.e(MODULE, "Error parsing response for getLikeInfo");
+		} catch (IOException e) {
+			Log.e(MODULE, "Error parsing response for getLikeInfo");
+		} catch (NullPointerException e) {
+			Log.e(MODULE, "Error parsing response for getLikeInfo");
+		}
+		if (jsonString == null) return null;
+		
+		try {
+			JSONObject json  = new JSONObject(jsonString);
+			String liked = json.getString(LIKE_KEY);
+			
+			if (liked.equalsIgnoreCase("true")) return true;
+			else if (liked.equalsIgnoreCase("false")) return false;
+			else return null;
+		} catch (JSONException e) {
+			Log.e(MODULE, "Error parsing response for getLikeInfo");
+		}
+		
+		return null;
     }
     
     // Make a put request to like/dislike an activity
@@ -396,8 +449,8 @@ public class Caller {
             return false;
         }
         else if (response.getStatusLine().getStatusCode() != expectedStatusCode) {
-            Log.i(MODULE, "Expected response code of: " + expectedStatusCode + " Server returned: " + response.getStatusLine().getStatusCode());
-            Log.i(MODULE, "Reason: " + response.getStatusLine().getReasonPhrase());
+            Log.e(MODULE, "Expected response code of: " + expectedStatusCode + " Server returned: " + response.getStatusLine().getStatusCode());
+            Log.e(MODULE, "Reason: " + response.getStatusLine().getReasonPhrase());
             return false;
         }
     	return true;
