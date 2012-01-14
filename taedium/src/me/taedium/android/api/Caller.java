@@ -70,6 +70,11 @@ public class Caller {
     
     // Validate a username/password
     public boolean checkLogin(String user, String password) {
+        try {
+            user = URLEncoder.encode(user, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Log.e(MODULE, e.getMessage());
+        }
     	String url = CHECK_LOGIN + user;
     	if (!(user == null || password == null) && 
     			!(user.equalsIgnoreCase("")|| password.equalsIgnoreCase(""))) {
