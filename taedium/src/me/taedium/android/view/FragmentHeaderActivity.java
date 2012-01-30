@@ -18,11 +18,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
 public class FragmentHeaderActivity extends FragmentActivity {
-    protected ViewSwitcher vsLoggedIn;
-    protected Button bLogin;
     protected Button bAdd;
    
     private static final int ACTIVITY_CREATE = 50;
@@ -32,19 +29,6 @@ public class FragmentHeaderActivity extends FragmentActivity {
     protected static final String USER_PASS_KEY = "userpass";
     
     public void initializeHeader() {
-        // Initialize login ViewSwitcher
-        vsLoggedIn = (ViewSwitcher)findViewById(R.id.loginSwitcher);
-        if (ApplicationGlobals.getInstance().isLoggedIn(getApplicationContext())) {
-            vsLoggedIn.showNext();
-        }
-
-        // Initialize bLogin
-        bLogin = (Button) findViewById(R.id.bLogin);
-        bLogin.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(DIALOG_LOGIN);
-            }
-        });
         
         // Initialize bAdd
         bAdd = (Button)findViewById(R.id.bAdd);
@@ -84,7 +68,6 @@ public class FragmentHeaderActivity extends FragmentActivity {
                         boolean is_authenticated = Caller.getInstance(getApplicationContext()).checkLogin(
                         		userText.getText().toString(), passText.getText().toString());
                         if (is_authenticated) {
-                            vsLoggedIn.showNext();
                             Toast.makeText(FragmentHeaderActivity.this, R.string.msgLoginSuccess, Toast.LENGTH_LONG).show();
                         }
                         else {
@@ -99,27 +82,6 @@ public class FragmentHeaderActivity extends FragmentActivity {
                 return super.onCreateDialog(id);
         }
         return dialog;
-    }
-    
-    @Override
-    protected void onResume() {
-    	super.onResume();
-    	
-    	// Make sure the view switcher is in the correct state since a user may have logged in/out
-    	// in a different activity
-    	ViewSwitcher vsLogin = (ViewSwitcher)findViewById(R.id.loginSwitcher);    	
-    	switch(vsLogin.getCurrentView().getId()) {
-    	case R.id.llLogin:
-    		if (ApplicationGlobals.getInstance().isLoggedIn(getApplicationContext())) {
-    			vsLogin.showNext();
-        	}
-    		break;
-    	case R.id.llAdd:
-    		if (!ApplicationGlobals.getInstance().isLoggedIn(getApplicationContext())) {
-    			vsLogin.showNext();
-        	}
-    		break;
-    	}
     }
     
     @Override
@@ -172,8 +134,6 @@ public class FragmentHeaderActivity extends FragmentActivity {
     	ApplicationGlobals globals = ApplicationGlobals.getInstance();
     	globals.setUserpass("", getApplicationContext());
 		globals.setLoggedIn(false, getApplicationContext());
-		ViewSwitcher vsLogin = (ViewSwitcher)findViewById(R.id.loginSwitcher);
-		vsLogin.showNext();
 		Toast.makeText(this, getString(R.string.msgLoggedOut), Toast.LENGTH_LONG).show();
 		
 		// return to main screen

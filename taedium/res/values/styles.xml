@@ -137,7 +137,7 @@
     </style>
     
     <style name="HeaderButton">
-   		<item name="android:layout_width">fill_parent</item>
+   		<item name="android:layout_width">wrap_content</item>
    		<item name="android:layout_height">35dp</item>
    		<item name="android:layout_alignParentRight">true</item>   		
    		<item name="android:background">@drawable/b_header_bg_fsm</item>

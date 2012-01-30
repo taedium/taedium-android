@@ -79,7 +79,7 @@ public class FirstStart extends HeaderActivity {
         helvetica = Typeface.createFromAsset(getAssets(), "fonts/HelveticaNeueCE55Roman.ttf");
         
         // Initialize bTaedium
-        bTaedium = (Button) findViewById(R.id.bTaedium);                
+        bTaedium = (Button) findViewById(R.id.bTaedium);
         bTaedium.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {            	
                 // If using location, get latest GPS coordinates

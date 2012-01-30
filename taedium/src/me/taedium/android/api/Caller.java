@@ -450,12 +450,12 @@ public class Caller {
     // Helper to check that a Http response is successful 
     private boolean checkResponse(HttpResponse response, int expectedStatusCode) {
     	if (response == null) {
-            Log.e(MODULE, "Did not receive response from server.");
+            Log.w(MODULE, "Did not receive response from server.");
             return false;
         }
         else if (response.getStatusLine().getStatusCode() != expectedStatusCode) {
-            Log.e(MODULE, "Expected response code of: " + expectedStatusCode + " Server returned: " + response.getStatusLine().getStatusCode());
-            Log.e(MODULE, "Reason: " + response.getStatusLine().getReasonPhrase());
+            Log.w(MODULE, "Expected response code of: " + expectedStatusCode + " Server returned: " + response.getStatusLine().getStatusCode());
+            Log.w(MODULE, "Reason: " + response.getStatusLine().getReasonPhrase());
             return false;
         }
     	return true;
