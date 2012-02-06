@@ -25,10 +25,13 @@
         android:src="@drawable/taedium_logo" >
     </ImageView>
 
-    <Button
+    <ImageButton
         android:id="@+id/vHeader"
-        style="@style/HeaderButton"
-        android:text="@string/bAdd" >
-    </Button>
-
+   		android:layout_width="wrap_content"
+   		android:layout_height="35dp"
+   		android:layout_alignParentRight="true"
+   		android:layout_marginRight="10dp"	
+   		android:background="@android:color/transparent"
+        android:src="@drawable/ic_help">
+    </ImageButton>
 </RelativeLayout>

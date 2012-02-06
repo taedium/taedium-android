@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
     <include
         android:id="@+id/HeaderBar"
-        layout="@layout/header">
+        layout="@layout/header_help">
     </include>
 	<!-- TODO Don't use hard-coded number for marginBottom -->
     <ScrollView

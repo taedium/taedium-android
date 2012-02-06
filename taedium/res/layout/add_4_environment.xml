@@ -7,7 +7,7 @@
     android:layout_height="fill_parent">
     <include
         android:id="@+id/HeaderBar" 
-        layout="@layout/header">
+        layout="@layout/header_help">
     </include>
     <ScrollView
         style="@style/BaseView"

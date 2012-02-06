@@ -166,6 +166,61 @@
     <string name="default_city">Waterloo</string>
     <string name="default_province">ON</string>
     
+    <!-- Help Texts -->
+    <string name="help_add_name_title"><b>Name and Description</b></string>
+    <string name="help_add_name">
+        This page contains basic information about the activity.\n
+        \n
+        Name: (Required) Enter a short descriptive name for the activity.\n
+        \n
+        Description: In a paragraph or two describe how to carry out the activity. You can also type or paste links into this box.
+    </string>
+
+    <string name="help_add_people_title">People and Age</string>
+    <string name="help_add_people">
+        This page contains information relating to people.\n
+        \n
+        Number of People: Enter a the minimum and maximum number of people that can perform this activity at the same time.\n
+        \n
+        Age: Some activities aren\'t appropriate for younger persons. If the activity requires persons to be the age of majority
+        select "Adult". Otherwise choose "All Ages" or "Kids Only".
+    </string>
+    <string name="help_add_time_title">Time and Duration</string>
+    <string name="help_add_time">
+        This page contains time related information.\n
+        \n
+        Duration: Enter the minimum and maximum amount of time the activity will take. For example watching a tv show might take 30 minutes.\n
+        \n
+        Time: Enter the time of day during which the activity can be performed. For example certain activities can only be done at night.
+    </string>
+    <string name="help_add_environment_title">Environment and Cost</string>
+    <string name="help_add_environment">
+        This page contains information related to the activity\'s environment.\n
+        \n
+        Environment: Specify whether the activity is indoor, outdoor or around the town (e.g going to a bar downtown). Activities could potentially 
+        have more than one environment.\n
+        \n
+        Cost: Estimate how much the activity will cost. Also specify whether the cost is total for the whole group or if it is per person.
+    </string>
+    <string name="help_add_location_title">Location</string>
+    <string name="help_add_location">
+        This page is only relevant if the activity is specific to a geographical location. If the activity does not depend on a location, skip this step.\n
+        \n
+        Enter the location via one of three different methods:\n
+        1) Current Location: Uses your current position as the location.\n
+        2) Use Map: Find the location of the activity on the map, press the map to set a marker at that location, then push the "Use Selected" button.\n
+        3) Enter Address: Enter the address of the activity into the dialog box. The location will be automatically calculated.
+    </string>
+    <string name="help_add_tags_title">Tags</string>
+    <string name="help_add_tags">
+        This page contains tags which are descriptive words about the activity. Tags allow us to provide more accurate recommendations.\n
+        \n
+        Activities must have at least one tags associated with them.\n
+        \n
+       	Some tags may be automatically generated based on the activity\'s name and description. You can also add tags manually as well by clicking the 
+       	"Add Tags Manually" button.
+    </string>
+    
     <!-- Arrays -->
     <string-array name="lvOptionsArray">
         <item>People</item>

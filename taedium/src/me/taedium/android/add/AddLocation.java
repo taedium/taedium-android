@@ -52,6 +52,9 @@ public class AddLocation extends WizardActivity {
  
         initializeWizard(this, AddTags.class, ACTIVITY_ADD_TAGS);
         data = getIntent().getExtras();
+
+        title = this.getResources().getString(R.string.help_add_location_title);
+        helpText = this.getResources().getString(R.string.help_add_location); 
         
         // Setup the click listeners for the location buttons
         bMyLocation = (Button)findViewById(R.id.bAddMyLocation);

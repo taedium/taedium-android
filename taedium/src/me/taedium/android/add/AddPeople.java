@@ -21,6 +21,9 @@ public class AddPeople extends WizardActivity {
         
         initializeWizard(this, AddTime.class, ACTIVITY_ADD_TIME);
         data = getIntent().getExtras();
+
+        title = this.getResources().getString(R.string.help_add_people_title);
+        helpText = this.getResources().getString(R.string.help_add_people); 
         
         etMinPeople = (EditText)findViewById(R.id.etAddMinPeople);
         etMaxPeople = (EditText)findViewById(R.id.etAddMaxPeople);

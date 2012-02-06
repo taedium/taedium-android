@@ -15,23 +15,28 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class HeaderActivity extends Activity {
-    protected Button bAdd;
+    protected View vHeader;
    
     private static final int ACTIVITY_CREATE = 50;
     private static final int ACTIVITY_REGISTER = 60;
     private static final int DIALOG_LOGIN = 200;
     protected static final String LOGGED_IN_KEY = "loggedIn";
     protected static final String USER_PASS_KEY = "userpass";
-    
+
     public void initializeHeader() {
-        // Initialize bAdd
-        bAdd = (Button)findViewById(R.id.bAdd);
-        bAdd.setOnClickListener(new View.OnClickListener() {
+        vHeader = findViewById(R.id.vHeader);
+        vHeader.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(HeaderActivity.this, AddName.class);
                 startActivityForResult(i, ACTIVITY_CREATE);                  
             }
         });
+    }
+    
+    public void initializeHeader(View.OnClickListener callback) {
+        // Initialize bAdd
+        vHeader = findViewById(R.id.vHeader);
+        vHeader.setOnClickListener(callback);
     }
     
     @Override

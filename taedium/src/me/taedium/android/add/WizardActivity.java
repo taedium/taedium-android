@@ -2,11 +2,15 @@ package me.taedium.android.add;
 
 import me.taedium.android.HeaderActivity;
 import me.taedium.android.R;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public abstract class WizardActivity extends HeaderActivity {
     protected final static int ACTIVITY_ADD_PEOPLE = 550;
@@ -16,16 +20,22 @@ public abstract class WizardActivity extends HeaderActivity {
     protected final static int ACTIVITY_ADD_TAGS = 554;
     protected final static int ACTIVITY_FIRST_START = 555;
     
+    protected final static int DIALOG_HELP = 1001;
+    
+    protected String title = "";
+    protected String helpText = "";
+    
     protected Bundle data;
     protected Button bBack, bNext;
     
     protected void initializeWizard(final Context context, final Class<?> cls, final int requestCode) {
-        initializeHeader();
-        
-        // Set header button to no longer be clickable since we are already on "Add Activity" page
-        Button bAddRec = (Button)findViewById(R.id.bAdd);
-        bAddRec.setEnabled(false);
-        bAddRec.setVisibility(Button.INVISIBLE);
+        // Initialize the header and help button
+        initializeHeader(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(DIALOG_HELP);
+            }
+        });
 
         // Initialize the back and previous buttons
         bNext = (Button)findViewById(R.id.bAddNext);
@@ -60,6 +70,31 @@ public abstract class WizardActivity extends HeaderActivity {
         if (resultCode == RESULT_OK) {
             data = i.getExtras();
         }
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        Button bOk;
+        final Dialog dialog;
+        dialog = new Dialog(new ContextThemeWrapper(this, R.style.Dialog));
+        switch(id) {
+            case DIALOG_HELP:
+                dialog.setContentView(R.layout.dialog_help);
+                dialog.setTitle(title);
+                TextView text = (TextView)dialog.findViewById(R.id.tvHelpText);
+                text.setText(helpText);
+                bOk = (Button)dialog.findViewById(R.id.bOk);
+                bOk.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        dismissDialog(DIALOG_HELP);
+                    }
+                });
+                break;
+            default:
+                // This activity dialog not known to this activity
+                return super.onCreateDialog(id);
+        }
+        return dialog;
     }
     
     protected abstract void fillData();

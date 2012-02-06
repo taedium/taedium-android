@@ -20,6 +20,9 @@ public class AddEnvironment extends WizardActivity {
         
         initializeWizard(this, AddLocation.class, ACTIVITY_ADD_LOCATION);
         data = getIntent().getExtras();
+
+        title = this.getResources().getString(R.string.help_add_environment_title);
+        helpText = this.getResources().getString(R.string.help_add_environment); 
         
         cbIndoor = (CheckBox)findViewById(R.id.cbAddIndoor);
         cbOutdoor = (CheckBox)findViewById(R.id.cbAddOutdoor);

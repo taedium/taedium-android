@@ -28,6 +28,9 @@ public class AddTime extends WizardActivity {
         
         initializeWizard(this, AddEnvironment.class, ACTIVITY_ADD_ENVIRONMENT);
         data = getIntent().getExtras();
+
+        title = this.getResources().getString(R.string.help_add_time_title);
+        helpText = this.getResources().getString(R.string.help_add_time); 
         
         // Setup the duration edit texts
         etMinDuration = (EditText)findViewById(R.id.etAddMinDuration);

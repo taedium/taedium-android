@@ -38,6 +38,9 @@ public class AddTags extends WizardActivity {
         
         initializeWizard(this, FirstStart.class, 0);
         data = getIntent().getExtras();
+
+        title = this.getResources().getString(R.string.help_add_tags_title);
+        helpText = this.getResources().getString(R.string.help_add_tags); 
         
         // Override the default next button behaviour
         bNext.setOnClickListener(new View.OnClickListener() {

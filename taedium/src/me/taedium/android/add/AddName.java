@@ -16,6 +16,9 @@ public class AddName extends WizardActivity {
         
         initializeWizard(this, AddPeople.class, ACTIVITY_ADD_PEOPLE);
         data = new Bundle();
+        
+        title = this.getResources().getString(R.string.help_add_name_title);
+        helpText = this.getResources().getString(R.string.help_add_name); 
        
         bNext.setEnabled(false);
         
