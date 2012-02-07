@@ -31,7 +31,7 @@ public class FragmentHeaderActivity extends FragmentActivity {
     public void initializeHeader() {
         
         // Initialize bAdd
-        bAdd = (Button)findViewById(R.id.bAdd);
+        bAdd = (Button)findViewById(R.id.vHeader);
         bAdd.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(FragmentHeaderActivity.this, AddName.class);
