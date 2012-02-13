@@ -42,7 +42,7 @@ public class Caller {
     private static Caller instance = null;
     private static Gson gson;
     // API Strings
-    private static final String API_URL = "http://www.taedium.me/api/";
+    private static final String API_URL = "https://www.taedium.me/api/";
     private static final String ADD_USER = API_URL + "users";
     private static final String CHECK_LOGIN = API_URL + "users/";
     private static final String FLAG_ACTIVITY = API_URL + "flags";
