@@ -20,6 +20,6 @@
         android:layout_height="fill_parent"
         android:layout_above="@id/bGetDirections"
         android:clickable="true"
-        android:apiKey="0KVJrKX8oiVrZuviJYRb_upOCaGuSelYQLIJ6tA">
+        android:apiKey="0yEB8P1YzGxfseeZzwE9ydHEDTGrVujO1Xu5I_A">
     </com.google.android.maps.MapView>
 </RelativeLayout>

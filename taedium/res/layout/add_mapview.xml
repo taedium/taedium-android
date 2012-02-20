@@ -31,7 +31,7 @@
 		android:layout_height="fill_parent"
 		android:layout_below="@id/etSearchMap"
 		android:layout_above="@id/bMapFinished"
-		android:apiKey="0KVJrKX8oiVrZuviJYRb_upOCaGuSelYQLIJ6tA"
+		android:apiKey="0yEB8P1YzGxfseeZzwE9ydHEDTGrVujO1Xu5I_A"
 		android:clickable="true">
     </com.google.android.maps.MapView>
 	<ImageView
