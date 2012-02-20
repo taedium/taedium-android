@@ -20,7 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class FragmentHeaderActivity extends FragmentActivity {
-    protected Button bAdd;
+    protected View vHeader;
    
     private static final int ACTIVITY_CREATE = 50;
     private static final int ACTIVITY_REGISTER = 60;
@@ -29,15 +29,19 @@ public class FragmentHeaderActivity extends FragmentActivity {
     protected static final String USER_PASS_KEY = "userpass";
     
     public void initializeHeader() {
-        
-        // Initialize bAdd
-        bAdd = (Button)findViewById(R.id.vHeader);
-        bAdd.setOnClickListener(new View.OnClickListener() {
+        vHeader = findViewById(R.id.vHeader);
+        vHeader.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(FragmentHeaderActivity.this, AddName.class);
                 startActivityForResult(i, ACTIVITY_CREATE);                  
             }
         });
+    }
+    
+    public void initializeHeader(View.OnClickListener callback) {
+        // Initialize bAdd
+        vHeader = findViewById(R.id.vHeader);
+        vHeader.setOnClickListener(callback);
     }
     
     @Override
