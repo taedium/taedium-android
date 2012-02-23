@@ -33,7 +33,7 @@ public class Register extends HeaderActivity {
         initializeHeader();
         
         // Set header buttons to no longer be visable since we are on Register page
-        Button btAdd = (Button)findViewById(R.id.bAdd);
+        Button btAdd = (Button)findViewById(R.id.vHeader);
         btAdd.setVisibility(ViewSwitcher.INVISIBLE);
         
         // Setup onClick event for DOB
