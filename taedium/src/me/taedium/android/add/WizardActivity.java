@@ -75,7 +75,7 @@ public abstract class WizardActivity extends HeaderActivity {
     protected Dialog onCreateDialog(int id) {
         Button bOk;
         final Dialog dialog;
-        dialog = new Dialog(new ContextThemeWrapper(this, R.style.Dialog));
+        dialog = new Dialog(this, R.style.HelpDialog);
         switch(id) {
             case DIALOG_HELP:
                 dialog.setContentView(R.layout.dialog_help);
