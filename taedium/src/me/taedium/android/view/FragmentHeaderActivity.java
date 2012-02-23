@@ -10,11 +10,11 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -47,7 +47,11 @@ public class FragmentHeaderActivity extends FragmentActivity {
     @Override
     protected Dialog onCreateDialog(int id) {
         final Dialog dialog;
-        dialog = new Dialog(new ContextThemeWrapper(this, R.style.Dialog));
+        dialog = new Dialog(this, R.style.Dialog);
+        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+        lp.dimAmount = 0.0f;
+        dialog.getWindow().setAttributes(lp);
+        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         switch(id) {
             case DIALOG_LOGIN:
                 dialog.setContentView(R.layout.login);
