@@ -2,6 +2,7 @@ package me.taedium.android;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -68,6 +69,9 @@ public class Register extends HeaderActivity {
 					boolean success = Caller.getInstance(getApplicationContext()).addUser(user, password, email, getFormattedDOB());
 					if(success) {
 						Toast.makeText(Register.this, getString(R.string.msgRegistered), Toast.LENGTH_LONG).show();						
+						notifyLoggedIn();
+						Intent i = new Intent(Register.this, FirstStart.class);
+						startActivity(i);
 						finish();
 					}
 					else {

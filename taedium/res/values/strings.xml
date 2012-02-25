@@ -19,6 +19,7 @@
     <string name="duration_dialog_title">Duration Filters</string>
     <string name="cost_dialog_title">Cost Filters</string>
     <string name="flag_dialog_title">Flag Activity</string>
+    <string name ="profile_page_title">Profile</string>
     
     <!-- Widgets -->
     <string name="cbAddIndoor">Indoors</string>
@@ -46,7 +47,7 @@
     <string name="bUpVote">Like</string>
     <string name="bDownVote">Dislike</string>
     <string name="bFlag">Flag</string>
-    <string name="bCreateAccount"><u>Create one now</u></string>
+    <string name="bCreateAccount">Create one now</string>
     <string name="bDOB">Click here to enter</string>
     <string name="bRegisterAccount">Create Account</string>
     <string name="bShowMap">Show Map</string>
@@ -54,6 +55,7 @@
     <string name="bMapFinished">Use Selected Location</string>
     <string name="bSubmitFlag">Submit Flag</string>
     <string name="bAddNewTag">Add Tags Manually</string>
+    <string name="bProfile"><u>Me</u></string>
     
     <!-- Labels -->
     <string name="tvAddName">Name *</string>
@@ -109,6 +111,8 @@
     <string name="tvAddTagsFormatDescription">Format: tag1, tag2, tag3, ..."</string>
     <string name="tvAddStarredRequired">Fields marked with * are required fields.</string>
     <string name="tvRegFieldsMandatory">All fields are mandatory</string>
+    <string name="tvNotLoggedIn">This page is all about you! We\'ll need you to log in so we can show you your score, activities you\'ve added, and things you\'ve liked!\n\nDon\'t have an account? Why not make one now?</string>
+    <string name="tvLoggedInAs">Hi %s!</string>
     
     <!-- Menu Items -->
     <string name="mnuLogin">Login</string>

@@ -28,7 +28,14 @@
     <Button
         android:id="@+id/vHeader"
         style="@style/HeaderButton"
-        android:text="@string/bAdd" >
+   		android:layout_alignParentRight="true"
+        android:text="@string/bAdd">
+    </Button>
+    <Button
+        android:id="@+id/bProfile"
+        style="@style/HeaderButton"
+        android:layout_toLeftOf="@id/vHeader"
+        android:text="@string/bProfile">
     </Button>
 
 </RelativeLayout>
