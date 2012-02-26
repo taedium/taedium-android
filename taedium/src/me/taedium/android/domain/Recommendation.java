@@ -77,14 +77,6 @@ public class Recommendation extends RecommendationBase {
     public int getMaxPeople() {
         return max_people;
     }
-    /*
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getName() {
-        return name;
-    }    
-    */
     public void setStartTime(int startTime) {
         this.start_time = startTime;
     }
@@ -115,14 +107,6 @@ public class Recommendation extends RecommendationBase {
     public int getEndTime() {
         return end_time;
     }
-    /*
-    public void setId(int id) {
-        this.id = id;
-    }
-    public int getId() {
-        return id;
-    }
-    */
     public void setDescription(String description) {
         this.description = description;
     }

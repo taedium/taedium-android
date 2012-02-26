@@ -13,6 +13,7 @@ import me.taedium.android.ApplicationGlobals;
 import me.taedium.android.R;
 import me.taedium.android.ApplicationGlobals.RecParamType;
 import me.taedium.android.domain.Recommendation;
+import me.taedium.android.domain.RecommendationBase;
 import me.taedium.android.util.Base64;
 
 import org.apache.http.HttpResponse;
@@ -47,6 +48,7 @@ public class Caller {
     private static final String CHECK_LOGIN = API_URL + "users/";
     private static final String FLAG_ACTIVITY = API_URL + "flags";
     private static final String GET_RECOMMENDATIONS = API_URL + "activities/search";
+    private static final String GET_RECOMMENDATION_BY_ID = API_URL + "activities/";
     private static final String GET_RECOMMENDED_TAGS = API_URL + "tags/recommend";
     private static final String ADD_RECOMMENDATION = API_URL + "activities";
     private static final String LIKES_API_PREFIX = "users";
@@ -96,6 +98,41 @@ public class Caller {
         ApplicationGlobals.getInstance().setLoggedIn(false, context);
 		return false;
 	}
+    
+    // Get a single recommendation given its id
+    public Recommendation getRecommendation(int id) {
+    	String url = GET_RECOMMENDATION_BY_ID + Integer.toString(id);
+    	
+    	HttpGet httpGet = new HttpGet(url);
+        HttpResponse response = makeCall(httpGet);
+        
+        Recommendation rec = null;
+        if(checkResponse(response, HttpStatus.SC_OK)) {
+            Reader r = null;
+            try {
+                r = new InputStreamReader(response.getEntity().getContent());
+            } catch (IllegalStateException e) {
+                Log.e(MODULE, e.getMessage());
+            } catch (IOException e) {
+                Log.e(MODULE, e.getMessage());
+            }
+            
+            if (r!=null) {
+                try {
+                    rec = gson.fromJson(r, Recommendation.class);
+                } 
+                catch (Exception e) {
+                    Log.e(MODULE, e.getMessage());
+                }
+                if (rec != null) {
+                	// Get like info for activity and add to ArrayList
+            		rec.setLikedByUser(getLikeInfo(rec.id));
+                }
+            }
+        }
+       
+        return rec;
+    }
     
     // Get a list of recommendations for a set of given parameters
     public ArrayList<Recommendation> getRecommendations() {
@@ -155,6 +192,30 @@ public class Caller {
             }
         }
         return ret;        
+    }
+    
+    // Get activities added by a given user
+    public ArrayList<RecommendationBase> getActivitiesAddedByUser() {
+    	return fakeBaseActivities();
+    }
+    
+    // Get activities liked by a given user
+    public ArrayList<RecommendationBase> getActivitiesLikedByUser() {
+    	return fakeBaseActivities();
+    }
+    
+    // Get activities disliked by a given user
+    public ArrayList<RecommendationBase> getActivitiesDislikedByUser() {
+    	return fakeBaseActivities();
+    }
+    
+    private ArrayList<RecommendationBase> fakeBaseActivities() {
+    	ArrayList<RecommendationBase> recs = new ArrayList<RecommendationBase>();
+    	recs.add(new RecommendationBase(1, "Name 1"));
+    	recs.add(new RecommendationBase(2, "Name 2"));
+    	recs.add(new RecommendationBase(3, "Name 3"));
+    	recs.add(new RecommendationBase(4, "Name 4"));
+    	return recs;
     }
     
     public String[] getRecommendedTags(String name, String description) {

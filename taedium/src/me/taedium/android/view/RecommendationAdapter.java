@@ -35,11 +35,16 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
 
     private Context mContext;
     private ArrayList<Recommendation> mRecommendations;
+    private boolean showSingleRec = false;
     
     public RecommendationAdapter(FragmentActivity activity, ArrayList<Recommendation> recommendations) {
     	super(activity.getSupportFragmentManager());
     	mContext = activity;
     	mRecommendations = recommendations;
+    }
+    
+    public void setShowSingleRec(boolean showSingleRec) {
+    	this.showSingleRec = showSingleRec;
     }
     
     public Recommendation getRecommendation(int position) {
@@ -71,18 +76,19 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	        // If we are near the end of the list, grab some more activities
-	        if (mPosition == mRecommendations.size() - 5) {
+	        if (mPosition == mRecommendations.size() - 5 && !showSingleRec) {
 	            new GetRecommendationTask().execute();
 	        }
 	        
 	        final Recommendation rec = mRecommendations.get(mPosition);
 	        View view = inflater.inflate(R.layout.view_fragment, null);
 	       
-	        // Don't show arrows on first/last recommendation
-	        if (mPosition == 0) {
+	        // Don't show arrows on first/last recommendation or if we are only showing one recommendation
+	        if (mPosition == 0 || showSingleRec) {
 	            ImageView prevArrow = (ImageView)view.findViewById(R.id.ivRecPrev);
 	            prevArrow.setVisibility(View.GONE);
-	        } else if (mPosition == mRecommendations.size() - 1) {
+	        } 
+	        if (mPosition == mRecommendations.size() - 1 || showSingleRec) {
 	            ImageView nextArrow = (ImageView)view.findViewById(R.id.ivRecNext);
 	            nextArrow.setVisibility(View.GONE);
 	        }

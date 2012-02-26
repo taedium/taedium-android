@@ -34,6 +34,12 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
     // Spinner's OnItemSelectedListener gets called on creation.. somewhat hacky workaround
     private boolean flagFirstRun = true;
     
+    // Display only a single activity
+    public static final String KEY_DISPLAY_BY_ID = "display_activity_by_id";
+    public static final String KEY_ID_TO_FETCH = "activity_id_to_fetch";
+    private boolean displaySingleRec;
+    private int idToFetch = 0;
+    
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
@@ -41,6 +47,11 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
         setTitle(R.string.main_title);
         
         initializeHeader();
+        
+        // Check if we are displaying one activity or many
+        Bundle bundle = getIntent().getExtras();
+        displaySingleRec = bundle.getBoolean(KEY_DISPLAY_BY_ID);
+        idToFetch = bundle.getInt(KEY_ID_TO_FETCH);
 
         bLike = (Button) findViewById(R.id.bUpVote);
 		bDislike = (Button) findViewById(R.id.bDownVote);
@@ -100,6 +111,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
             progressDialog.dismiss();
             
             RecommendationAdapter recAdapter = new RecommendationAdapter(ViewRecommendation.this, recommendations);
+            if (displaySingleRec) recAdapter.setShowSingleRec(true);
             vpActivities.setAdapter(recAdapter);
             
             // Initialize footer buttons
@@ -238,7 +250,16 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
     // This is the run method of the thread that retrieves activities.
     public void run() {
         /**/
-        recommendations = Caller.getInstance(getApplicationContext()).getRecommendations();
+    	if (displaySingleRec) {
+    		recommendations = new ArrayList<Recommendation>();
+    		Recommendation rec = Caller.getInstance(getApplicationContext()).getRecommendation(idToFetch);
+    		if (rec!= null) {
+	    		recommendations.add(rec);
+    		}
+    		
+    	} else {
+	        recommendations = Caller.getInstance(getApplicationContext()).getRecommendations();
+    	}
         /**
         // Backup recommendations hardcoded for testing
         recommendations = new ArrayList<Recommendation>();

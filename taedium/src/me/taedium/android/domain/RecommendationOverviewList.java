@@ -14,6 +14,10 @@ public class RecommendationOverviewList extends ArrayList<RecommendationBase> im
 
 	public RecommendationOverviewList() {}
 	
+	public RecommendationOverviewList(ArrayList<RecommendationBase> recs) {
+		super(recs);
+	}
+	
 	public RecommendationOverviewList (Parcel in) {
 		readFromParcel(in);
 	}
