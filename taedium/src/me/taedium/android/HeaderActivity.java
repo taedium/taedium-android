@@ -36,25 +36,12 @@ public class HeaderActivity extends Activity {
                 startActivityForResult(i, ACTIVITY_CREATE);                  
             }
         });
-        initializeProfileButton();
     }
     
     public void initializeHeader(OnClickListener callback) {
         // Initialize bAdd
         vHeader = findViewById(R.id.vHeader);
         vHeader.setOnClickListener(callback);
-        initializeProfileButton();
-    }
-    
-    private void initializeProfileButton() {
-    	Button bProfile = (Button) findViewById(R.id.bProfile);
-    	bProfile.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-                Intent i = new Intent(HeaderActivity.this, ProfileActivity.class);
-                startActivityForResult(i, ACTIVITY_CREATE);                  
-			}
-		});
     }
     
     @Override
@@ -133,6 +120,10 @@ public class HeaderActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch(item.getItemId()) {
+    	case R.id.mnuProfile:
+            Intent i = new Intent(HeaderActivity.this, ProfileActivity.class);
+            startActivityForResult(i, ACTIVITY_CREATE);                  
+            return true;
     	case R.id.mnuLogin:
     		login();
     		return true;

@@ -116,6 +116,7 @@
     <string name="tvScoreboardHeader">Scoreboard</string>
     
     <!-- Menu Items -->
+    <string name="mnuProfile">Profile</string>
     <string name="mnuLogin">Login</string>
     <string name="mnuLogout">Logout</string>
     <string name="mnuRegister">Register</string>
