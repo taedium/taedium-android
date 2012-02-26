@@ -35,13 +35,14 @@ public class FilterItemAdapter extends ArrayAdapter<FilterItem> {
 	            ImageView image = (ImageView) v.findViewById(R.id.ivListItemIcon);
 	            TextView feedbackLabel = (TextView) v.findViewById(R.id.list_item_feedback);
 	            if (label != null) {
-	                  label.setText(o.getLabel());                            }
+	                  label.setText(o.label);
+	            }
 	            if(image != null){
-	                  image.setImageResource(o.getImageResourceId());
+	                  image.setImageResource(o.imageResourceId);
 	            }
 	            if (feedbackLabel != null) {
-	            	feedbackLabel.setText(o.getFeedbackLabel());                    
-	                if (o.getFeedbackLabel().equalsIgnoreCase(parent.getContext().getResources().getStringArray(R.array.lvFeedbackDefaultsArray)[position])) {
+	            	feedbackLabel.setText(o.feedbackLabel);                    
+	                if (o.feedbackLabel.equalsIgnoreCase(parent.getContext().getResources().getStringArray(R.array.lvFeedbackDefaultsArray)[position])) {
 	                	feedbackLabel.setTextColor(Color.LTGRAY);        	
 	                }
 	                else {

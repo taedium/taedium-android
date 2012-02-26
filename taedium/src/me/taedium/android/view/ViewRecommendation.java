@@ -50,8 +50,10 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
         
         // Check if we are displaying one activity or many
         Bundle bundle = getIntent().getExtras();
-        displaySingleRec = bundle.getBoolean(KEY_DISPLAY_BY_ID);
-        idToFetch = bundle.getInt(KEY_ID_TO_FETCH);
+        if (bundle != null) {
+	        displaySingleRec = bundle.getBoolean(KEY_DISPLAY_BY_ID);
+	        idToFetch = bundle.getInt(KEY_ID_TO_FETCH);
+        }
 
         bLike = (Button) findViewById(R.id.bUpVote);
 		bDislike = (Button) findViewById(R.id.bDownVote);
@@ -68,11 +70,11 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
 				curRec= (Recommendation) ((RecommendationAdapter)vpActivities.getAdapter()).getRecommendation(vpActivities.getCurrentItem());
 				
 				// Un-highlight all buttons
-				if (curRec.getLikedByUser() == null) {
+				if (curRec.likedByUser == null) {
 					unhighlightFooter();
 				}
 				// Highlight like button
-				else if (curRec.getLikedByUser()) {
+				else if (curRec.likedByUser) {
 					highlightLikeFooter();
 				}
 				// Highlight dislike button
@@ -124,7 +126,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
     				if (verifyLoggedIn()) {
     					
     					// if already liked, remove like
-	    				if (curRec.getLikedByUser() != null && curRec.getLikedByUser() == true) {
+	    				if (curRec.likedByUser != null && curRec.likedByUser == true) {
 	    					if (!removeLikeDislike()) {
 	    						Toast.makeText(ViewRecommendation.this, getString(R.string.msgRemoveLikeFailed), Toast.LENGTH_LONG).show();
 	    					}
@@ -133,7 +135,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
 	    				else {	    				
 	    					if (Caller.getInstance(getApplicationContext()).likeDislike(curRec.id, true)) {
 	    						highlightLikeFooter();
-	    						curRec.setLikedByUser(true);
+	    						curRec.likedByUser = true;
 	    					}
 	    					else {
 	    						Toast.makeText(ViewRecommendation.this, getString(R.string.msgLikeFailed), Toast.LENGTH_LONG).show();
@@ -150,7 +152,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
     			public void onClick(View v) {
     				if (verifyLoggedIn()) {
     					// if already dislike, remove dislike
-	    				if (curRec.getLikedByUser() != null && curRec.getLikedByUser() == false) {
+	    				if (curRec.likedByUser != null && curRec.likedByUser == false) {
 	    					if (!removeLikeDislike()) {
 	    						Toast.makeText(ViewRecommendation.this, getString(R.string.msgRemoveDislikeFailed), Toast.LENGTH_LONG).show();
 	    					}
@@ -159,7 +161,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
 	    				else {	  
 	    					if (Caller.getInstance(getApplicationContext()).likeDislike(curRec.id, false)) {
 	    						highlightDislikeFooter();
-	    						curRec.setLikedByUser(false);
+	    						curRec.likedByUser = false;
 	    					}
 	    					else {
 	    						Toast.makeText(ViewRecommendation.this, getString(R.string.msgDislikeFailed), Toast.LENGTH_LONG).show();
@@ -200,7 +202,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
             bFlag.setOnClickListener(new OnClickListener() {
     			public void onClick(View v) {
     				if (verifyLoggedIn()) {
-    					if (curRec.isFlaggedByUser()) {
+    					if (curRec.flaggedByUser) {
     						Toast.makeText(ViewRecommendation.this, getString(R.string.msgCannotUnflag), Toast.LENGTH_LONG).show();
     					} else {
     					    spFlag.performClick();
@@ -220,7 +222,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
     private boolean removeLikeDislike() {
     	if (Caller.getInstance(getApplicationContext()).removeLikeDislike(curRec.id)) {
 			unhighlightFooter();
-			curRec.setLikedByUser(null);
+			curRec.likedByUser = null;
 			return true;
 		}
     	return false;

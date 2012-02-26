@@ -9,19 +9,19 @@ public class Recommendation extends RecommendationBase {
 
     public enum LocationType { HOME, OUTDOORS, OUT };
     
-    private String description;
-    private int min_people;
-    private int max_people;
-    private int min_duration;
-    private int max_duration;
-    private double cost;   
-    private boolean cost_is_per_person;
-    private int start_time;
-    private int end_time;
-    private double lat;
+    public String description;
+    public int min_people;
+    public int max_people;
+    public int min_duration;
+    public int max_duration;
+    public double cost;   
+    public boolean cost_is_per_person;
+    public int start_time;
+    public int end_time;
+    public double lat;
     @SerializedName("long")
-    private double lon;
-    private boolean flaggedByUser;
+    public double lon;
+    public boolean flaggedByUser;
   
     // Public constructors for various arguments
     // The only required argument for the API is name 
@@ -43,7 +43,7 @@ public class Recommendation extends RecommendationBase {
     
     public Recommendation(String name, String description, int min_people, int max_people,
                             int min_duration, int max_duration, double cost, boolean cost_per_person, double lat, double lon, Boolean likedByUser, boolean flaggedByUser) {
-    	super(name);
+    	this.name = name;
         this.description = description;
         this.min_people = min_people;
         this.max_people = max_people;
@@ -57,6 +57,7 @@ public class Recommendation extends RecommendationBase {
         this.flaggedByUser = flaggedByUser;
     }
      
+    /*
     public void setCostIsPerPerson(boolean costIsPerPerson) {
         this.cost_is_per_person = costIsPerPerson;
     }
@@ -139,4 +140,5 @@ public class Recommendation extends RecommendationBase {
 	public boolean isFlaggedByUser() {
 		return flaggedByUser;
 	}
+	*/
 }
