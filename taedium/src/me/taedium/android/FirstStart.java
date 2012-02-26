@@ -10,8 +10,8 @@ import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
-import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -135,7 +135,11 @@ public class FirstStart extends HeaderActivity {
     protected Dialog onCreateDialog(int id) {
         Button bOk;
         final Dialog dialog;
-        dialog = new Dialog(new ContextThemeWrapper(this, R.style.Dialog));
+        dialog = new Dialog(this, R.style.Dialog);
+        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+        lp.dimAmount = 0.0f;
+        dialog.getWindow().setAttributes(lp);
+        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         switch(id) {
             case DIALOG_FILTER_PEOPLE:
                 dialog.setContentView(R.layout.filter_people);

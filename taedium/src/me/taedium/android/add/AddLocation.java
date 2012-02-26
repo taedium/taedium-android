@@ -13,9 +13,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -140,7 +140,11 @@ public class AddLocation extends WizardActivity {
     protected Dialog onCreateDialog(int id) {
         Button bOk;
         final Dialog dialog;
-        dialog = new Dialog(new ContextThemeWrapper(this, R.style.Dialog));
+        dialog = new Dialog(this, R.style.Dialog);
+        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+        lp.dimAmount = 0.0f;
+        dialog.getWindow().setAttributes(lp);
+        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         switch(id) {
             case DIALOG_ENTER_ADDRESS:
                 dialog.setContentView(R.layout.add_address);

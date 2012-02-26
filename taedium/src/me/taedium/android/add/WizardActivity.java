@@ -6,8 +6,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -75,7 +75,11 @@ public abstract class WizardActivity extends HeaderActivity {
     protected Dialog onCreateDialog(int id) {
         Button bOk;
         final Dialog dialog;
-        dialog = new Dialog(new ContextThemeWrapper(this, R.style.Dialog));
+        dialog = new Dialog(this, R.style.Dialog);
+        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+        lp.dimAmount = 0.0f;
+        dialog.getWindow().setAttributes(lp);
+        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         switch(id) {
             case DIALOG_HELP:
                 dialog.setContentView(R.layout.dialog_help);
