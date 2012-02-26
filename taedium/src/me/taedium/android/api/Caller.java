@@ -6,6 +6,7 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -45,7 +46,7 @@ public class Caller {
     // API Strings
     private static final String API_URL = "https://www.taedium.me/api/";
     private static final String ADD_USER = API_URL + "users";
-    private static final String CHECK_LOGIN = API_URL + "users/";
+    private static final String USERS_API = API_URL + "users/";
     private static final String FLAG_ACTIVITY = API_URL + "flags";
     private static final String GET_RECOMMENDATIONS = API_URL + "activities/search";
     private static final String GET_RECOMMENDATION_BY_ID = API_URL + "activities/";
@@ -54,6 +55,7 @@ public class Caller {
     private static final String LIKES_API_PREFIX = "users";
     private static final String LIKES_API_SUFFIX = "likes";
     private static final String ACTIVITY_ID = "activity_id";
+    private static final String CREATED_SUFFIX = "created";
     
     private static final String QUERY_TOKEN = "?";
     private static final String PARAM_TOKEN = "&";
@@ -82,7 +84,7 @@ public class Caller {
         } catch (UnsupportedEncodingException e) {
             Log.e(MODULE, e.getMessage());
         }
-    	String url = CHECK_LOGIN + user;
+    	String url = USERS_API + user;
     	if (!(user == null || password == null) && 
     			!(user.equalsIgnoreCase("")|| password.equalsIgnoreCase(""))) {
         	ApplicationGlobals.getInstance().setUserpass(user + ":" + password, context);
@@ -196,7 +198,40 @@ public class Caller {
     
     // Get activities added by a given user
     public ArrayList<RecommendationBase> getActivitiesAddedByUser() {
-    	return fakeBaseActivities();
+    	ArrayList<RecommendationBase> recs = new ArrayList<RecommendationBase>();
+    	
+    	// If user isn't logged in, return no activities
+    	if (!ApplicationGlobals.getInstance().isLoggedIn(context)) return recs;
+    	
+    	String url = USERS_API + ApplicationGlobals.getInstance().getUser(context) + "/" + CREATED_SUFFIX;
+    	Log.i(MODULE, "Requesting: " + url);
+        HttpGet request = new HttpGet(url);
+        HttpResponse response = makeCall(request);
+        
+        RecommendationBase[] recommendations = null;
+        if (checkResponse(response, HttpStatus.SC_OK)) {
+            Reader r = null;
+            try {
+                r = new InputStreamReader(response.getEntity().getContent());
+            } catch (IllegalStateException e) {
+                Log.e(MODULE, e.getMessage());
+            } catch (IOException e) {
+                Log.e(MODULE, e.getMessage());
+            }
+            
+            if (r != null) {
+                try {
+                    recommendations = gson.fromJson(r, RecommendationBase[].class);
+                    for (int i = 0; i < recommendations.length; i++) {
+	                    recs.add(recommendations[i]);
+                    }
+                } catch (Exception e) {
+                    Log.e(MODULE, e.getMessage());
+                }
+            }
+        }
+    	
+    	return recs;
     }
     
     // Get activities liked by a given user
