@@ -395,7 +395,7 @@ public class FirstStart extends HeaderActivity {
         ListView lvOptions = (ListView) findViewById(R.id.lvOptions);
         FilterItemAdapter adapter = (FilterItemAdapter) lvOptions.getAdapter();
         FilterItem item = adapter.getItem(filterId);
-        item.setFeedbackLabel(label);
+        item.feedbackLabel = label;
         adapter.replace(item, filterId);        
         lvOptions.setAdapter(adapter);
         adapter.notifyDataSetChanged();
