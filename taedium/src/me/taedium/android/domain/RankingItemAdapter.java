@@ -44,9 +44,5 @@ public class RankingItemAdapter extends ArrayAdapter<RankingItem> {
             }
             return v;
     }
-    
-    public void replace(RankingItem changed, int index) {
-    	rankingItems[index]=changed;    	
-    }
 
 }

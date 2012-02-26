@@ -20,6 +20,9 @@
     <string name="cost_dialog_title">Cost Filters</string>
     <string name="flag_dialog_title">Flag Activity</string>
     <string name ="profile_page_title">Profile</string>
+    <string name ="added_activities_title">Activities I Added</string>
+    <string name ="liked_activities_title">Activities I Liked</string>
+    <string name ="disliked_activities_title">Activities I Disliked</string>
     
     <!-- Widgets -->
     <string name="cbAddIndoor">Indoors</string>
@@ -202,7 +205,7 @@
         <item>Any cost</item>
     </string-array>
     <string-array name="lvProfileSummaryArray">
-       <item>Activities created</item> 
+       <item>Activities added</item> 
        <item>Activities liked</item>
        <item>Activities disliked</item>
     </string-array>

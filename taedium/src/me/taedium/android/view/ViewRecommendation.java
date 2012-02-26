@@ -119,7 +119,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
 	    				}
 	    				// otherwise like it
 	    				else {	    				
-	    					if (Caller.getInstance(getApplicationContext()).likeDislike(curRec.getId(), true)) {
+	    					if (Caller.getInstance(getApplicationContext()).likeDislike(curRec.id, true)) {
 	    						highlightLikeFooter();
 	    						curRec.setLikedByUser(true);
 	    					}
@@ -145,7 +145,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
 	    				}
 	    				// otherwise dislike it
 	    				else {	  
-	    					if (Caller.getInstance(getApplicationContext()).likeDislike(curRec.getId(), false)) {
+	    					if (Caller.getInstance(getApplicationContext()).likeDislike(curRec.id, false)) {
 	    						highlightDislikeFooter();
 	    						curRec.setLikedByUser(false);
 	    					}
@@ -164,7 +164,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     if (!flagFirstRun) {
                         String reason = ((TextView)view).getText().toString();
-                        boolean success = Caller.getInstance(getApplicationContext()).flagActivity(curRec.getId(), reason);
+                        boolean success = Caller.getInstance(getApplicationContext()).flagActivity(curRec.id, reason);
                         if (success) {
                         	Toast.makeText(ViewRecommendation.this, getString(R.string.msgFlagSuccess)+" "+reason, Toast.LENGTH_SHORT).show();
                         	int current = vpActivities.getCurrentItem();
@@ -206,7 +206,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
  
     // Helper to remove a like or dislike
     private boolean removeLikeDislike() {
-    	if (Caller.getInstance(getApplicationContext()).removeLikeDislike(curRec.getId())) {
+    	if (Caller.getInstance(getApplicationContext()).removeLikeDislike(curRec.id)) {
 			unhighlightFooter();
 			curRec.setLikedByUser(null);
 			return true;

@@ -93,7 +93,7 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
 	        
 	        // Set the name
 	        TextView name = (TextView)view.findViewById(R.id.tvRecName);
-	        name.setText(rec.getName());
+	        name.setText(rec.name);
 	        
 	        // Set the description
 	        TextView desc = (TextView)view.findViewById(R.id.tvRecDescription);

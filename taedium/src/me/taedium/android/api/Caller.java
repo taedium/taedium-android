@@ -148,7 +148,7 @@ public class Caller {
                 if (recs != null) {
                 	// Get like info for activity and add to ArrayList
                     for (int i = 0; i<recs.length; i++) {
-                		recs[i].setLikedByUser(getLikeInfo(recs[i].getId()));
+                		recs[i].setLikedByUser(getLikeInfo(recs[i].id));
                         ret.add(recs[i]);
                     }
                 }

@@ -5,11 +5,10 @@ import com.google.gson.annotations.SerializedName;
 /*
  * Domain object representing a recommendation
  */
-public class Recommendation {
+public class Recommendation extends RecommendationBase {
 
     public enum LocationType { HOME, OUTDOORS, OUT };
     
-    private String name;
     private String description;
     private int min_people;
     private int max_people;
@@ -19,7 +18,6 @@ public class Recommendation {
     private boolean cost_is_per_person;
     private int start_time;
     private int end_time;
-    private int id;
     private double lat;
     @SerializedName("long")
     private double lon;
@@ -47,7 +45,7 @@ public class Recommendation {
     
     public Recommendation(String name, String description, int min_people, int max_people,
                             int min_duration, int max_duration, double cost, boolean cost_per_person, double lat, double lon, Boolean likedByUser, boolean flaggedByUser) {
-        this.name = name;
+    	super(name);
         this.description = description;
         this.min_people = min_people;
         this.max_people = max_people;
@@ -79,12 +77,14 @@ public class Recommendation {
     public int getMaxPeople() {
         return max_people;
     }
+    /*
     public void setName(String name) {
         this.name = name;
     }
     public String getName() {
         return name;
     }    
+    */
     public void setStartTime(int startTime) {
         this.start_time = startTime;
     }
@@ -115,12 +115,14 @@ public class Recommendation {
     public int getEndTime() {
         return end_time;
     }
+    /*
     public void setId(int id) {
         this.id = id;
     }
     public int getId() {
         return id;
     }
+    */
     public void setDescription(String description) {
         this.description = description;
     }

@@ -1,5 +1,7 @@
 package me.taedium.android.profile;
 
+import java.util.ArrayList;
+
 import me.taedium.android.ApplicationGlobals;
 import me.taedium.android.HeaderActivity;
 import me.taedium.android.R;
@@ -7,7 +9,10 @@ import me.taedium.android.domain.FilterItem;
 import me.taedium.android.domain.FilterItemAdapter;
 import me.taedium.android.domain.RankingItem;
 import me.taedium.android.domain.RankingItemAdapter;
+import me.taedium.android.domain.RecommendationBase;
+import me.taedium.android.domain.RecommendationOverviewList;
 import me.taedium.android.listener.LoggedInChangedListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -60,11 +65,20 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
 		// Set top list view displaying info about activities created, liked, disliked
         ListView lvSummary = (ListView) findViewById(R.id.lvProfileSummary);
         lvSummary.setAdapter(new FilterItemAdapter(this, R.id.list_item_text, getSummaryItems()));
-        lvSummary.setTextFilterEnabled(true);        
+        lvSummary.setTextFilterEnabled(true);
         lvSummary.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             	switch((int)id) {
                     case 0:                    	
+                    	Bundle bundle = new Bundle();
+                    	RecommendationOverviewList recs = new RecommendationOverviewList();
+                    	recs.add(new RecommendationBase(1, "Name 1"));
+                    	recs.add(new RecommendationBase(2, "Name 2"));
+                    	bundle.putParcelable(RecommendationOverviewListActivity.KEY_RECOMMENDATION_LIST, recs);
+                    	bundle.putInt(RecommendationOverviewListActivity.KEY_LIST_TITLE_RES_ID, R.string.added_activities_title);
+		                Intent i = new Intent(ProfileActivity.this, RecommendationOverviewListActivity.class);
+		                i.putExtras(bundle);
+		                startActivityForResult(i, LIST_ITEM_ADDED);
                         break;
                     case 1:
                         break;
