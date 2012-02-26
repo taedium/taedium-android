@@ -6,13 +6,12 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Scanner;
 
 import me.taedium.android.ApplicationGlobals;
-import me.taedium.android.R;
 import me.taedium.android.ApplicationGlobals.RecParamType;
+import me.taedium.android.R;
 import me.taedium.android.domain.Recommendation;
 import me.taedium.android.domain.RecommendationBase;
 import me.taedium.android.util.Base64;
@@ -198,12 +197,38 @@ public class Caller {
     
     // Get activities added by a given user
     public ArrayList<RecommendationBase> getActivitiesAddedByUser() {
+    	String url = USERS_API + ApplicationGlobals.getInstance().getUser(context) + "/" + CREATED_SUFFIX;
+    	return getRecommendationBaseActivities(url);
+    }
+    
+    // Get activities liked by a given user
+    public ArrayList<RecommendationBase> getActivitiesLikedByUser() {
+    	return getLikesForUser(true);
+    }
+    
+    // Get activities disliked by a given user
+    public ArrayList<RecommendationBase> getActivitiesDislikedByUser() {
+    	return getLikesForUser(false);
+    }
+    
+    // like = true for likes, like = false for dislikes
+    private ArrayList<RecommendationBase> getLikesForUser(boolean like) {
+    	String url = USERS_API + ApplicationGlobals.getInstance().getUser(context) + "/" + LIKES_API_SUFFIX;
     	ArrayList<RecommendationBase> recs = new ArrayList<RecommendationBase>();
+    	for (RecommendationBase r : getRecommendationBaseActivities(url)) {
+    		if (r.likedByUser == like)  {
+    			recs.add(r);
+    		}
+    	}
+    	return recs;
+    }
+    
+    private ArrayList<RecommendationBase> getRecommendationBaseActivities(String url) {
     	
     	// If user isn't logged in, return no activities
-    	if (!ApplicationGlobals.getInstance().isLoggedIn(context)) return recs;
+    	if (!ApplicationGlobals.getInstance().isLoggedIn(context)) return new ArrayList<RecommendationBase>();
     	
-    	String url = USERS_API + ApplicationGlobals.getInstance().getUser(context) + "/" + CREATED_SUFFIX;
+    	ArrayList<RecommendationBase> recs = new ArrayList<RecommendationBase>();
     	Log.i(MODULE, "Requesting: " + url);
         HttpGet request = new HttpGet(url);
         HttpResponse response = makeCall(request);
@@ -233,26 +258,7 @@ public class Caller {
     	
     	return recs;
     }
-    
-    // Get activities liked by a given user
-    public ArrayList<RecommendationBase> getActivitiesLikedByUser() {
-    	return fakeBaseActivities();
-    }
-    
-    // Get activities disliked by a given user
-    public ArrayList<RecommendationBase> getActivitiesDislikedByUser() {
-    	return fakeBaseActivities();
-    }
-    
-    private ArrayList<RecommendationBase> fakeBaseActivities() {
-    	ArrayList<RecommendationBase> recs = new ArrayList<RecommendationBase>();
-    	recs.add(new RecommendationBase(1, "Name 1"));
-    	recs.add(new RecommendationBase(2, "Name 2"));
-    	recs.add(new RecommendationBase(3, "Name 3"));
-    	recs.add(new RecommendationBase(4, "Name 4"));
-    	return recs;
-    }
-    
+   
     public String[] getRecommendedTags(String name, String description) {
         String url = GET_RECOMMENDED_TAGS;
         try {

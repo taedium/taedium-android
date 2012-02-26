@@ -21,8 +21,6 @@ public class Recommendation extends RecommendationBase {
     private double lat;
     @SerializedName("long")
     private double lon;
-    @SerializedName("is_liked_by_user")
-    private Boolean likedByUser;
     private boolean flaggedByUser;
   
     // Public constructors for various arguments
