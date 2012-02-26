@@ -47,8 +47,9 @@
 				android:layout_alignParentLeft="true"
 				android:layout_marginLeft="10dp"
 				android:layout_marginTop="5dp"
+				android:layout_marginBottom="5dp"
 				android:textColor="#FFFFFF"
-				android:textSize="12dp"
+				android:textSize="18dp"
 				android:text="@string/tvLoggedInAs">	   
 			</TextView>
 			<ListView
@@ -62,7 +63,11 @@
 			    android:layout_below="@id/lvProfileSummary"
 			    android:text="@string/tvScoreboardHeader">
 			</TextView>
-			
+			<ListView
+			    android:id="@+id/lvRankings"
+			    style="@style/Listview"
+			    android:layout_below="@id/tvScoreboardHeader">
+			</ListView>
 		</RelativeLayout>
 	</ViewSwitcher>
 </LinearLayout>

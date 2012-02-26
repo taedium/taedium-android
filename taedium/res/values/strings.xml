@@ -112,7 +112,7 @@
     <string name="tvAddStarredRequired">Fields marked with * are required fields.</string>
     <string name="tvRegFieldsMandatory">All fields are mandatory</string>
     <string name="tvNotLoggedIn">This page is all about you! We\'ll need you to log in so we can show you your score, activities you\'ve added, and things you\'ve liked!\n\nDon\'t have an account? Why not make one now?</string>
-    <string name="tvLoggedInAs">Hi %s!</string>
+    <string name="tvLoggedInAs">Hello %s!</string>
     <string name="tvScoreboardHeader">Scoreboard</string>
     
     <!-- Menu Items -->
