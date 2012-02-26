@@ -32,28 +32,13 @@
     </Button>
  	<TextView
         android:id="@+id/filterText"
+        style="@style/Divider"
         android:layout_below="@id/bTaedium"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/filter_title"       
-        android:paddingLeft="7dp"
-        android:layout_margin="3px"
-        android:textColor="#FFFFFF"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:background="@drawable/filter_gradient">
+        android:text="@string/filter_title">
     </TextView>
     <ListView
         android:id="@+id/lvOptions"       
         android:layout_below="@id/filterText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#00000000"
-        android:divider="#00000000"
-        android:dividerHeight="3px"
-        android:paddingLeft="3px"
-        android:paddingRight="3px"
-        android:paddingTop="3px"
-        android:paddingBottom="15px">
+        style="@style/Listview">
     </ListView>
 </RelativeLayout>
