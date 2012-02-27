@@ -186,10 +186,9 @@
         <item name="android:background">@drawable/header_gradient</item>
     </style>
     
-    <style name="HeaderButton">
+    <style name="HeaderWidget">
    		<item name="android:layout_width">wrap_content</item>
    		<item name="android:layout_height">35dp</item>
-   		<item name="android:background">@drawable/b_header_bg_fsm</item>
    		<item name="android:textSize">10dp</item>
    		<item name="android:minWidth">25dp</item>
    		<item name="android:paddingLeft">5dp</item>
@@ -197,6 +196,10 @@
    		<item name="android:paddingTop">9dp</item>
    		<item name="android:paddingBottom">9dp</item>
    		<item name="android:textColor">#FFFFFF</item>
+    </style>
+    
+    <style name="HeaderButton" parent="@style/HeaderWidget">
+   		<item name="android:background">@drawable/b_header_bg_fsm</item>
     </style>
     
     <!-- Footer -->

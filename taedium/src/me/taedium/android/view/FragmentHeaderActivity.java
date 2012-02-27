@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class FragmentHeaderActivity extends FragmentActivity {
@@ -40,12 +41,22 @@ public class FragmentHeaderActivity extends FragmentActivity {
                 startActivityForResult(i, ACTIVITY_CREATE);                  
             }
         });
+    	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
+    	tvHeader.setVisibility(View.GONE);
     }
     
     public void initializeHeader(View.OnClickListener callback) {
         // Initialize bAdd
         vHeader = findViewById(R.id.vHeader);
         vHeader.setOnClickListener(callback);
+    	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
+    	tvHeader.setVisibility(View.GONE);
+    }
+    
+    public void initializeHeader(String labelText) {
+    	vHeader.setVisibility(View.GONE);
+    	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
+    	tvHeader.setText(labelText);
     }
     
     @Override

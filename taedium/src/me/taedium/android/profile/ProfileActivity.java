@@ -31,6 +31,7 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
 	private static final int LIST_ITEM_DISLIKED = 2;
 	private static final String MODULE = "ProfileActivity";
 	private ViewSwitcher vsMain;
+	private TextView tvHeader;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +39,11 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
 		setTitle(R.string.profile_page_title);
 		setContentView(R.layout.profile);
 		
-		initializeHeader();
+		initializeHeader("");
 		addLoggedInListener(this);
 		
 		// Display appropriate view depending on if user is logged in or not
+		tvHeader = (TextView) findViewById(R.id.tvHeader);
 		vsMain = (ViewSwitcher) findViewById(R.id.vsProfile);
 		if (ApplicationGlobals.getInstance().isLoggedIn(this)) {
 			vsMain.showNext();
@@ -61,9 +63,8 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
 	
 	private void setupLoggedInView() {
 		
-		// Set user's name in main text
-		TextView tvWelcome = (TextView) findViewById(R.id.tvLoggedInAs);
-		tvWelcome.setText(String.format(getString(R.string.tvLoggedInAs), ApplicationGlobals.getInstance().getUser(this)));
+		// Set user's name
+		tvHeader.setText(String.format(getString(R.string.tvLoggedInAs), ApplicationGlobals.getInstance().getUser(this)));
 		
 		// Set top list view displaying info about activities created, liked, disliked
         ListView lvSummary = (ListView) findViewById(R.id.lvProfileSummary);

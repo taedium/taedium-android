@@ -48,7 +48,10 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
     }
     
     public Recommendation getRecommendation(int position) {
-    	return mRecommendations.get(position);
+    	if (mRecommendations.size() >0) {
+	    	return mRecommendations.get(position);
+    	}
+    	return null;
     }
     
     public void removeRecommendation(int index) {

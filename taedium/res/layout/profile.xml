@@ -40,22 +40,13 @@
 		   android:id="@+id/rlLoggedInProfile"
 	       android:layout_width="match_parent"
 	       android:layout_height="match_parent">
-			<TextView
-				android:id="@+id/tvLoggedInAs"
-				style="@style/BaseView"
-				android:layout_alignParentTop="true"
-				android:layout_alignParentLeft="true"
-				android:layout_marginLeft="10dp"
-				android:layout_marginTop="5dp"
-				android:layout_marginBottom="5dp"
-				android:textColor="#FFFFFF"
-				android:textSize="18dp"
-				android:text="@string/tvLoggedInAs">	   
-			</TextView>
 			<ListView
 			    android:id="@+id/lvProfileSummary"
-			    style="@style/Listview"
-			    android:layout_below="@id/tvLoggedInAs">
+			    android:layout_alignParentTop="true"
+				android:layout_alignParentLeft="true"
+				android:layout_marginTop="10dp"
+				android:layout_marginBottom="5dp"
+				style="@style/Listview">
 			</ListView>
 			<TextView
 			    android:id="@+id/tvScoreboardHeader"

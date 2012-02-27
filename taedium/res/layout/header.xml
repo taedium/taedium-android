@@ -14,7 +14,6 @@
         android:layout_marginTop="6dp"
         android:src="@drawable/idea_light_bulb" >
     </ImageView>
-
     <ImageView
         android:id="@+id/taediumLogo"
         android:layout_width="wrap_content"
@@ -24,7 +23,11 @@
         android:layout_toRightOf="@id/lightbulb"
         android:src="@drawable/taedium_logo_no_border" >
     </ImageView>
-
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_alignParentRight="true"
+        style="@style/HeaderWidget">
+    </TextView>
     <Button
         android:id="@+id/vHeader"
         style="@style/HeaderButton"

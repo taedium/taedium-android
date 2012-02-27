@@ -19,7 +19,4 @@
 	    style="@style/ListviewActivityOverview"
 	    android:layout_below="@id/tvRecommendationCategoryName">
 	</ListView>
-
-    
-
 </LinearLayout>

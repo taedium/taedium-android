@@ -89,6 +89,11 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
     private void changeHighlighting() {
     	curRec= (Recommendation) ((RecommendationAdapter)vpActivities.getAdapter()).getRecommendation(vpActivities.getCurrentItem());
 				
+    	if (curRec == null) {
+    		unhighlightFooter();
+    		return;
+    	}
+    	
 		// Un-highlight all buttons
 		if (curRec.likedByUser == null) {
 			unhighlightFooter();
