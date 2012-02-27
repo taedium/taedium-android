@@ -149,6 +149,7 @@
     <string name="msgCannotGetStats">Sorry, we are unable to get your stats at this time. Please make sure you are logged in and connected to the Internet.</string>
     <string name="msgLoadingActivity">Loading Activity...</string>
     <string name="msgLoadingActivities">Loading Activities...</string>
+    <string name="msgLoadingProfile">Loading your profile...</string>
     
     <!-- Used to generate strings -->
     <string name="stFor">For</string>
