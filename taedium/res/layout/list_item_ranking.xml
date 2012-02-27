@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:minHeight="40dip"
     android:background="@drawable/rec_overview_list_gradient">
     <TextView
         android:id="@+id/tvListItemRank"
@@ -22,7 +23,8 @@
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_toRightOf="@id/tvListItemRank"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="35dip"
         android:background="#00FFFFFF"
         android:textColor="#000000"
         android:padding="4dp">
