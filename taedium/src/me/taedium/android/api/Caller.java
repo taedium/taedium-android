@@ -11,6 +11,7 @@ import java.util.Iterator;
 import me.taedium.android.ApplicationGlobals;
 import me.taedium.android.ApplicationGlobals.RecParamType;
 import me.taedium.android.R;
+import me.taedium.android.domain.RankingItem;
 import me.taedium.android.domain.Recommendation;
 import me.taedium.android.domain.RecommendationBase;
 import me.taedium.android.util.Base64;
@@ -52,6 +53,7 @@ public class Caller {
     private static final String LIKES_API_SUFFIX = "likes";
     private static final String ACTIVITY_ID = "activity_id";
     private static final String CREATED_SUFFIX = "created";
+    private static final String SCORE_API = API_URL + "scores";
     
     private static final String QUERY_TOKEN = "?";
     private static final String PARAM_TOKEN = "&";
@@ -248,6 +250,34 @@ public class Caller {
     	
     	return recs;
     }
+    
+    public RankingItem[] getRankings() {
+    	String url = SCORE_API;
+    	Log.i(MODULE, "Requesting: " + url);
+        HttpGet request = new HttpGet(url);
+        HttpResponse response = makeCall(request);
+        
+        RankingItem [] scores = null;
+        if (checkResponse(response, HttpStatus.SC_OK)) {
+            Reader r = null;
+            try {
+                r = new InputStreamReader(response.getEntity().getContent());
+            } catch (IllegalStateException e) {
+                Log.e(MODULE, e.getMessage());
+            } catch (IOException e) {
+                Log.e(MODULE, e.getMessage());
+            }
+            
+            if (r != null) {
+                try {
+                    scores = gson.fromJson(r, RankingItem[].class);
+                } catch (Exception e) {
+                    Log.e(MODULE, e.getMessage());
+                }
+            }
+        }
+        return scores;
+    }
    
     public String[] getRecommendedTags(String name, String description) {
         String url = GET_RECOMMENDED_TAGS;
@@ -284,7 +314,7 @@ public class Caller {
                 }
             }
         }
-        return tags;        
+        return tags;
     }
     
     // Make a post request to add a new recommendation to the database

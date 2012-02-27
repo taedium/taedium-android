@@ -3,6 +3,7 @@ package me.taedium.android.profile;
 import me.taedium.android.ApplicationGlobals;
 import me.taedium.android.HeaderActivity;
 import me.taedium.android.R;
+import me.taedium.android.api.Caller;
 import me.taedium.android.domain.FilterItem;
 import me.taedium.android.domain.FilterItemAdapter;
 import me.taedium.android.domain.RankingItem;
@@ -85,8 +86,13 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
         
         // Setup scoreboard
         ListView lvRankings= (ListView) findViewById(R.id.lvRankings);
-        lvRankings.setAdapter(new RankingItemAdapter(this, R.id.tvListItemUser, getDummyRankings()));
-        lvRankings.setTextFilterEnabled(true);        
+        RankingItem[] rankings = Caller.getInstance(getApplicationContext()).getRankings();
+        if (rankings != null && rankings.length >0) {
+	        lvRankings.setAdapter(new RankingItemAdapter(this, R.id.tvListItemUser, rankings));
+	        lvRankings.setTextFilterEnabled(true); 
+        } else {
+        	lvRankings.setVisibility(View.INVISIBLE);
+        }
 		
 	}
 	

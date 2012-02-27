@@ -33,10 +33,10 @@ public class RankingItemAdapter extends ArrayAdapter<RankingItem> {
 	            TextView score = (TextView) v.findViewById(R.id.tvListItemScore);
             	
 	            if (rank != null) {
-	            	rank.setText(Integer.toString(o.rank));
+	            	rank.setText(Integer.toString(position + 1));
 	            }
 	            if (user != null){
-	            	user.setText(o.user);
+	            	user.setText(o.name);
 	            }
 	            if (score != null) {
 	            	score.setText(Integer.toString(o.score));
