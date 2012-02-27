@@ -8,9 +8,11 @@ import me.taedium.android.domain.FilterItem;
 import me.taedium.android.domain.FilterItemAdapter;
 import me.taedium.android.domain.RankingItem;
 import me.taedium.android.domain.RankingItemAdapter;
+import me.taedium.android.domain.UserStats;
 import me.taedium.android.listener.LoggedInChangedListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -18,6 +20,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 
@@ -26,6 +29,7 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
 	private static final int LIST_ITEM_ADDED = 0;
 	private static final int LIST_ITEM_LIKED = 1;
 	private static final int LIST_ITEM_DISLIKED = 2;
+	private static final String MODULE = "ProfileActivity";
 	private ViewSwitcher vsMain;
 	
 	@Override
@@ -108,35 +112,30 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
     private FilterItem[] getSummaryItems() {
         String [] options = getResources().getStringArray(R.array.lvProfileSummaryArray);
         FilterItem[] filterItems = new FilterItem[options.length];
+        UserStats stats = Caller.getInstance(getApplicationContext()).getUserStats();
+        
+        // Check if stats weren't found
+        if (stats == null) {
+        	Log.e(MODULE, "Got back null stats object.");
+        	stats = new UserStats(0, 0, 0);
+        	Toast.makeText(getApplicationContext(), getString(R.string.msgCannotGetStats), Toast.LENGTH_LONG).show();
+        }
+        
         for (int i = 0; i <options.length; i++) {            
             switch (i) {
             case LIST_ITEM_ADDED:
-                filterItems[i] = new FilterItem(R.drawable.round_plus, options[i], "32");
+                filterItems[i] = new FilterItem(R.drawable.round_plus, options[i], Integer.toString(stats.created));
                 break;
             case LIST_ITEM_LIKED:
-                filterItems[i] = new FilterItem(R.drawable.hand_pro, options[i], "15");
+                filterItems[i] = new FilterItem(R.drawable.hand_pro, options[i], Integer.toString(stats.likes));
                 break;
             case LIST_ITEM_DISLIKED:
-                filterItems[i] = new FilterItem(R.drawable.hand_contra, options[i], "0");
+                filterItems[i] = new FilterItem(R.drawable.hand_contra, options[i], Integer.toString(stats.dislikes));
                 break;
             }
         }
         return filterItems;
     }
-    
-	// Get a dummy list items for the scoreboard  TODO TEMPORARY TILL WE HAVE AN API
-    private RankingItem[] getDummyRankings() {
-    	RankingItem [] rankings = new RankingItem[7]; 
-    	rankings[0] = new RankingItem(1, "jason", 100000001);
-    	rankings[1] = new RankingItem(2, "shane", 10000001);
-    	rankings[2] = new RankingItem(3, "nugget", 1000001);
-    	rankings[3] = new RankingItem(4, "evan", 100001);
-    	rankings[4] = new RankingItem(5, "ahal", 10001);
-    	rankings[5] = new RankingItem(6, "edubs", 1001);
-    	rankings[6] = new RankingItem(7, "joynt", 101);
-    	return rankings;
-    }
-    
     
 	private void setupNotLoggedInView() {
 		

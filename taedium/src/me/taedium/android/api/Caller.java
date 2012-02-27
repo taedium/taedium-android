@@ -14,6 +14,7 @@ import me.taedium.android.R;
 import me.taedium.android.domain.RankingItem;
 import me.taedium.android.domain.Recommendation;
 import me.taedium.android.domain.RecommendationBase;
+import me.taedium.android.domain.UserStats;
 import me.taedium.android.util.Base64;
 
 import org.apache.http.HttpResponse;
@@ -54,6 +55,7 @@ public class Caller {
     private static final String ACTIVITY_ID = "activity_id";
     private static final String CREATED_SUFFIX = "created";
     private static final String SCORE_API = API_URL + "scores";
+    private static final String STATS_API_SUFFIX = "stats";
     
     private static final String QUERY_TOKEN = "?";
     private static final String PARAM_TOKEN = "&";
@@ -97,10 +99,44 @@ public class Caller {
 		return false;
 	}
     
+    // Get stats on a user
+    public UserStats getUserStats() {
+    	if (!ApplicationGlobals.getInstance().isLoggedIn(context)) return null;
+    	
+    	String url = USERS_API + ApplicationGlobals.getInstance().getUser(context) + "/" + STATS_API_SUFFIX;
+        Log.i(MODULE, "Requesting: " + url);
+    	HttpGet httpGet = new HttpGet(url);
+        HttpResponse response = makeCall(httpGet);
+        
+        UserStats stats = null;
+        if(checkResponse(response, HttpStatus.SC_OK)) {
+            Reader r = null;
+            try {
+                r = new InputStreamReader(response.getEntity().getContent());
+            } catch (IllegalStateException e) {
+                Log.e(MODULE, e.getMessage());
+            } catch (IOException e) {
+                Log.e(MODULE, e.getMessage());
+            }
+            
+            if (r!=null) {
+                try {
+                    stats = gson.fromJson(r, UserStats.class);
+                } 
+                catch (Exception e) {
+                    Log.e(MODULE, e.getMessage());
+                }
+            }
+        }
+       
+        return stats;
+    }
+    
     // Get a single recommendation given its id
     public Recommendation getRecommendation(int id) {
     	String url = GET_RECOMMENDATION_BY_ID + Integer.toString(id);
     	
+        Log.i(MODULE, "Requesting: " + url);
     	HttpGet httpGet = new HttpGet(url);
         HttpResponse response = makeCall(httpGet);
         

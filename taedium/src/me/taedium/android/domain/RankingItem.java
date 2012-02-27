@@ -9,10 +9,4 @@ public class RankingItem {
 	String name;
 	int score;
 	
-	// TODO won't need this once we get real data, just necessary for making quick dummy data
-	public RankingItem(int rank, String user, int score) {
-		this.name = user;
-		this.score = score;
-	}
-
 }
