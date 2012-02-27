@@ -37,6 +37,8 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
 		super.onCreate(savedInstanceState);
 		setTitle(R.string.profile_page_title);
 		setContentView(R.layout.profile);
+		
+		initializeHeader();
 		addLoggedInListener(this);
 		
 		// Display appropriate view depending on if user is logged in or not
