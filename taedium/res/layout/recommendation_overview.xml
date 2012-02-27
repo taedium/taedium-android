@@ -3,20 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <TextView
-		android:id="@+id/tvRecommendationCategoryName"
-		style="@style/BaseView"
-		android:layout_alignParentTop="true"
-		android:layout_alignParentLeft="true"
-		android:layout_marginLeft="10dp"
-		android:layout_marginTop="5dp"
-		android:layout_marginBottom="5dp"
-		android:textColor="#FFFFFF"
-		android:textSize="18dp">
-	</TextView>
+    <include layout="@layout/header"/>
 	<ListView
 	    android:id="@+id/lvActivities"
-	    style="@style/ListviewActivityOverview"
-	    android:layout_below="@id/tvRecommendationCategoryName">
+		android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true"
+	    style="@style/ListviewActivityOverview">
 	</ListView>
 </LinearLayout>

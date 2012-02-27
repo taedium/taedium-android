@@ -188,8 +188,8 @@
     
     <style name="HeaderWidget">
    		<item name="android:layout_width">wrap_content</item>
+   		<item name="android:textSize">12dip</item>
    		<item name="android:layout_height">35dp</item>
-   		<item name="android:textSize">10dp</item>
    		<item name="android:minWidth">25dp</item>
    		<item name="android:paddingLeft">5dp</item>
    		<item name="android:paddingRight">5dp</item>
@@ -199,6 +199,7 @@
     </style>
     
     <style name="HeaderButton" parent="@style/HeaderWidget">
+   		<item name="android:textSize">10dip</item>
    		<item name="android:background">@drawable/b_header_bg_fsm</item>
     </style>
     

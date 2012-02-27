@@ -29,9 +29,10 @@ public class RecommendationOverviewListActivity extends HeaderActivity {
 		setContentView(R.layout.recommendation_overview);
 		
 		Bundle extras = getIntent().getExtras();
+		initializeHeader("");
 		
 		// Setup the category name TextView
-		TextView tvCategoryName = (TextView) findViewById(R.id.tvRecommendationCategoryName);
+		TextView tvCategoryName = (TextView) findViewById(R.id.tvHeader);
 		ArrayList <RecommendationBase> recs = new ArrayList<RecommendationBase>();
 		switch (extras.getInt(KEY_ACTIVITIES_TYPE)) {
 			case KEY_USER_ADDED_ACTIVITIES:

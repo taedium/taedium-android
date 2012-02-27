@@ -42,7 +42,9 @@ public class FragmentHeaderActivity extends FragmentActivity {
             }
         });
     	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
-    	tvHeader.setVisibility(View.GONE);
+    	if (tvHeader != null) {
+	    	tvHeader.setVisibility(View.GONE);
+    	}
     }
     
     public void initializeHeader(View.OnClickListener callback) {
@@ -50,13 +52,17 @@ public class FragmentHeaderActivity extends FragmentActivity {
         vHeader = findViewById(R.id.vHeader);
         vHeader.setOnClickListener(callback);
     	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
-    	tvHeader.setVisibility(View.GONE);
+    	if (tvHeader != null) {
+	    	tvHeader.setVisibility(View.GONE);
+    	}
     }
     
     public void initializeHeader(String labelText) {
     	vHeader.setVisibility(View.GONE);
     	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
-    	tvHeader.setText(labelText);
+    	if (tvHeader != null) {
+	    	tvHeader.setText(labelText);
+    	}
     }
     
     @Override

@@ -38,7 +38,9 @@ public class HeaderActivity extends Activity {
             }
         });
     	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
-    	tvHeader.setVisibility(View.GONE);
+    	if (tvHeader != null) {
+	    	tvHeader.setVisibility(View.GONE);
+    	}
     }
     
     public void initializeHeader(OnClickListener callback) {
@@ -46,14 +48,18 @@ public class HeaderActivity extends Activity {
         vHeader = findViewById(R.id.vHeader);
         vHeader.setOnClickListener(callback);
     	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
-    	tvHeader.setVisibility(View.GONE);
+    	if (tvHeader != null) {
+	    	tvHeader.setVisibility(View.GONE);
+    	}
     }
     
     public void initializeHeader(String labelText) {
         vHeader = findViewById(R.id.vHeader);
     	vHeader.setVisibility(View.GONE);
     	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
-    	tvHeader.setText(labelText);
+    	if (tvHeader != null) {
+	    	tvHeader.setText(labelText);
+    	}
     }
     
     @Override
