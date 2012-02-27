@@ -1,17 +1,12 @@
 package me.taedium.android.profile;
 
-import java.util.ArrayList;
-
 import me.taedium.android.ApplicationGlobals;
 import me.taedium.android.HeaderActivity;
 import me.taedium.android.R;
-import me.taedium.android.api.Caller;
 import me.taedium.android.domain.FilterItem;
 import me.taedium.android.domain.FilterItemAdapter;
 import me.taedium.android.domain.RankingItem;
 import me.taedium.android.domain.RankingItemAdapter;
-import me.taedium.android.domain.RecommendationBase;
-import me.taedium.android.domain.RecommendationOverviewList;
 import me.taedium.android.listener.LoggedInChangedListener;
 import android.content.Intent;
 import android.os.Bundle;
@@ -71,16 +66,13 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             	switch((int)id) {
                     case LIST_ITEM_ADDED:                    	
-                    	startActivitiesList(Caller.getInstance(getApplicationContext()).getActivitiesAddedByUser(),
-                    			R.string.added_activities_title);
+                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_ADDED_ACTIVITIES);
                         break;
                     case LIST_ITEM_LIKED:
-                    	startActivitiesList(Caller.getInstance(getApplicationContext()).getActivitiesLikedByUser(),
-                    			R.string.liked_activities_title);
+                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_LIKED_ACTIVITIES);
                         break;
                     case LIST_ITEM_DISLIKED:
-                    	startActivitiesList(Caller.getInstance(getApplicationContext()).getActivitiesDislikedByUser(),
-                    			R.string.disliked_activities_title);
+                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_DISLIKED_ACTIVITIES);
                         break;
                     default:
                 }
@@ -94,11 +86,9 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
 		
 	}
 	
-	private void startActivitiesList(ArrayList<RecommendationBase> recommendations, int resId) {
+	private void startActivitiesList(int typeKey) {
 		Bundle bundle = new Bundle();
-    	RecommendationOverviewList recs = new RecommendationOverviewList(recommendations);
-    	bundle.putParcelable(RecommendationOverviewListActivity.KEY_RECOMMENDATION_LIST, recs);
-    	bundle.putInt(RecommendationOverviewListActivity.KEY_LIST_TITLE_RES_ID, resId);
+    	bundle.putInt(RecommendationOverviewListActivity.KEY_ACTIVITIES_TYPE, typeKey);
         Intent i = new Intent(ProfileActivity.this, RecommendationOverviewListActivity.class);
         i.putExtras(bundle);
         startActivityForResult(i, LIST_ITEM_ADDED);

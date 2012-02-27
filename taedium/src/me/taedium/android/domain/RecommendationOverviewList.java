@@ -12,6 +12,8 @@ public class RecommendationOverviewList extends ArrayList<RecommendationBase> im
 	 */
 	private static final long serialVersionUID = -8047408653961098418L;
 
+	// TODO DELETE THIS CLASS PROBABLY
+	
 	public RecommendationOverviewList() {}
 	
 	public RecommendationOverviewList(ArrayList<RecommendationBase> recs) {
