@@ -60,22 +60,26 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
 		
 		// Set top list view displaying info about activities created, liked, disliked
         ListView lvSummary = (ListView) findViewById(R.id.lvProfileSummary);
-        lvSummary.setAdapter(new FilterItemAdapter(this, R.id.list_item_text, getSummaryItems()));
+        final FilterItem[] summaryItems = getSummaryItems();
+        lvSummary.setAdapter(new FilterItemAdapter(this, R.id.list_item_text, summaryItems));
         lvSummary.setTextFilterEnabled(true);
         lvSummary.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            	switch((int)id) {
-                    case LIST_ITEM_ADDED:                    	
-                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_ADDED_ACTIVITIES);
-                        break;
-                    case LIST_ITEM_LIKED:
-                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_LIKED_ACTIVITIES);
-                        break;
-                    case LIST_ITEM_DISLIKED:
-                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_DISLIKED_ACTIVITIES);
-                        break;
-                    default:
-                }
+            	int stat = Integer.parseInt(summaryItems[(int) id].feedbackLabel);
+            	if (stat > 0) {
+	            	switch((int)id) {
+	                    case LIST_ITEM_ADDED:                    	
+		                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_ADDED_ACTIVITIES);
+	                        break;
+	                    case LIST_ITEM_LIKED:
+	                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_LIKED_ACTIVITIES);
+	                        break;
+	                    case LIST_ITEM_DISLIKED:
+	                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_DISLIKED_ACTIVITIES);
+	                        break;
+	                    default:
+	                }
+            	}
             }
         });
         
@@ -107,7 +111,7 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
                 filterItems[i] = new FilterItem(R.drawable.hand_pro, options[i], "15");
                 break;
             case LIST_ITEM_DISLIKED:
-                filterItems[i] = new FilterItem(R.drawable.hand_contra, options[i], "22");
+                filterItems[i] = new FilterItem(R.drawable.hand_contra, options[i], "0");
                 break;
             }
         }

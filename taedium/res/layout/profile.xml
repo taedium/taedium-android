@@ -65,7 +65,7 @@
 			</TextView>
 			<ListView
 			    android:id="@+id/lvRankings"
-			    style="@style/Listview"
+			    style="@style/ListviewActivityOverview"
 			    android:layout_below="@id/tvScoreboardHeader">
 			</ListView>
 		</RelativeLayout>

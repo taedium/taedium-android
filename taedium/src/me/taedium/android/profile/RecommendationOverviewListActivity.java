@@ -54,20 +54,24 @@ public class RecommendationOverviewListActivity extends HeaderActivity {
         for (int i = 0; i < recs.size(); i++) {
         	recsArray[i] = recs.get(i);
         }
-        lvActivities.setAdapter(new RecommendationBaseAdapter(this, R.id.list_item_text, recsArray));
-        lvActivities.setTextFilterEnabled(true);
-        lvActivities.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				RecommendationBase rec = recsArray[(int) id];
-				Bundle bundle = new Bundle();
-				bundle.putBoolean(ViewRecommendation.KEY_DISPLAY_BY_ID, true);
-				bundle.putInt(ViewRecommendation.KEY_ID_TO_FETCH, rec.id);
-                Intent i = new Intent(RecommendationOverviewListActivity.this, ViewRecommendation.class);
-                i.putExtras(bundle);
-                startActivity(i);
-			}
-		});
+        if (recsArray.length < 1) {
+        	lvActivities.setVisibility(View.INVISIBLE);
+        } else {
+	        lvActivities.setAdapter(new RecommendationBaseAdapter(this, R.id.list_item_text, recsArray));
+	        lvActivities.setTextFilterEnabled(true);
+	        lvActivities.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+	            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					RecommendationBase rec = recsArray[(int) id];
+					Bundle bundle = new Bundle();
+					bundle.putBoolean(ViewRecommendation.KEY_DISPLAY_BY_ID, true);
+					bundle.putInt(ViewRecommendation.KEY_ID_TO_FETCH, rec.id);
+	                Intent i = new Intent(RecommendationOverviewListActivity.this, ViewRecommendation.class);
+	                i.putExtras(bundle);
+	                startActivity(i);
+				}
+			});
+        }
 	}
 
 }

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/list_item_gradient">
+    android:background="@drawable/rec_overview_list_gradient">
     <TextView
         android:id="@+id/tvListItemRank"
         android:layout_centerVertical="true"

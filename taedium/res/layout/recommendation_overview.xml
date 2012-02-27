@@ -16,7 +16,7 @@
 	</TextView>
 	<ListView
 	    android:id="@+id/lvActivities"
-	    style="@style/Listview"
+	    style="@style/ListviewActivityOverview"
 	    android:layout_below="@id/tvRecommendationCategoryName">
 	</ListView>
 

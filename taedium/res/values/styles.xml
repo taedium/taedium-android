@@ -50,7 +50,16 @@
         <item name="android:paddingTop">3px</item>
         <item name="android:paddingBottom">15px</item>
     </style>
-        
+    
+    <style name="ListviewActivityOverview">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">#000000</item>
+        <item name="android:divider">#000000</item>
+        <item name="android:dividerHeight">1px</item>
+        <item name="android:paddingTop">1px</item>
+    </style>   
+    
     <!-- Divider used on landing page and profile page -->
     <style name="Divider">
         <item name="android:layout_width">fill_parent</item>

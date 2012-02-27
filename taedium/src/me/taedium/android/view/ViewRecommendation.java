@@ -67,21 +67,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
         vpActivities.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			@Override
 			public void onPageSelected(int arg0) {
-				curRec= (Recommendation) ((RecommendationAdapter)vpActivities.getAdapter()).getRecommendation(vpActivities.getCurrentItem());
-				
-				// Un-highlight all buttons
-				if (curRec.likedByUser == null) {
-					unhighlightFooter();
-				}
-				// Highlight like button
-				else if (curRec.likedByUser) {
-					highlightLikeFooter();
-				}
-				// Highlight dislike button
-				else {
-					highlightDislikeFooter();
-				}			
-				
+				changeHighlighting();
 			}
 			
 			@Override
@@ -94,6 +80,23 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
         progressDialog = ProgressDialog.show(this, "", "Loading Activities...");
         // Spawn a new thread to perform the computation
         new Thread(this).start();
+    }
+    
+    private void changeHighlighting() {
+    	curRec= (Recommendation) ((RecommendationAdapter)vpActivities.getAdapter()).getRecommendation(vpActivities.getCurrentItem());
+				
+		// Un-highlight all buttons
+		if (curRec.likedByUser == null) {
+			unhighlightFooter();
+		}
+		// Highlight like button
+		else if (curRec.likedByUser) {
+			highlightLikeFooter();
+		}
+		// Highlight dislike button
+		else {
+			highlightDislikeFooter();
+		}
     }
     
     // Helper function to make sure a user is logged in when pressing footer buttons
@@ -210,6 +213,9 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
     				}
     			}
     		});
+            
+            // Make sure we highlight the first activity if it is liked/disliked
+            changeHighlighting();
             
             // Show a message if no recommendations were returned
             if (recommendations.size() == 0) {
