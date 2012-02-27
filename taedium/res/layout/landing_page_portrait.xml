@@ -32,7 +32,7 @@
     </Button>
  	<TextView
         android:id="@+id/filterText"
-        style="@style/Divider"
+        style="@style/DividerLandingPage"
         android:layout_below="@id/bTaedium"
         android:text="@string/filter_title">
     </TextView>

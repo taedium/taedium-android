@@ -77,7 +77,11 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
 		});
         
         // Start a progress dialog to get new activitiesProgressDialog
-        progressDialog = ProgressDialog.show(this, "", "Loading Activities...");
+        if (displaySingleRec) {
+	        progressDialog = ProgressDialog.show(this, "", getString(R.string.msgLoadingActivity));
+        } else {
+	        progressDialog = ProgressDialog.show(this, "", getString(R.string.msgLoadingActivities));
+        }
         // Spawn a new thread to perform the computation
         new Thread(this).start();
     }

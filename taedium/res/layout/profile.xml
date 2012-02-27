@@ -59,7 +59,7 @@
 			</ListView>
 			<TextView
 			    android:id="@+id/tvScoreboardHeader"
-			    style="@style/Divider"
+			    style="@style/DividerProfilePage"
 			    android:layout_below="@id/lvProfileSummary"
 			    android:text="@string/tvScoreboardHeader">
 			</TextView>
