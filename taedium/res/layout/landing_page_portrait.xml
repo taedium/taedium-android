@@ -39,6 +39,8 @@
     <ListView
         android:id="@+id/lvOptions"       
         android:layout_below="@id/filterText"
-        style="@style/Listview">
+        style="@style/Listview"
+        android:divider="#00000000"
+        android:background="#00000000">
     </ListView>
 </RelativeLayout>
