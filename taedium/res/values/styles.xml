@@ -116,6 +116,7 @@
         <item name="android:shadowDx">1</item>
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">2</item> 
+        <item name="android:background">@drawable/b_add_nav_button</item>
     </style>
     
     <style name="AddTextView" parent="@style/BaseView">

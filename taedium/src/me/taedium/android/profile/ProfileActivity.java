@@ -12,9 +12,8 @@ import me.taedium.android.domain.UserStats;
 import me.taedium.android.listener.LoggedInChangedListener;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,7 +26,7 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 
-public class ProfileActivity extends HeaderActivity implements LoggedInChangedListener, Runnable {
+public class ProfileActivity extends HeaderActivity implements LoggedInChangedListener {
 	
 	private static final int LIST_ITEM_ADDED = 0;
 	private static final int LIST_ITEM_LIKED = 1;
@@ -37,7 +36,6 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
 	private TextView tvHeader;
 	private UserStats stats;
 	private RankingItem[] rankings;
-	private ProgressDialog progressDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,55 +68,46 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
 	private void setupLoggedInView() {
 		// Set user's name
 		tvHeader.setText(String.format(getString(R.string.tvLoggedInAs), ApplicationGlobals.getInstance().getUser(this)));
-		
-        // Get user stats and setup listview
-        progressDialog = ProgressDialog.show(this, "", getString(R.string.msgLoadingProfile));
-        new Thread(this).start();
+		new GetProfilePageInfoTask().execute();
 	}
 	
-	private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-        	
-        	final FilterItem[] summaryItems = getSummaryItems();
-        	
-        	progressDialog.dismiss();
-        	
-			// Set top list view displaying info about activities created, liked, disliked
-	        ListView lvSummary = (ListView) findViewById(R.id.lvProfileSummary);
-        	lvSummary.setAdapter(new FilterItemAdapter(ProfileActivity.this, R.id.list_item_text, summaryItems));
-	        lvSummary.setTextFilterEnabled(true);
-	        lvSummary.setOnItemClickListener(new OnItemClickListener() {
-	            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	            	int stat = Integer.parseInt(summaryItems[(int) id].feedbackLabel);
-	            	if (stat > 0) {
-		            	switch((int)id) {
-		                    case LIST_ITEM_ADDED:                    	
-			                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_ADDED_ACTIVITIES);
-		                        break;
-		                    case LIST_ITEM_LIKED:
-		                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_LIKED_ACTIVITIES);
-		                        break;
-		                    case LIST_ITEM_DISLIKED:
-		                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_DISLIKED_ACTIVITIES);
-		                        break;
-		                    default:
-		                }
-	            	}
-	            }
-	        });
-	        
-	        // Setup scoreboard
-	        ListView lvRankings= (ListView) findViewById(R.id.lvRankings);
-	        if (rankings != null && rankings.length >0) {
-		        lvRankings.setAdapter(new RankingItemAdapter(ProfileActivity.this, R.id.tvListItemUser, rankings));
-		        lvRankings.setTextFilterEnabled(true); 
-	        } else {
-	        	lvRankings.setVisibility(View.INVISIBLE);
-	        }
+	private void finishLoadingUI() {
+	   	
+    	final FilterItem[] summaryItems = getSummaryItems();
+    	
+		// Set top list view displaying info about activities created, liked, disliked
+        ListView lvSummary = (ListView) findViewById(R.id.lvProfileSummary);
+    	lvSummary.setAdapter(new FilterItemAdapter(ProfileActivity.this, R.id.list_item_text, summaryItems));
+        lvSummary.setTextFilterEnabled(true);
+        lvSummary.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            	int stat = Integer.parseInt(summaryItems[(int) id].feedbackLabel);
+            	if (stat > 0) {
+	            	switch((int)id) {
+	                    case LIST_ITEM_ADDED:                    	
+		                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_ADDED_ACTIVITIES);
+	                        break;
+	                    case LIST_ITEM_LIKED:
+	                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_LIKED_ACTIVITIES);
+	                        break;
+	                    case LIST_ITEM_DISLIKED:
+	                    	startActivitiesList(RecommendationOverviewListActivity.KEY_USER_DISLIKED_ACTIVITIES);
+	                        break;
+	                    default:
+	                }
+            	}
+            }
+        });
+        
+        // Setup scoreboard
+        ListView lvRankings= (ListView) findViewById(R.id.lvRankings);
+        if (rankings != null && rankings.length >0) {
+	        lvRankings.setAdapter(new RankingItemAdapter(ProfileActivity.this, R.id.tvListItemUser, rankings));
+	        lvRankings.setTextFilterEnabled(true); 
+        } else {
+        	lvRankings.setVisibility(View.INVISIBLE);
         }
-		
-	};
+    }
 	
 	private void startActivitiesList(int typeKey) {
 		Bundle bundle = new Bundle();
@@ -183,11 +172,30 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
 	
 	public void loggedOut() {}
 
-	@Override
-	public void run() {
-        stats = Caller.getInstance(getApplicationContext()).getUserStats();
-        rankings = Caller.getInstance(getApplicationContext()).getRankings();
-        handler.sendEmptyMessage(0);
+	private class GetProfilePageInfoTask extends AsyncTask<Void, Void, Void> {
+
+		private ProgressDialog progressDialog;
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progressDialog = ProgressDialog.show(ProfileActivity.this, "", getString(R.string.msgLoadingProfile));
+		}
+		
+		@Override
+		protected Void doInBackground(Void...params) {
+	        stats = Caller.getInstance(getApplicationContext()).getUserStats();
+	        rankings = Caller.getInstance(getApplicationContext()).getRankings();
+	        return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			finishLoadingUI();
+			progressDialog.dismiss();
+		}
+		
 	}
 
 }

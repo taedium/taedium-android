@@ -10,15 +10,15 @@ import me.taedium.android.domain.RecommendationBaseAdapter;
 import me.taedium.android.view.ViewRecommendation;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class RecommendationOverviewListActivity extends HeaderActivity implements Runnable {
+public class RecommendationOverviewListActivity extends HeaderActivity {
 	
 	public static final String KEY_ACTIVITIES_TYPE = "activities_type";
 	public static final int KEY_USER_ADDED_ACTIVITIES = 201;
@@ -26,7 +26,6 @@ public class RecommendationOverviewListActivity extends HeaderActivity implement
 	public static final int KEY_USER_DISLIKED_ACTIVITIES = 203;
 	
 	private TextView tvCategoryName;
-	private ProgressDialog progressDialog;
 	private ArrayList <RecommendationBase> recs = new ArrayList<RecommendationBase>();
 	private int keyActivitiesType;
 		
@@ -52,47 +51,51 @@ public class RecommendationOverviewListActivity extends HeaderActivity implement
 				tvCategoryName.setText(getString(R.string.disliked_activities_title));
 				break;
 		}
-        // Get user stats and setup listview
-        progressDialog = ProgressDialog.show(this, "", getString(R.string.msgLoadingActivities));
-        new Thread(this).start();
+		
+		new GetActivitiesOverviewTask().execute();
 	}
 	
-	private Handler handler = new Handler() {
+	private void populateActivitiesList() {
 		
-		public void handleMessage(android.os.Message msg) {
-			
-			progressDialog.dismiss();
-			
-			// Setup the activity list
-	        ListView lvActivities = (ListView) findViewById(R.id.lvActivities);
-	        final RecommendationBase[] recsArray = new RecommendationBase[recs.size()];
-	        for (int i = 0; i < recs.size(); i++) {
-	        	recsArray[i] = recs.get(i);
-	        }
-	        if (recsArray.length < 1) {
-	        	lvActivities.setVisibility(View.INVISIBLE);
-	        } else {
-		        lvActivities.setAdapter(new RecommendationBaseAdapter(RecommendationOverviewListActivity.this, R.id.list_item_text, recsArray));
-		        lvActivities.setTextFilterEnabled(true);
-		        lvActivities.setOnItemClickListener(new OnItemClickListener() {
-					@Override
-		            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-						RecommendationBase rec = recsArray[(int) id];
-						Bundle bundle = new Bundle();
-						bundle.putBoolean(ViewRecommendation.KEY_DISPLAY_BY_ID, true);
-						bundle.putInt(ViewRecommendation.KEY_ID_TO_FETCH, rec.id);
-		                Intent i = new Intent(RecommendationOverviewListActivity.this, ViewRecommendation.class);
-		                i.putExtras(bundle);
-		                startActivity(i);
-					}
-				});
-	        }
-		}
-	};
+		// Setup the activity list
+        ListView lvActivities = (ListView) findViewById(R.id.lvActivities);
+        final RecommendationBase[] recsArray = new RecommendationBase[recs.size()];
+        for (int i = 0; i < recs.size(); i++) {
+        	recsArray[i] = recs.get(i);
+        }
+        if (recsArray.length < 1) {
+        	lvActivities.setVisibility(View.INVISIBLE);
+        } else {
+	        lvActivities.setAdapter(new RecommendationBaseAdapter(RecommendationOverviewListActivity.this, R.id.list_item_text, recsArray));
+	        lvActivities.setTextFilterEnabled(true);
+	        lvActivities.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+	            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					RecommendationBase rec = recsArray[(int) id];
+					Bundle bundle = new Bundle();
+					bundle.putBoolean(ViewRecommendation.KEY_DISPLAY_BY_ID, true);
+					bundle.putInt(ViewRecommendation.KEY_ID_TO_FETCH, rec.id);
+	                Intent i = new Intent(RecommendationOverviewListActivity.this, ViewRecommendation.class);
+	                i.putExtras(bundle);
+	                startActivity(i);
+				}
+			});
+        }
+	}
+	
+	private class GetActivitiesOverviewTask extends AsyncTask<Void, Void, Void> {
 
-	@Override
-	public void run() {
-		switch (keyActivitiesType) {
+		private ProgressDialog progressDialog;
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progressDialog = ProgressDialog.show(RecommendationOverviewListActivity.this, "", getString(R.string.msgLoadingActivities));
+		}
+		
+		@Override
+		protected Void doInBackground(Void...params) {
+			switch (keyActivitiesType) {
 			case KEY_USER_ADDED_ACTIVITIES:
 				recs = Caller.getInstance(getApplicationContext()).getActivitiesAddedByUser();
 				break;
@@ -102,7 +105,16 @@ public class RecommendationOverviewListActivity extends HeaderActivity implement
 			case KEY_USER_DISLIKED_ACTIVITIES:
 				recs = Caller.getInstance(getApplicationContext()).getActivitiesDislikedByUser();
 				break;
+			}
+			return null;
 		}
-		handler.sendEmptyMessage(0);
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			populateActivitiesList();
+			progressDialog.dismiss();
+		}
+		
 	}
 }
