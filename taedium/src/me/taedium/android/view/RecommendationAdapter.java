@@ -79,7 +79,7 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	        // If we are near the end of the list, grab some more activities
-	        if (mPosition == mRecommendations.size() - 5 && !showSingleRec) {
+	        if (mPosition == mRecommendations.size() - 9 && !showSingleRec) {
 	            new GetRecommendationTask().execute();
 	        }
 	        
