@@ -8,6 +8,7 @@
 	    android:id="@+id/lvActivities"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentLeft="true"
-	    style="@style/ListviewActivityOverview">
+	    style="@style/ListviewActivityOverview"
+		android:background="#00000000">
 	</ListView>
 </LinearLayout>
