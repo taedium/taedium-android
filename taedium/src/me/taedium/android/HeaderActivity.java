@@ -1,7 +1,11 @@
 package me.taedium.android;
 
+import java.util.ArrayList;
+
 import me.taedium.android.add.AddName;
 import me.taedium.android.api.Caller;
+import me.taedium.android.listener.LoggedInChangedListener;
+import me.taedium.android.profile.ProfileActivity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -9,9 +13,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class HeaderActivity extends Activity {
@@ -22,21 +28,38 @@ public class HeaderActivity extends Activity {
     private static final int DIALOG_LOGIN = 200;
     protected static final String LOGGED_IN_KEY = "loggedIn";
     protected static final String USER_PASS_KEY = "userpass";
-
+    
     public void initializeHeader() {
         vHeader = findViewById(R.id.vHeader);
-        vHeader.setOnClickListener(new View.OnClickListener() {
+        vHeader.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(HeaderActivity.this, AddName.class);
                 startActivityForResult(i, ACTIVITY_CREATE);                  
             }
         });
+    	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
+    	if (tvHeader != null) {
+	    	tvHeader.setVisibility(View.GONE);
+    	}
     }
     
-    public void initializeHeader(View.OnClickListener callback) {
+    public void initializeHeader(OnClickListener callback) {
         // Initialize bAdd
         vHeader = findViewById(R.id.vHeader);
         vHeader.setOnClickListener(callback);
+    	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
+    	if (tvHeader != null) {
+	    	tvHeader.setVisibility(View.GONE);
+    	}
+    }
+    
+    public void initializeHeader(String labelText) {
+        vHeader = findViewById(R.id.vHeader);
+    	vHeader.setVisibility(View.GONE);
+    	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
+    	if (tvHeader != null) {
+	    	tvHeader.setText(labelText);
+    	}
     }
     
     @Override
@@ -73,6 +96,7 @@ public class HeaderActivity extends Activity {
                         		userText.getText().toString(), passText.getText().toString());
                         if (is_authenticated) {
                             Toast.makeText(HeaderActivity.this, R.string.msgLoginSuccess, Toast.LENGTH_LONG).show();
+                            notifyLoggedIn();
                         }
                         else {
                         	Toast.makeText(HeaderActivity.this, R.string.msgLoginFailed, Toast.LENGTH_LONG).show();
@@ -114,8 +138,12 @@ public class HeaderActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch(item.getItemId()) {
+    	case R.id.mnuProfile:
+            Intent i = new Intent(HeaderActivity.this, ProfileActivity.class);
+            startActivityForResult(i, ACTIVITY_CREATE);                  
+            return true;
     	case R.id.mnuLogin:
-    		showDialog(DIALOG_LOGIN);
+    		login();
     		return true;
     	case R.id.mnuLogout:
     		logout();
@@ -126,12 +154,19 @@ public class HeaderActivity extends Activity {
     	}   		
     	return super.onOptionsItemSelected(item);
     }    
+    
+    // Login helper
+    protected void login() {
+    	showDialog(DIALOG_LOGIN);
+    }
+    
     // Logout helper
-    private void logout() {
+    protected void logout() {
     	ApplicationGlobals globals = ApplicationGlobals.getInstance();
     	globals.setUserpass("", getApplicationContext());
 		globals.setLoggedIn(false, getApplicationContext());
 		Toast.makeText(this, getString(R.string.msgLoggedOut), Toast.LENGTH_LONG).show();
+		notifyLoggedOut();
 		
 		// return to main screen
 		Intent i = new Intent(HeaderActivity.this, FirstStart.class);
@@ -139,8 +174,33 @@ public class HeaderActivity extends Activity {
 	}
     
     // Register helper
-    private void register() {
+    protected void register() {
     	Intent i = new Intent(HeaderActivity.this, Register.class);
         startActivityForResult(i, ACTIVITY_REGISTER);
     }
+    
+    /*
+     * Logged in listeners/notifiers
+     */
+    private ArrayList<LoggedInChangedListener> loggedInListeners = new ArrayList<LoggedInChangedListener>();
+    
+    public void addLoggedInListener(LoggedInChangedListener l) {
+    	loggedInListeners.add(l);
+    }
+    
+    public void removeLoggedInListener(LoggedInChangedListener l) {
+    	loggedInListeners.remove(l);
+    }
+    
+    protected void notifyLoggedIn() {
+    	for (LoggedInChangedListener l: loggedInListeners) {
+    		l.loggedIn();
+    	}
+    }
+    protected void notifyLoggedOut() {
+    	for (LoggedInChangedListener l: loggedInListeners) {
+    		l.loggedOut();
+    	}
+    }
+    
 }

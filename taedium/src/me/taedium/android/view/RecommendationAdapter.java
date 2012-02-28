@@ -35,6 +35,7 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
 
     private Context mContext;
     private ArrayList<Recommendation> mRecommendations;
+    private boolean showSingleRec = false;
     
     public RecommendationAdapter(FragmentActivity activity, ArrayList<Recommendation> recommendations) {
     	super(activity.getSupportFragmentManager());
@@ -42,8 +43,15 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
     	mRecommendations = recommendations;
     }
     
+    public void setShowSingleRec(boolean showSingleRec) {
+    	this.showSingleRec = showSingleRec;
+    }
+    
     public Recommendation getRecommendation(int position) {
-    	return mRecommendations.get(position);
+    	if (mRecommendations.size() >0) {
+	    	return mRecommendations.get(position);
+    	}
+    	return null;
     }
     
     public void removeRecommendation(int index) {
@@ -71,18 +79,19 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	        // If we are near the end of the list, grab some more activities
-	        if (mPosition == mRecommendations.size() - 5) {
+	        if (mPosition == mRecommendations.size() - 9 && !showSingleRec) {
 	            new GetRecommendationTask().execute();
 	        }
 	        
 	        final Recommendation rec = mRecommendations.get(mPosition);
 	        View view = inflater.inflate(R.layout.view_fragment, null);
 	       
-	        // Don't show arrows on first/last recommendation
-	        if (mPosition == 0) {
+	        // Don't show arrows on first/last recommendation or if we are only showing one recommendation
+	        if (mPosition == 0 || showSingleRec) {
 	            ImageView prevArrow = (ImageView)view.findViewById(R.id.ivRecPrev);
 	            prevArrow.setVisibility(View.GONE);
-	        } else if (mPosition == mRecommendations.size() - 1) {
+	        } 
+	        if (mPosition == mRecommendations.size() - 1 || showSingleRec) {
 	            ImageView nextArrow = (ImageView)view.findViewById(R.id.ivRecNext);
 	            nextArrow.setVisibility(View.GONE);
 	        }
@@ -93,11 +102,11 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
 	        
 	        // Set the name
 	        TextView name = (TextView)view.findViewById(R.id.tvRecName);
-	        name.setText(rec.getName());
+	        name.setText(rec.name);
 	        
 	        // Set the description
 	        TextView desc = (TextView)view.findViewById(R.id.tvRecDescription);
-	        desc.setText(rec.getDescription());
+	        desc.setText(rec.description);
 	        Linkify.addLinks(desc, Linkify.ALL);
 	        
 	        // Set expandable panel listener
@@ -129,19 +138,19 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
 	        // Context used for getting strings from res files
 	        Context context = mContext;
 	        
-	        if (rec.getMinPeople() == 0 && rec.getCost() == 0 && rec.getMaxDuration() == 0) {
+	        if (rec.min_people == 0 && rec.cost == 0 && rec.max_duration == 0) {
 	            TextView addlInfo = (TextView) view.findViewById(R.id.tvAddlInfo);
 	            addlInfo.setVisibility(View.GONE);
 	        }
 	        
 	        // Set the number of people        
 	        TextView numPeople = (TextView)view.findViewById(R.id.tvRecNumPeople);
-	        if (rec.getMinPeople() != 0) {
-	            if (rec.getMinPeople() == rec.getMaxPeople()) {
-	                numPeople.setText(context.getString(R.string.stFor) + " " + rec.getMinPeople()); 
+	        if (rec.min_people != 0) {
+	            if (rec.min_people == rec.max_people) {
+	                numPeople.setText(context.getString(R.string.stFor) + " " + rec.min_people); 
 	            } else {
-	                numPeople.setText(context.getString(R.string.stFrom) + " " + rec.getMinPeople() + 
-	                		" " + context.getString(R.string.stTo) + " " + rec.getMaxPeople());
+	                numPeople.setText(context.getString(R.string.stFrom) + " " + rec.min_people + 
+	                		" " + context.getString(R.string.stTo) + " " + rec.max_people);
 	            }
 	        } else {
 	            TextView label = (TextView)view.findViewById(R.id.tvRecNumPeopleLabel);
@@ -153,12 +162,12 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
 	        
 	        // Set the cost
 	        TextView cost = (TextView)view.findViewById(R.id.tvRecCost);
-	        if (rec.getCost() != 0) {
+	        if (rec.cost != 0) {
 	            String suffix = " " + context.getString(R.string.stTotal);
-	            if (rec.isCostIsPerPerson()) {
+	            if (rec.cost_is_per_person) {
 	                suffix = " " + context.getString(R.string.stPerPerson);
 	            }
-	            String c = Double.toString(rec.getCost());
+	            String c = Double.toString(rec.cost);
 	            if (c.indexOf('.') == c.length()-2) {
 	            	c = c + "0";
 	            }
@@ -173,9 +182,9 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
 	        
 	        // Set the duration
 	        TextView duration = (TextView)view.findViewById(R.id.tvRecDuration);
-	        if (rec.getMaxDuration() != 0) {
-	            int minDuration = rec.getMinDuration();
-	            int maxDuration = rec.getMaxDuration();
+	        if (rec.max_duration != 0) {
+	            int minDuration = rec.min_duration;
+	            int maxDuration = rec.max_duration;
 	            String suffix = maxDuration == 1 ? 
 	            		" " + context.getString(R.string.stMinute) : " " + context.getString(R.string.stMinutes);
 	            if (minDuration >= 60) {
@@ -199,14 +208,14 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
 	        
 	        // Set show map listener
 	        Button map = (Button)view.findViewById(R.id.bShowMap);
-	        if (rec.getLong() != 0 || rec.getLat() != 0) {
+	        if (rec.lon != 0 || rec.lat != 0) {
 	            map.setOnClickListener(new Button.OnClickListener() {
 	                public void onClick(View arg0) {
 	                    /**/
 	                    Intent intent = new Intent(mContext, MapDetail.class);
 	                    Bundle bundle = new Bundle();
-	                    bundle.putDouble("lat", rec.getLat());
-	                    bundle.putDouble("long", rec.getLong());
+	                    bundle.putDouble("lat", rec.lat);
+	                    bundle.putDouble("long", rec.lon);
 	                    intent.putExtras(bundle);
 	                    /**
 	                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?f=d&daddr=" + rec.getLat() + "," + rec.getLong()));

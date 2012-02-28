@@ -1,11 +1,15 @@
 package me.taedium.android.view;
 
+import java.util.ArrayList;
+
 import me.taedium.android.ApplicationGlobals;
 import me.taedium.android.FirstStart;
 import me.taedium.android.R;
 import me.taedium.android.Register;
 import me.taedium.android.add.AddName;
 import me.taedium.android.api.Caller;
+import me.taedium.android.listener.LoggedInChangedListener;
+import me.taedium.android.profile.ProfileActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +21,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class FragmentHeaderActivity extends FragmentActivity {
@@ -36,12 +41,28 @@ public class FragmentHeaderActivity extends FragmentActivity {
                 startActivityForResult(i, ACTIVITY_CREATE);                  
             }
         });
+    	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
+    	if (tvHeader != null) {
+	    	tvHeader.setVisibility(View.GONE);
+    	}
     }
     
     public void initializeHeader(View.OnClickListener callback) {
         // Initialize bAdd
         vHeader = findViewById(R.id.vHeader);
         vHeader.setOnClickListener(callback);
+    	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
+    	if (tvHeader != null) {
+	    	tvHeader.setVisibility(View.GONE);
+    	}
+    }
+    
+    public void initializeHeader(String labelText) {
+    	vHeader.setVisibility(View.GONE);
+    	TextView tvHeader = (TextView) findViewById(R.id.tvHeader);
+    	if (tvHeader != null) {
+	    	tvHeader.setText(labelText);
+    	}
     }
     
     @Override
@@ -77,6 +98,7 @@ public class FragmentHeaderActivity extends FragmentActivity {
                         		userText.getText().toString(), passText.getText().toString());
                         if (is_authenticated) {
                             Toast.makeText(FragmentHeaderActivity.this, R.string.msgLoginSuccess, Toast.LENGTH_LONG).show();
+                            notifyLoggedIn();
                         }
                         else {
                         	Toast.makeText(FragmentHeaderActivity.this, R.string.msgLoginFailed, Toast.LENGTH_LONG).show();
@@ -125,6 +147,10 @@ public class FragmentHeaderActivity extends FragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch(item.getItemId()) {
+    	case R.id.mnuProfile:
+            Intent i = new Intent(FragmentHeaderActivity.this, ProfileActivity.class);
+            startActivityForResult(i, ACTIVITY_CREATE);                  
+            return true;
     	case R.id.mnuLogin:
     		showDialog(DIALOG_LOGIN);
     		return true;
@@ -153,5 +179,29 @@ public class FragmentHeaderActivity extends FragmentActivity {
     private void register() {
     	Intent i = new Intent(FragmentHeaderActivity.this, Register.class);
         startActivityForResult(i, ACTIVITY_REGISTER);
+    }
+    
+    /*
+     * Logged in listeners/notifiers
+     */
+    private ArrayList<LoggedInChangedListener> loggedInListeners = new ArrayList<LoggedInChangedListener>();
+    
+    public void addLoggedInListener(LoggedInChangedListener l) {
+    	loggedInListeners.add(l);
+    }
+    
+    public void removeLoggedInListener(LoggedInChangedListener l) {
+    	loggedInListeners.remove(l);
+    }
+    
+    protected void notifyLoggedIn() {
+    	for (LoggedInChangedListener l: loggedInListeners) {
+    		l.loggedIn();
+    	}
+    }
+    protected void notifyLoggedOut() {
+    	for (LoggedInChangedListener l: loggedInListeners) {
+    		l.loggedOut();
+    	}
     }
 }

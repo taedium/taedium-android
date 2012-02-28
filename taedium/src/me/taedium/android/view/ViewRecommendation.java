@@ -34,6 +34,12 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
     // Spinner's OnItemSelectedListener gets called on creation.. somewhat hacky workaround
     private boolean flagFirstRun = true;
     
+    // Display only a single activity
+    public static final String KEY_DISPLAY_BY_ID = "display_activity_by_id";
+    public static final String KEY_ID_TO_FETCH = "activity_id_to_fetch";
+    private boolean displaySingleRec;
+    private int idToFetch = 0;
+    
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
@@ -41,6 +47,13 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
         setTitle(R.string.main_title);
         
         initializeHeader();
+        
+        // Check if we are displaying one activity or many
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+	        displaySingleRec = bundle.getBoolean(KEY_DISPLAY_BY_ID);
+	        idToFetch = bundle.getInt(KEY_ID_TO_FETCH);
+        }
 
         bLike = (Button) findViewById(R.id.bUpVote);
 		bDislike = (Button) findViewById(R.id.bDownVote);
@@ -54,21 +67,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
         vpActivities.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			@Override
 			public void onPageSelected(int arg0) {
-				curRec= (Recommendation) ((RecommendationAdapter)vpActivities.getAdapter()).getRecommendation(vpActivities.getCurrentItem());
-				
-				// Un-highlight all buttons
-				if (curRec.getLikedByUser() == null) {
-					unhighlightFooter();
-				}
-				// Highlight like button
-				else if (curRec.getLikedByUser()) {
-					highlightLikeFooter();
-				}
-				// Highlight dislike button
-				else {
-					highlightDislikeFooter();
-				}			
-				
+				changeHighlighting();
 			}
 			
 			@Override
@@ -78,9 +77,35 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
 		});
         
         // Start a progress dialog to get new activitiesProgressDialog
-        progressDialog = ProgressDialog.show(this, "", "Loading Activities...");
+        if (displaySingleRec) {
+	        progressDialog = ProgressDialog.show(this, "", getString(R.string.msgLoadingActivity));
+        } else {
+	        progressDialog = ProgressDialog.show(this, "", getString(R.string.msgLoadingActivities));
+        }
         // Spawn a new thread to perform the computation
         new Thread(this).start();
+    }
+    
+    private void changeHighlighting() {
+    	curRec= (Recommendation) ((RecommendationAdapter)vpActivities.getAdapter()).getRecommendation(vpActivities.getCurrentItem());
+				
+    	if (curRec == null) {
+    		unhighlightFooter();
+    		return;
+    	}
+    	
+		// Un-highlight all buttons
+		if (curRec.likedByUser == null) {
+			unhighlightFooter();
+		}
+		// Highlight like button
+		else if (curRec.likedByUser) {
+			highlightLikeFooter();
+		}
+		// Highlight dislike button
+		else {
+			highlightDislikeFooter();
+		}
     }
     
     // Helper function to make sure a user is logged in when pressing footer buttons
@@ -100,6 +125,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
             progressDialog.dismiss();
             
             RecommendationAdapter recAdapter = new RecommendationAdapter(ViewRecommendation.this, recommendations);
+            if (displaySingleRec) recAdapter.setShowSingleRec(true);
             vpActivities.setAdapter(recAdapter);
             
             // Initialize footer buttons
@@ -112,16 +138,16 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
     				if (verifyLoggedIn()) {
     					
     					// if already liked, remove like
-	    				if (curRec.getLikedByUser() != null && curRec.getLikedByUser() == true) {
+	    				if (curRec.likedByUser != null && curRec.likedByUser == true) {
 	    					if (!removeLikeDislike()) {
 	    						Toast.makeText(ViewRecommendation.this, getString(R.string.msgRemoveLikeFailed), Toast.LENGTH_LONG).show();
 	    					}
 	    				}
 	    				// otherwise like it
 	    				else {	    				
-	    					if (Caller.getInstance(getApplicationContext()).likeDislike(curRec.getId(), true)) {
+	    					if (Caller.getInstance(getApplicationContext()).likeDislike(curRec.id, true)) {
 	    						highlightLikeFooter();
-	    						curRec.setLikedByUser(true);
+	    						curRec.likedByUser = true;
 	    					}
 	    					else {
 	    						Toast.makeText(ViewRecommendation.this, getString(R.string.msgLikeFailed), Toast.LENGTH_LONG).show();
@@ -138,16 +164,16 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
     			public void onClick(View v) {
     				if (verifyLoggedIn()) {
     					// if already dislike, remove dislike
-	    				if (curRec.getLikedByUser() != null && curRec.getLikedByUser() == false) {
+	    				if (curRec.likedByUser != null && curRec.likedByUser == false) {
 	    					if (!removeLikeDislike()) {
 	    						Toast.makeText(ViewRecommendation.this, getString(R.string.msgRemoveDislikeFailed), Toast.LENGTH_LONG).show();
 	    					}
 	    				}
 	    				// otherwise dislike it
 	    				else {	  
-	    					if (Caller.getInstance(getApplicationContext()).likeDislike(curRec.getId(), false)) {
+	    					if (Caller.getInstance(getApplicationContext()).likeDislike(curRec.id, false)) {
 	    						highlightDislikeFooter();
-	    						curRec.setLikedByUser(false);
+	    						curRec.likedByUser = false;
 	    					}
 	    					else {
 	    						Toast.makeText(ViewRecommendation.this, getString(R.string.msgDislikeFailed), Toast.LENGTH_LONG).show();
@@ -164,7 +190,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     if (!flagFirstRun) {
                         String reason = ((TextView)view).getText().toString();
-                        boolean success = Caller.getInstance(getApplicationContext()).flagActivity(curRec.getId(), reason);
+                        boolean success = Caller.getInstance(getApplicationContext()).flagActivity(curRec.id, reason);
                         if (success) {
                         	Toast.makeText(ViewRecommendation.this, getString(R.string.msgFlagSuccess)+" "+reason, Toast.LENGTH_SHORT).show();
                         	int current = vpActivities.getCurrentItem();
@@ -188,7 +214,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
             bFlag.setOnClickListener(new OnClickListener() {
     			public void onClick(View v) {
     				if (verifyLoggedIn()) {
-    					if (curRec.isFlaggedByUser()) {
+    					if (curRec.flaggedByUser) {
     						Toast.makeText(ViewRecommendation.this, getString(R.string.msgCannotUnflag), Toast.LENGTH_LONG).show();
     					} else {
     					    spFlag.performClick();
@@ -196,6 +222,9 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
     				}
     			}
     		});
+            
+            // Make sure we highlight the first activity if it is liked/disliked
+            changeHighlighting();
             
             // Show a message if no recommendations were returned
             if (recommendations.size() == 0) {
@@ -206,9 +235,9 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
  
     // Helper to remove a like or dislike
     private boolean removeLikeDislike() {
-    	if (Caller.getInstance(getApplicationContext()).removeLikeDislike(curRec.getId())) {
+    	if (Caller.getInstance(getApplicationContext()).removeLikeDislike(curRec.id)) {
 			unhighlightFooter();
-			curRec.setLikedByUser(null);
+			curRec.likedByUser = null;
 			return true;
 		}
     	return false;
@@ -238,7 +267,16 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
     // This is the run method of the thread that retrieves activities.
     public void run() {
         /**/
-        recommendations = Caller.getInstance(getApplicationContext()).getRecommendations();
+    	if (displaySingleRec) {
+    		recommendations = new ArrayList<Recommendation>();
+    		Recommendation rec = Caller.getInstance(getApplicationContext()).getRecommendation(idToFetch);
+    		if (rec!= null) {
+	    		recommendations.add(rec);
+    		}
+    		
+    	} else {
+	        recommendations = Caller.getInstance(getApplicationContext()).getRecommendations();
+    	}
         /**
         // Backup recommendations hardcoded for testing
         recommendations = new ArrayList<Recommendation>();

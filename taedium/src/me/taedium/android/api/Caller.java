@@ -7,12 +7,14 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
 
 import me.taedium.android.ApplicationGlobals;
-import me.taedium.android.R;
 import me.taedium.android.ApplicationGlobals.RecParamType;
+import me.taedium.android.R;
+import me.taedium.android.domain.RankingItem;
 import me.taedium.android.domain.Recommendation;
+import me.taedium.android.domain.RecommendationBase;
+import me.taedium.android.domain.UserStats;
 import me.taedium.android.util.Base64;
 
 import org.apache.http.HttpResponse;
@@ -26,8 +28,6 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -44,20 +44,22 @@ public class Caller {
     // API Strings
     private static final String API_URL = "https://www.taedium.me/api/";
     private static final String ADD_USER = API_URL + "users";
-    private static final String CHECK_LOGIN = API_URL + "users/";
+    private static final String USERS_API = API_URL + "users/";
     private static final String FLAG_ACTIVITY = API_URL + "flags";
     private static final String GET_RECOMMENDATIONS = API_URL + "activities/search";
+    private static final String GET_RECOMMENDATION_BY_ID = API_URL + "activities/";
     private static final String GET_RECOMMENDED_TAGS = API_URL + "tags/recommend";
     private static final String ADD_RECOMMENDATION = API_URL + "activities";
     private static final String LIKES_API_PREFIX = "users";
     private static final String LIKES_API_SUFFIX = "likes";
     private static final String ACTIVITY_ID = "activity_id";
+    private static final String CREATED_SUFFIX = "created";
+    private static final String SCORE_API = API_URL + "scores";
+    private static final String STATS_API_SUFFIX = "stats";
     
     private static final String QUERY_TOKEN = "?";
     private static final String PARAM_TOKEN = "&";
     private static final String EQUALS_TOKEN = "=";
-    
-    private static final String LIKE_KEY = "is_liked_by_user";
     
     private Context context;
     
@@ -80,7 +82,7 @@ public class Caller {
         } catch (UnsupportedEncodingException e) {
             Log.e(MODULE, e.getMessage());
         }
-    	String url = CHECK_LOGIN + user;
+    	String url = USERS_API + user;
     	if (!(user == null || password == null) && 
     			!(user.equalsIgnoreCase("")|| password.equalsIgnoreCase(""))) {
         	ApplicationGlobals.getInstance().setUserpass(user + ":" + password, context);
@@ -96,6 +98,71 @@ public class Caller {
         ApplicationGlobals.getInstance().setLoggedIn(false, context);
 		return false;
 	}
+    
+    // Get stats on a user
+    public UserStats getUserStats() {
+    	if (!ApplicationGlobals.getInstance().isLoggedIn(context)) return null;
+    	
+    	String url = USERS_API + ApplicationGlobals.getInstance().getUser(context) + "/" + STATS_API_SUFFIX;
+        Log.i(MODULE, "Requesting: " + url);
+    	HttpGet httpGet = new HttpGet(url);
+        HttpResponse response = makeCall(httpGet);
+        
+        UserStats stats = null;
+        if(checkResponse(response, HttpStatus.SC_OK)) {
+            Reader r = null;
+            try {
+                r = new InputStreamReader(response.getEntity().getContent());
+            } catch (IllegalStateException e) {
+                Log.e(MODULE, e.getMessage());
+            } catch (IOException e) {
+                Log.e(MODULE, e.getMessage());
+            }
+            
+            if (r!=null) {
+                try {
+                    stats = gson.fromJson(r, UserStats.class);
+                } 
+                catch (Exception e) {
+                    Log.e(MODULE, e.getMessage());
+                }
+            }
+        }
+       
+        return stats;
+    }
+    
+    // Get a single recommendation given its id
+    public Recommendation getRecommendation(int id) {
+    	String url = GET_RECOMMENDATION_BY_ID + Integer.toString(id);
+    	
+        Log.i(MODULE, "Requesting: " + url);
+    	HttpGet httpGet = new HttpGet(url);
+        HttpResponse response = makeCall(httpGet);
+        
+        Recommendation rec = null;
+        if(checkResponse(response, HttpStatus.SC_OK)) {
+            Reader r = null;
+            try {
+                r = new InputStreamReader(response.getEntity().getContent());
+            } catch (IllegalStateException e) {
+                Log.e(MODULE, e.getMessage());
+            } catch (IOException e) {
+                Log.e(MODULE, e.getMessage());
+            }
+            
+            if (r!=null) {
+                try {
+                    rec = gson.fromJson(r, Recommendation.class);
+                } 
+                catch (Exception e) {
+                    Log.e(MODULE, e.getMessage());
+                }
+            }
+        }
+       
+        return rec;
+    }
     
     // Get a list of recommendations for a set of given parameters
     public ArrayList<Recommendation> getRecommendations() {
@@ -146,9 +213,8 @@ public class Caller {
                     Log.e(MODULE, e.getMessage());
                 }
                 if (recs != null) {
-                	// Get like info for activity and add to ArrayList
+                	// Add to ArrayList
                     for (int i = 0; i<recs.length; i++) {
-                		recs[i].setLikedByUser(getLikeInfo(recs[i].getId()));
                         ret.add(recs[i]);
                     }
                 }
@@ -157,6 +223,98 @@ public class Caller {
         return ret;        
     }
     
+    // Get activities added by a given user
+    public ArrayList<RecommendationBase> getActivitiesAddedByUser() {
+    	String url = USERS_API + ApplicationGlobals.getInstance().getUser(context) + "/" + CREATED_SUFFIX;
+    	return getRecommendationBaseActivities(url);
+    }
+    
+    // Get activities liked by a given user
+    public ArrayList<RecommendationBase> getActivitiesLikedByUser() {
+    	return getLikesForUser(true);
+    }
+    
+    // Get activities disliked by a given user
+    public ArrayList<RecommendationBase> getActivitiesDislikedByUser() {
+    	return getLikesForUser(false);
+    }
+    
+    // like = true for likes, like = false for dislikes
+    private ArrayList<RecommendationBase> getLikesForUser(boolean like) {
+    	String url = USERS_API + ApplicationGlobals.getInstance().getUser(context) + "/" + LIKES_API_SUFFIX;
+    	ArrayList<RecommendationBase> recs = new ArrayList<RecommendationBase>();
+    	for (RecommendationBase r : getRecommendationBaseActivities(url)) {
+    		if (r.likedByUser == like)  {
+    			recs.add(r);
+    		}
+    	}
+    	return recs;
+    }
+    
+    private ArrayList<RecommendationBase> getRecommendationBaseActivities(String url) {
+    	
+    	// If user isn't logged in, return no activities
+    	if (!ApplicationGlobals.getInstance().isLoggedIn(context)) return new ArrayList<RecommendationBase>();
+    	
+    	ArrayList<RecommendationBase> recs = new ArrayList<RecommendationBase>();
+    	Log.i(MODULE, "Requesting: " + url);
+        HttpGet request = new HttpGet(url);
+        HttpResponse response = makeCall(request);
+        
+        RecommendationBase[] recommendations = null;
+        if (checkResponse(response, HttpStatus.SC_OK)) {
+            Reader r = null;
+            try {
+                r = new InputStreamReader(response.getEntity().getContent());
+            } catch (IllegalStateException e) {
+                Log.e(MODULE, e.getMessage());
+            } catch (IOException e) {
+                Log.e(MODULE, e.getMessage());
+            }
+            
+            if (r != null) {
+                try {
+                    recommendations = gson.fromJson(r, RecommendationBase[].class);
+                    for (int i = 0; i < recommendations.length; i++) {
+	                    recs.add(recommendations[i]);
+                    }
+                } catch (Exception e) {
+                    Log.e(MODULE, e.getMessage());
+                }
+            }
+        }
+    	
+    	return recs;
+    }
+    
+    public RankingItem[] getRankings() {
+    	String url = SCORE_API;
+    	Log.i(MODULE, "Requesting: " + url);
+        HttpGet request = new HttpGet(url);
+        HttpResponse response = makeCall(request);
+        
+        RankingItem [] scores = null;
+        if (checkResponse(response, HttpStatus.SC_OK)) {
+            Reader r = null;
+            try {
+                r = new InputStreamReader(response.getEntity().getContent());
+            } catch (IllegalStateException e) {
+                Log.e(MODULE, e.getMessage());
+            } catch (IOException e) {
+                Log.e(MODULE, e.getMessage());
+            }
+            
+            if (r != null) {
+                try {
+                    scores = gson.fromJson(r, RankingItem[].class);
+                } catch (Exception e) {
+                    Log.e(MODULE, e.getMessage());
+                }
+            }
+        }
+        return scores;
+    }
+   
     public String[] getRecommendedTags(String name, String description) {
         String url = GET_RECOMMENDED_TAGS;
         try {
@@ -192,7 +350,7 @@ public class Caller {
                 }
             }
         }
-        return tags;        
+        return tags;
     }
     
     // Make a post request to add a new recommendation to the database
@@ -262,52 +420,6 @@ public class Caller {
         
         HttpResponse response = makeCall(httpPost);
         return checkResponse(response, HttpStatus.SC_CREATED);
-    }
-    
-    // Make a get request for like/dislike information
-    // TODO Left off here. Need to make sure this API call works!
-    public Boolean getLikeInfo(int activityId) {
-    	
-	    // If no user is logged in, return null
-    	if (!ApplicationGlobals.getInstance().isLoggedIn(context)) {
-    		return null;
-    	}
-    	
-    	String url = API_URL + LIKES_API_PREFIX + "/" + ApplicationGlobals.getInstance().getUser(context)
-    		+ "/" + LIKES_API_SUFFIX + QUERY_TOKEN + ACTIVITY_ID + EQUALS_TOKEN + activityId;
-    	
-    	Log.i(MODULE, "Requesting: " + url);
-        HttpGet request = new HttpGet(url);
-        HttpResponse response = makeCall(request);
-         
-        if (!checkResponse(response, HttpStatus.SC_OK)) {
-        	return null;
-        }
-         
-        String jsonString = null;
-		try {
-			jsonString = new Scanner(response.getEntity().getContent(), "UTF-8").useDelimiter("\\A").next();
-		} catch (IllegalStateException e) {
-			Log.e(MODULE, "Error parsing response for getLikeInfo");
-		} catch (IOException e) {
-			Log.e(MODULE, "Error parsing response for getLikeInfo");
-		} catch (NullPointerException e) {
-			Log.e(MODULE, "Error parsing response for getLikeInfo");
-		}
-		if (jsonString == null) return null;
-		
-		try {
-			JSONObject json  = new JSONObject(jsonString);
-			String liked = json.getString(LIKE_KEY);
-			
-			if (liked.equalsIgnoreCase("true")) return true;
-			else if (liked.equalsIgnoreCase("false")) return false;
-			else return null;
-		} catch (JSONException e) {
-			Log.e(MODULE, "Error parsing response for getLikeInfo");
-		}
-		
-		return null;
     }
     
     // Make a put request to like/dislike an activity

@@ -37,6 +37,8 @@
        	    android:label="@string/app_name">
   	    </activity>
   	    <activity android:name=".view.MapDetail"/>
+  	    <activity android:name=".profile.ProfileActivity"/>
+  	    <activity android:name=".profile.RecommendationOverviewListActivity"/>
   	    
         <!-- Wizard Activities -->
         <activity
