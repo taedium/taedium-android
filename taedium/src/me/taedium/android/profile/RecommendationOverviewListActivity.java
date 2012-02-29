@@ -61,6 +61,7 @@ public class RecommendationOverviewListActivity extends HeaderActivity {
 		
 		// Setup the activity list
         ListView lvActivities = (ListView) findViewById(R.id.lvActivities);
+        lvActivities.setSelector(R.color.transparent);
         final RecommendationBase[] recsArray = new RecommendationBase[recs.size()];
         for (int i = 0; i < recs.size(); i++) {
         	recsArray[i] = recs.get(i);

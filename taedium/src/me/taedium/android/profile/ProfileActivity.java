@@ -79,6 +79,7 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
     	
 		// Set top list view displaying info about activities created, liked, disliked
         ListView lvSummary = (ListView) findViewById(R.id.lvProfileSummary);
+        lvSummary.setSelector(R.color.transparent);
     	lvSummary.setAdapter(new FilterItemAdapter(ProfileActivity.this, R.id.list_item_text, summaryItems));
         lvSummary.setTextFilterEnabled(true);
         lvSummary.setOnItemClickListener(new OnItemClickListener() {
