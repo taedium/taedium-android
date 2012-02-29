@@ -105,6 +105,7 @@ public class FirstStart extends HeaderActivity {
          
         // Initialize Options ListView      
         lvOptions = (ListView)findViewById(R.id.lvOptions);
+        lvOptions.setSelector(R.color.transparent);
         lvOptions.setAdapter(new FilterItemAdapter(this, R.id.list_item_text, getFilterItems()));
         lvOptions.setTextFilterEnabled(true);        
         lvOptions.setOnItemClickListener(new OnItemClickListener() {

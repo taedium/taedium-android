@@ -49,6 +49,7 @@
         <item name="android:paddingRight">3px</item>
         <item name="android:paddingTop">3px</item>
         <item name="android:paddingBottom">15px</item>
+        <item name= "android:cacheColorHint">@android:color/transparent</item>
     </style>
     
     <style name="ListviewActivityOverview">
@@ -58,6 +59,7 @@
         <item name="android:divider">#000000</item>
         <item name="android:dividerHeight">1px</item>
         <item name="android:paddingTop">1px</item>
+        <item name= "android:cacheColorHint">@android:color/transparent</item>
     </style>   
     
     <!-- Divider used on landing page and profile page -->
