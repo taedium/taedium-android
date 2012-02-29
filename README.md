@@ -3,14 +3,9 @@ Taedium recommends all kinds of different activities based on any topics you can
 users, there is no limit to the variety of recommendations you might get. Recommendations can be filtered, liked/disliked and are 
 recommended based on your personal tastes.
 
-Note: The current version of the app is pre-alpha, so don't be surprised if not everything is working as it should.
-
 # Installation
 
-Go to http://taedium.me/static/android/taedium.apk on your Android device to install the latest "stable" version of the app.
-
-Alternatively scan the QR code below  
-![QR Code](http://taedium.me/static/android/qrcode-small.png)
+The Android app is now available in the [Android Market](https://market.android.com/details?id=me.taedium.android) so please download and install it there.
 
 # Filing Issues
 
