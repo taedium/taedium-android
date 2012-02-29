@@ -10,6 +10,8 @@ import me.taedium.android.domain.RecommendationBaseAdapter;
 import me.taedium.android.view.ViewRecommendation;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -81,6 +83,16 @@ public class RecommendationOverviewListActivity extends HeaderActivity {
 				}
 			});
         }
+	}
+	
+	// Don't allow this activity to go into landscape. If the orientation gets changed while
+	// we do our async work, this can crash the activity. I think it is because when we try to
+	// dismiss the progess dialog, the progress dialog has changed so we no longer have access
+	// to it.
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
+	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 	
 	private class GetActivitiesOverviewTask extends AsyncTask<Void, Void, Void> {

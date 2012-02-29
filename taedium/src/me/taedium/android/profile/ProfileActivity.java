@@ -12,6 +12,8 @@ import me.taedium.android.domain.UserStats;
 import me.taedium.android.listener.LoggedInChangedListener;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -171,6 +173,16 @@ public class ProfileActivity extends HeaderActivity implements LoggedInChangedLi
 	}
 	
 	public void loggedOut() {}
+	
+	// Don't allow this activity to go into landscape. If the orientation gets changed while
+	// we do our async work, this can crash the activity. I think it is because when we try to
+	// dismiss the progess dialog, the progress dialog has changed so we no longer have access
+	// to it.
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
+	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	}
 
 	private class GetProfilePageInfoTask extends AsyncTask<Void, Void, Void> {
 
