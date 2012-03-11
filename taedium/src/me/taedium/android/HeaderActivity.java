@@ -151,9 +151,19 @@ public class HeaderActivity extends Activity {
     	case R.id.mnuRegister:
     		register();
     		return true;
-    	}   		
+    	case R.id.mnuHome:
+    		home();
+    		return true;
+    	}
     	return super.onOptionsItemSelected(item);
     }    
+    
+    // Home helper
+    private void home() {
+        Intent i = new Intent(HeaderActivity.this, FirstStart.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
     
     // Login helper
     protected void login() {

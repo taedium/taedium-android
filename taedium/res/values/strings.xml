@@ -123,6 +123,7 @@
     <string name="mnuLogin">Login</string>
     <string name="mnuLogout">Logout</string>
     <string name="mnuRegister">Register</string>
+    <string name="mnuHome">Home</string>
     
     <!-- Messages -->
     <string name="msgLoginFailed">Your username/password was incorrect. Please try again.</string>

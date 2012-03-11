@@ -152,7 +152,7 @@ public class FragmentHeaderActivity extends FragmentActivity {
             startActivityForResult(i, ACTIVITY_CREATE);                  
             return true;
     	case R.id.mnuLogin:
-    		showDialog(DIALOG_LOGIN);
+    		login();
     		return true;
     	case R.id.mnuLogout:
     		logout();
@@ -160,9 +160,25 @@ public class FragmentHeaderActivity extends FragmentActivity {
     	case R.id.mnuRegister:
     		register();
     		return true;
+    	case R.id.mnuHome:
+    		home();
+    		return true;
     	}   		
     	return super.onOptionsItemSelected(item);
     }    
+    
+    // Home helper
+    private void home() {
+        Intent i = new Intent(FragmentHeaderActivity.this, FirstStart.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+    
+	// Login helper
+    protected void login() {
+    	showDialog(DIALOG_LOGIN);
+    }
+    
     // Logout helper
     private void logout() {
     	ApplicationGlobals globals = ApplicationGlobals.getInstance();
@@ -170,9 +186,10 @@ public class FragmentHeaderActivity extends FragmentActivity {
 		globals.setLoggedIn(false, getApplicationContext());
 		Toast.makeText(this, getString(R.string.msgLoggedOut), Toast.LENGTH_LONG).show();
 		
-		// return to main screen
-		Intent i = new Intent(FragmentHeaderActivity.this, FirstStart.class);
-		startActivityForResult(i, ACTIVITY_REGISTER);
+		// Return back to first activity (pop other activities off stack)
+        Intent i = new Intent(FragmentHeaderActivity.this, FirstStart.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
 	}
     
     // Register helper
