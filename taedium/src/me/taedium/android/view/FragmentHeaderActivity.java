@@ -168,7 +168,7 @@ public class FragmentHeaderActivity extends FragmentActivity {
     }    
     
     // Home helper
-    private void home() {
+    protected void home() {
         Intent i = new Intent(FragmentHeaderActivity.this, FirstStart.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);

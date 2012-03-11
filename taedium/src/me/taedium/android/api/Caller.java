@@ -390,7 +390,7 @@ public class Caller {
         }
         
         HttpResponse response = makeCall(httpPost);
-        if( !checkResponse(response, HttpStatus.SC_CREATED));
+        if( !checkResponse(response, HttpStatus.SC_CREATED)) return false;
         
         // Save the user's credentials and mark them as logged in
         ApplicationGlobals.getInstance().setUserpass(user + ":" + password, context);

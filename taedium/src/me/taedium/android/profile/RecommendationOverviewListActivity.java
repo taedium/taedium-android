@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RecommendationOverviewListActivity extends HeaderActivity {
 	
@@ -68,6 +69,7 @@ public class RecommendationOverviewListActivity extends HeaderActivity {
         }
         if (recsArray.length < 1) {
         	lvActivities.setVisibility(View.INVISIBLE);
+        	Toast.makeText(this.getApplicationContext(), R.string.msgNoActivitesFound, Toast.LENGTH_LONG).show();
         } else {
 	        lvActivities.setAdapter(new RecommendationBaseAdapter(RecommendationOverviewListActivity.this, R.id.list_item_text, recsArray));
 	        lvActivities.setTextFilterEnabled(true);

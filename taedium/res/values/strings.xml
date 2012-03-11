@@ -126,22 +126,22 @@
     <string name="mnuHome">Home</string>
     
     <!-- Messages -->
-    <string name="msgLoginFailed">Your username/password was incorrect. Please try again.</string>
+    <string name="msgLoginFailed">Your username/password was incorrect or your network connection is wonky. Please try again.</string>
     <string name="msgLoginSuccess">Login successful.</string>
     <string name="msgRecommendationNameRqd">You must enter a name for your new activity in order for it to be added.</string>
     <string name="msgRecommendationTagRqd">You must enter at least one tag for your new activity in order for it to be added.</string>
     <string name="msgAddSuccess">Your activity has been added to the Taedium database.</string>
-    <string name="msgAddFailure">Adding activity failed. Please ensure fields are correctly completed.</string>
-    <string name="msgNoRecommendationsFound">No recommendations were found.</string>
+    <string name="msgAddFailure">Adding activity failed. Please ensure fields are correctly completed and you have an Internet connection.</string>
+    <string name="msgNoRecommendationsFound">No recommendations were found. Please check your network connection.</string>
     <string name="msgMustLogin">You must be logged in to complete this action.</string>
     <string name="msgLoggedIn">Welcome to Taedium %s.</string>
     <string name="msgRegisterAllFieldsMandatory">Please complete all fields in order to register.</string>
     <string name="msgPasswordsNotMatching">The two password fields do not match. Please correct this and try again.</string>
     <string name="msgRegistered">You have successfully created an account with Taedium.</string>
-    <string name="msgRegistrationFailed">Account creation failed. Please try again.</string>
+    <string name="msgRegistrationFailed">Account creation failed. Please check your network connection and try again.</string>
     <string name="msgLoggedOut">Logout successful.</string>
-    <string name="msgLikeFailed">Like failed due to problem contacting server.</string>
-    <string name="msgDislikeFailed">Dislike failed due to problem contacting server.</string>
+    <string name="msgLikeFailed">Like failed due to problem contacting server. Please check your network connection.</string>
+    <string name="msgDislikeFailed">Dislike failed due to problem contacting server. Please check your network connection.</string>
     <string name="msgFlagFailed">Flag failed due to problem contacting server.</string>
     <string name="msgFlagSuccess">Activity flagged</string>
     <string name="msgRemoveLikeFailed">Removing like failed due to problem contacting server.</string>
@@ -151,6 +151,7 @@
     <string name="msgLoadingActivity">Loading Activity...</string>
     <string name="msgLoadingActivities">Loading Activities...</string>
     <string name="msgLoadingProfile">Loading your profile...</string>
+    <string name="msgNoActivitesFound">No activities found. Please check your network connection.</string>
     
     <!-- Used to generate strings -->
     <string name="stFor">For</string>

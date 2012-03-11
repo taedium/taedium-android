@@ -124,6 +124,11 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
         public void handleMessage(Message msg) {
             progressDialog.dismiss();
             
+            // If not activities are found, return to main screen.
+            if (recommendations.size() < 1) {
+            	home();
+            }
+            
             RecommendationAdapter recAdapter = new RecommendationAdapter(ViewRecommendation.this, recommendations);
             if (displaySingleRec) recAdapter.setShowSingleRec(true);
             vpActivities.setAdapter(recAdapter);
@@ -135,8 +140,8 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
     			
     			public void onClick(View v) {
     				
+    				if (curRec == null) return;
     				if (verifyLoggedIn()) {
-    					
     					// if already liked, remove like
 	    				if (curRec.likedByUser != null && curRec.likedByUser == true) {
 	    					if (!removeLikeDislike()) {
@@ -162,6 +167,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
             bDown.setOnClickListener(new OnClickListener() {
     			
     			public void onClick(View v) {
+    				if (curRec == null) return;
     				if (verifyLoggedIn()) {
     					// if already dislike, remove dislike
 	    				if (curRec.likedByUser != null && curRec.likedByUser == false) {
@@ -213,6 +219,7 @@ public class ViewRecommendation extends FragmentHeaderActivity implements Runnab
             // Flag
             bFlag.setOnClickListener(new OnClickListener() {
     			public void onClick(View v) {
+    				if (curRec == null) return;
     				if (verifyLoggedIn()) {
     					if (curRec.flaggedByUser) {
     						Toast.makeText(ViewRecommendation.this, getString(R.string.msgCannotUnflag), Toast.LENGTH_LONG).show();

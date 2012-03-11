@@ -159,7 +159,7 @@ public class HeaderActivity extends Activity {
     }    
     
     // Home helper
-    private void home() {
+    protected void home() {
         Intent i = new Intent(HeaderActivity.this, FirstStart.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
