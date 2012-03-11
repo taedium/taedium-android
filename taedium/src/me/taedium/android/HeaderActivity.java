@@ -168,9 +168,10 @@ public class HeaderActivity extends Activity {
 		Toast.makeText(this, getString(R.string.msgLoggedOut), Toast.LENGTH_LONG).show();
 		notifyLoggedOut();
 		
-		// return to main screen
-		Intent i = new Intent(HeaderActivity.this, FirstStart.class);
-		startActivityForResult(i, ACTIVITY_REGISTER);
+		// Return back to first activity (pop other activities off stack)
+        Intent i = new Intent(HeaderActivity.this, FirstStart.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
 	}
     
     // Register helper
