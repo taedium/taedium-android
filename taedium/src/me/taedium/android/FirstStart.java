@@ -21,7 +21,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /*
  * Main Activity
@@ -69,10 +68,6 @@ public class FirstStart extends HeaderActivity {
     		setContentView(R.layout.landing_page_landscape);
     	} 
     	
-        //Here so ahal can debug 
-        //Intent i = new Intent(this, AddName.class);
-        //startActivity(i);
-
         initializeHeader();
         
         // Initialize fonts
@@ -89,8 +84,6 @@ public class FirstStart extends HeaderActivity {
                     if (location != null) {
                         addRecommendationParam(RecParamType.LAT, Double.toString(location.getLatitude()));
                         addRecommendationParam(RecParamType.LONG, Double.toString(location.getLongitude()));
-                        Toast.makeText(FirstStart.this, "Location: Lat=" + location.getLatitude() 
-                        		+ " Long=" + location.getLongitude(), Toast.LENGTH_LONG).show();
                     }
                 }
                 Intent i = new Intent(FirstStart.this, ViewRecommendation.class);

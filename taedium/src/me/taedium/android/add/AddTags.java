@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddTags extends WizardActivity {
-    private static final String MODULE = "ADD_TAGS";
     private static final int DIALOG_ADD_MANUAL_TAG = 615;
     private RelativeLayout rlAddTag;
     
