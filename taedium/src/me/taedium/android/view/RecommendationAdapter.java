@@ -69,8 +69,11 @@ public class RecommendationAdapter extends FragmentPagerAdapter {
     	return new RecFragment(position);
     }
 
-	private class RecFragment extends ListFragment {
+	public class RecFragment extends ListFragment {
 		private int mPosition;
+		
+		public RecFragment() {
+		}
 		
 		public RecFragment (int position) {
 			mPosition = position;
