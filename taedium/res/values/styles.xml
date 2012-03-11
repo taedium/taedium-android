@@ -202,8 +202,7 @@
     </style>
     
     <style name="HeaderButton" parent="@style/HeaderWidget">
-   		<item name="android:textSize">10dip</item>
-   		<item name="android:background">@drawable/b_header_bg_fsm</item>
+        <item name="android:background">@drawable/b_header_bg_fsm</item>
     </style>
     
     <!-- Footer -->

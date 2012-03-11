@@ -38,7 +38,7 @@
     <string name="rbAddLocationEnabled">Add a specific location</string>
     <string name="bLogin">Login</string>
     <string name="bLoginRegister"><u>Login/Register</u></string>
-    <string name="bAdd"><u>Add Activity</u></string>
+    <string name="bAdd">Add Activity</string>
     <string name="bRegister">Register</string>
     <string name="bTaedium">Cure my\nBoredom</string>
     <string name="add_activity_title">Add an Activity</string>
