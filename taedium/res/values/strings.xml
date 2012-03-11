@@ -58,7 +58,8 @@
     <string name="bMapFinished">Use Selected Location</string>
     <string name="bSubmitFlag">Submit Flag</string>
     <string name="bAddNewTag">Add Tags Manually</string>
-    <string name="bProfile"><u>Me</u></string>
+    <string name="bBack">Back</string>
+    <string name="bNext">Next</string>
     
     <!-- Labels -->
     <string name="tvAddName">Name *</string>
