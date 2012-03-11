@@ -554,7 +554,7 @@ public class Caller {
          } catch (ClientProtocolException e) {
              Log.e(MODULE, e.getMessage());
          } catch (IOException e) {
-             Log.e("POST_ERROR", e.getMessage());
+             Log.e("NETWORK_ERROR", e.getMessage());
          }        
          return response;
     }
