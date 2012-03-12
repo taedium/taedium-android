@@ -37,11 +37,11 @@
                 style="@style/RecView"
                 android:layout_width="fill_parent"
                 android:layout_below="@id/tvRecName"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical"
                 taedium:content="@+id/tvRecDescription"
                 taedium:handle="@+id/bRecDescExpand"
-                taedium:collapsedHeight="125dip"
+                taedium:collapsedHeight="180dip"
                 taedium:animationDuration="500">
                 <TextView
                     android:id="@id/tvRecDescription"
