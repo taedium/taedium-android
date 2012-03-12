@@ -133,24 +133,44 @@ public class AddTags extends WizardActivity {
             case DIALOG_ADD_MANUAL_TAG:
                 dialog.setContentView(R.layout.add_manual_tag);
                 dialog.setTitle("Enter a Tag");
+                final ArrayList<String> temp = new ArrayList<String>();
                 final EditText etAddTag = (EditText)dialog.findViewById(R.id.etAddTag);
-                Button bAdd = (Button)dialog.findViewById(R.id.bAdd);
+                Button bAdd = (Button)dialog.findViewById(R.id.bManualTagAdd);
                 bAdd.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         String text = etAddTag.getText().toString();
-                        if (!text.equals("") && !tags.contains(text)) {
-                            tags.add(text);
-                            manualtags.add(text);
-                            addManualCheckBox(manualtags.size() - 1);
+                        if (!text.equals("") && !tags.contains(text) && !temp.contains(text)) {
+                            temp.add(text);
                             bNext.setEnabled(true);
                         }
                         etAddTag.setText("");
                         Toast.makeText(AddTags.this, "Added tag: " + text, Toast.LENGTH_SHORT).show();
                     }
                 });
-                Button bDone = (Button)dialog.findViewById(R.id.bDone);
+                Button bDone = (Button)dialog.findViewById(R.id.bSaveClose);
                 bDone.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
+                        String text = etAddTag.getText().toString();
+                        if (!text.equals("") && !tags.contains(text) && !temp.contains(text)) {
+                            temp.add(text);
+                            bNext.setEnabled(true);
+                        }
+                        etAddTag.setText("");
+                        for (String tag: temp) {
+                            tags.add(tag);
+                            manualtags.add(tag);
+                            addManualCheckBox(manualtags.size() - 1);
+                        }
+                        temp.clear();
+                        dismissDialog(DIALOG_ADD_MANUAL_TAG);
+                    }
+                });
+                Button bCancel = (Button)dialog.findViewById(R.id.bCancel);
+                bCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bNext.setEnabled(false);
+                        temp.clear();
                         dismissDialog(DIALOG_ADD_MANUAL_TAG);
                     }
                 });
