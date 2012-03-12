@@ -7,6 +7,7 @@
     <string name="ok">OK</string>
     <string name="submit">Submit</string>
     <string name="update">Update</string>
+    <string name="saveclose">Save and Close</string>
     
     <!-- Titles -->
     <string name="register_title">Register</string>
