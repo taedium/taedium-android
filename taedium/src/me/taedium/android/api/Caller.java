@@ -390,7 +390,7 @@ public class Caller {
         }
         
         HttpResponse response = makeCall(httpPost);
-        if( !checkResponse(response, HttpStatus.SC_CREATED));
+        if( !checkResponse(response, HttpStatus.SC_CREATED)) return false;
         
         // Save the user's credentials and mark them as logged in
         ApplicationGlobals.getInstance().setUserpass(user + ":" + password, context);
@@ -554,7 +554,7 @@ public class Caller {
          } catch (ClientProtocolException e) {
              Log.e(MODULE, e.getMessage());
          } catch (IOException e) {
-             Log.e("POST_ERROR", e.getMessage());
+             Log.e("NETWORK_ERROR", e.getMessage());
          }        
          return response;
     }

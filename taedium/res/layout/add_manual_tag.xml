@@ -3,27 +3,31 @@
     android:id="@+id/rlAddTagDialog"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/bManualTagAdd"
+        style="@style/BaseView"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/add">
+    </Button>
     <EditText
         android:id="@+id/etAddTag"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:width="150dp">
+        android:layout_toLeftOf="@id/bManualTagAdd"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp">
     </EditText>
     <Button
-        android:id="@+id/bAdd"
+        android:id="@+id/bSaveClose"
         style="@style/BaseView"
+        android:layout_width="fill_parent"
         android:layout_below="@id/etAddTag"
         android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:text="@string/add">
-    </Button>
-    <Button
-        android:id="@+id/bDone"
-        style="@style/BaseView"
-        android:layout_below="@id/etAddTag"
-        android:layout_toLeftOf="@id/bAdd"
-        android:layout_marginRight="10dp"
-        android:text="@string/done">
+        android:text="@string/saveclose">
     </Button>
 </RelativeLayout>

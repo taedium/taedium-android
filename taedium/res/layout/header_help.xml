@@ -4,27 +4,31 @@
     style="@style/Header" >
 
     <!-- Lightbulb image modified from: http://www.wpclipart.com/signs_symbol/assorted/assorted_2/idea_light_bulb.png.html -->
-
-    <ImageView
-        android:id="@+id/lightbulb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+	<LinearLayout
+        android:layout_height="35dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="6dp"
-        android:src="@drawable/idea_light_bulb" >
-    </ImageView>
-
-    <ImageView
-        android:id="@+id/taediumLogo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="-74px"
-        android:layout_marginRight="-98px"
-        android:layout_toRightOf="@id/lightbulb"
-        android:src="@drawable/taedium_logo" >
-    </ImageView>
-
+        android:orientation="horizontal">
+	    <ImageView
+	        android:id="@+id/lightbulb"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="5dp"
+	        android:layout_marginTop="6dp"
+	        android:src="@drawable/idea_light_bulb" >
+	    </ImageView>
+	    <ImageView
+	        android:id="@+id/taediumLogo"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingTop="3dip"
+	        android:paddingBottom="3dip"
+	        android:layout_marginLeft="-45dip"
+	        android:layout_marginRight="-25dip"
+	        android:src="@drawable/taedium_logo_no_border" >
+	    </ImageView>
+    </LinearLayout>
+    
     <ImageButton
         android:id="@+id/vHeader"
    		android:layout_width="wrap_content"
