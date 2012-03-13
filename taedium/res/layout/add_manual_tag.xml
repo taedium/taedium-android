@@ -23,17 +23,11 @@
     <Button
         android:id="@+id/bSaveClose"
         style="@style/BaseView"
+        android:layout_width="fill_parent"
         android:layout_below="@id/etAddTag"
         android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:text="@string/saveclose">
-    </Button>
-    <Button
-        android:id="@+id/bCancel"
-        style="@style/BaseView"
-        android:layout_below="@id/etAddTag"
-        android:layout_toLeftOf="@id/bSaveClose"
-        android:layout_marginRight="2dp"
-        android:text="@string/cancel">
     </Button>
 </RelativeLayout>
