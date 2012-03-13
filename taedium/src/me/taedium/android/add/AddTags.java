@@ -58,7 +58,7 @@ public class AddTags extends WizardActivity {
                 startActivity(i);
             }
         });
-        bNext.setText("Submit");
+        bNext.setText(getString(R.string.bSubmit));
 
         tags = new ArrayList<String>();
         manualtags = new ArrayList<String>();
@@ -121,6 +121,14 @@ public class AddTags extends WizardActivity {
         }
     }
 
+    @Override
+    protected void onPrepareDialog(int id, Dialog dialog) {
+        final EditText etAddTag = (EditText)dialog.findViewById(R.id.etAddTag);
+        if (etAddTag != null) {
+        	etAddTag.setText("");
+        }
+    }
+    
     @Override
     protected Dialog onCreateDialog(int id) {
         final Dialog dialog;
