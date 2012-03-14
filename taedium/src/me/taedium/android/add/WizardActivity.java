@@ -56,6 +56,9 @@ public abstract class WizardActivity extends HeaderActivity {
                 finish();
             }
         });
+        // Hopefully this fixes Issue #39
+        bNext.setBackgroundDrawable(getResources().getDrawable(R.drawable.b_add_nav_button));
+        bBack.setBackgroundDrawable(getResources().getDrawable(R.drawable.b_add_nav_button));
     }
     
     // Helper to format string correctly when adding them to the data bundle
