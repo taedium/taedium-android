@@ -5,6 +5,7 @@ import me.taedium.android.R;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public abstract class WizardActivity extends HeaderActivity {
+    //private static final String MODULE = "WIZARD";    //used for log messages
+    
     protected final static int ACTIVITY_ADD_PEOPLE = 550;
     protected final static int ACTIVITY_ADD_TIME = 551;
     protected final static int ACTIVITY_ADD_ENVIRONMENT = 552;
@@ -56,9 +59,23 @@ public abstract class WizardActivity extends HeaderActivity {
                 finish();
             }
         });
-        // Hopefully this fixes Issue #39
-        bNext.setBackgroundDrawable(getResources().getDrawable(R.drawable.b_add_nav_button));
-        bBack.setBackgroundDrawable(getResources().getDrawable(R.drawable.b_add_nav_button));
+        
+        // hack to get around Issue #39
+        StateListDrawable t1 = new StateListDrawable();
+        StateListDrawable t2 = new StateListDrawable();
+        createStateListDrawable(t1);
+        createStateListDrawable(t2);
+        bNext.setBackgroundDrawable(t1);
+        bBack.setBackgroundDrawable(t2);
+    }
+    
+    private void createStateListDrawable(StateListDrawable d) {
+        d.addState(new int[]{ android.R.attr.state_pressed, android.R.attr.state_enabled }, 
+                   this.getResources().getDrawable(R.drawable.b_add_nav_button_pressed));
+        d.addState(new int[]{ -android.R.attr.state_enabled },
+                   this.getResources().getDrawable(R.drawable.b_add_nav_button_disabled));
+        d.addState(new int[]{ android.R.attr.state_enabled },
+                   this.getResources().getDrawable(R.drawable.b_add_nav_button_normal));
     }
     
     // Helper to format string correctly when adding them to the data bundle
@@ -97,7 +114,7 @@ public abstract class WizardActivity extends HeaderActivity {
                 });
                 break;
             default:
-                // This activity dialog not known to this activity
+                // This dialog not known to this activity
                 return super.onCreateDialog(id);
         }
         return dialog;

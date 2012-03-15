@@ -15,7 +15,6 @@
 	        style="@style/AddNavButton"
 	        android:layout_alignParentBottom="true"
 	        android:layout_alignParentLeft="true"
-	        android:background="@drawable/b_add_nav_button"
 	        android:text="@string/bBack">
 	    </Button>
 	    <Button
@@ -23,7 +22,6 @@
 	        style="@style/AddNavButton"
 	        android:layout_alignParentBottom="true"
 	        android:layout_alignParentRight="true"
-	        android:background="@drawable/b_add_nav_button"
 	        android:text="@string/bNext">
 	    </Button>
     </LinearLayout>
