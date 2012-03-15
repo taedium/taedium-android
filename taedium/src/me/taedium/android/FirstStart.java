@@ -147,7 +147,7 @@ public class FirstStart extends HeaderActivity {
                         addRecommendationParam(RecParamType.KIDFRIENDLY, childSafe.isChecked());
                         
                         // create string for feedback on filter
-                        String input = numPeople.getText().toString();
+                        String input = numPeople.getText().toString().replaceAll("^0+", "");
                         String label = "";
                         if (!input.equalsIgnoreCase("") && !input.equalsIgnoreCase("0")) {
                         	label = input;
@@ -264,7 +264,7 @@ public class FirstStart extends HeaderActivity {
                             // Get max radius    
                             EditText maxDist = (EditText)dialog.findViewById(R.id.etRadius);                            
                             label = getString(R.string.stLocationEnabled);
-                            String radius = maxDist.getText().toString();
+                            String radius = maxDist.getText().toString().replaceAll("^0+", "");
                             if (radius.equalsIgnoreCase("")) {
                             	label = label + ", " + getString(R.string.default_radius) + getString(R.string.stDistanceUnit);
                             	radius = getString(R.string.default_radius);
@@ -305,16 +305,16 @@ public class FirstStart extends HeaderActivity {
                         	int minInt = Integer.parseInt(min);
                         	int maxInt = Integer.parseInt(max);
                         	if (minInt > maxInt) minInt = 0;
-                        	label = minInt + " - " + max + " " + getString(R.string.stMinutes);
+                        	label = minInt + " - " + maxInt + " " + getString(R.string.stMinutes);
                         }
                         else if (min.equalsIgnoreCase("") && max.equalsIgnoreCase("")) {
                         	label = getResources().getStringArray(R.array.lvFeedbackDefaultsArray)[DIALOG_FILTER_TIME - DIALOG_OFFSET]; 
                         }
                         else if (min.equalsIgnoreCase("")) {
-                        	label = "0 - " + max + " " + getString(R.string.stMinutes);
+                        	label = "0 - " + max.replaceAll("^0+", "") + " " + getString(R.string.stMinutes);
                         } 
                         else {
-                        	label = min + " - " + getString(R.string.stAny) + " " + getString(R.string.stMinutes);
+                        	label = min.replaceAll("^0+", "") + " - " + getString(R.string.stAny) + " " + getString(R.string.stMinutes);
                         }
                         setFilterFeedbackLabel(DIALOG_FILTER_TIME - DIALOG_OFFSET, label);
                     }
@@ -337,7 +337,7 @@ public class FirstStart extends HeaderActivity {
                         	label = getString(R.string.stFree);
                         }
                         else {
-                        	label = getString(R.string.stMax) + " $" + costText;
+                        	label = getString(R.string.stMax) + " $" + costText.replaceAll("^0+", "");
                         }
                         dismissDialog(DIALOG_FILTER_COST);
                         setFilterFeedbackLabel(DIALOG_FILTER_COST - DIALOG_OFFSET, label);
