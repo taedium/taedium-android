@@ -1,5 +1,6 @@
 package me.taedium.android;
 
+import me.taedium.android.api.Caller;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -10,10 +11,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
-
-import me.taedium.android.R;
-import me.taedium.android.api.Caller;
 
 public class Register extends HeaderActivity {
 
@@ -32,10 +29,6 @@ public class Register extends HeaderActivity {
         setTitle(R.string.register_title);
         
         initializeHeader();
-        
-        // Set header buttons to no longer be visable since we are on Register page
-        Button btAdd = (Button)findViewById(R.id.vHeader);
-        btAdd.setVisibility(ViewSwitcher.INVISIBLE);
         
         // Setup onClick event for DOB
         bDOB = (Button)findViewById(R.id.bDOB);

@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 public class AddName extends WizardActivity {
+    //private static final String MODULE = "ADD_NAME";
     private EditText etName, etDesc;
     
     @Override
@@ -18,7 +19,7 @@ public class AddName extends WizardActivity {
         data = new Bundle();
         
         title = this.getResources().getString(R.string.help_add_name_title);
-        helpText = this.getResources().getString(R.string.help_add_name); 
+        helpText = this.getResources().getString(R.string.help_add_name);
        
         bNext.setEnabled(false);
         
